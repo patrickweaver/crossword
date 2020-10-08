@@ -9,6 +9,7 @@ interface clueAnswer {
 }
 
 interface boardSquare {
+  active: boolean;
   letter: string | null;
   wordStart: number | null;
   horizontalWordNumber: number | null;
@@ -31,6 +32,7 @@ const rowCols = Array.from({length: defaultBoardSize}, (_, id) => ({id}));
 const initialBoard: boardSquare[][] = rowCols.map((row, rowIndex) => {
   return rowCols.map((col, colIndex) => {
     const bs: boardSquare = {
+      active: true,
       letter: " ",
       wordStart: rowIndex === 0 ? colIndex + 1 : colIndex === 0 ? rowIndex + 1 : null,
       horizontalWordNumber: colIndex + 1,

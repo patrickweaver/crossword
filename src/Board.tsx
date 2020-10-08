@@ -8,6 +8,7 @@ interface clueAnswer {
 }
 
 interface boardSquare {
+  active: boolean;
   letter: string | null;
   wordStart: number | null;
   horizontalWordNumber: number | null;
@@ -22,15 +23,25 @@ export interface boardProps {
 
 function Board(props: boardProps): JSX.Element {
 
+  const createBoardSquareSetter = (rowIndex: number, colIndex: number): (updatedSquare: boardSquare) => void => {
+    return (updatedSquare: boardSquare) => {
+      const updatedBoard: boardSquare[][] = [...props.board];
+      updatedBoard[rowIndex][colIndex] = updatedSquare;
+      props.setBoard(updatedBoard);
+    }
+  }
+
   const boardSquares: JSX.Element = props.board.map((row: boardSquare[], rowIndex: number): JSX.Element => {
     return (
       <div key={`row-${rowIndex}`} className="board-row">
         {
-          row.map((col: boardSquare, colIndex: number): JSX.Element => {
+          row.map((square: boardSquare, colIndex: number): JSX.Element => {
             return <BoardSquare
               key={`${rowIndex}-${colIndex}`}
               rowIndex={rowIndex}
               colIndex={colIndex}
+              square={square}
+              setBoardSquare={createBoardSquareSetter(rowIndex, colIndex)}
             />
           })
         }
