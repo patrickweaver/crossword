@@ -12,8 +12,6 @@ export interface cluesProps {
 
 function Clues(props: cluesProps): JSX.Element {
   
-  console.log(props.clueAnswers)
-  
   return (
     <div>
       <h2>Clues</h2>

@@ -8,6 +8,13 @@ interface clueAnswer {
   answer: string;
 }
 
+interface boardSquare {
+  letter: string | null;
+  wordStart: number | null;
+  horizontalWordNumber: number | null;
+  verticalWordNumber: number | null;
+}
+
 const defaultClueAnswerArray: clueAnswer[] = [
   {
     clue: "Test",
@@ -17,18 +24,36 @@ const defaultClueAnswerArray: clueAnswer[] = [
     clue: "",
     answer: ""
   },
-]
+];
+
+const defaultBoardSize: number = 10;
+const rowCols = Array.from({length: defaultBoardSize}, (_, id) => ({id}));
+const initialBoard: boardSquare[][] = rowCols.map((row, rowIndex) => {
+  return rowCols.map((col, colIndex) => {
+    const bs: boardSquare = {
+      letter: " ",
+      wordStart: rowIndex === 0 ? colIndex + 1 : colIndex === 0 ? rowIndex + 1 : null,
+      horizontalWordNumber: colIndex + 1,
+      verticalWordNumber: rowIndex + 1
+    }
+    return bs;
+  })
+})
 
 function App() {
 
-  const [boardSize, setBoardSize] = useState(10)
-  const [board, setBoard] = useState([[]])
-  const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray)
+  const [boardSize, setBoardSize] = useState(defaultBoardSize);
+  const [board, setBoard] = useState<boardSquare[][]>(initialBoard);
+  const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray);
 
   return (
     <div className="App">
       <h1>Crossword Puzzle Editor</h1>
-      <Board clueAnswers={clueAnswers} boardSize={boardSize} />
+      <Board
+        clueAnswers={clueAnswers}
+        board={board}
+        setBoard={setBoard}
+      />
       <Clues clueAnswers={clueAnswers} setClueAnswers={setClueAnswers} />
     </div>
   );
