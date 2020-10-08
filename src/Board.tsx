@@ -18,7 +18,7 @@ interface boardSquare {
 export interface boardProps {
   clueAnswers: clueAnswer[],
   board: any,
-  setBoard: (board: any) => void
+  updateBoard: (board: boardSquare[][]) => void,
 }
 
 function Board(props: boardProps): JSX.Element {
@@ -27,7 +27,7 @@ function Board(props: boardProps): JSX.Element {
     return (updatedSquare: boardSquare) => {
       const updatedBoard: boardSquare[][] = [...props.board];
       updatedBoard[rowIndex][colIndex] = updatedSquare;
-      props.setBoard(updatedBoard);
+      props.updateBoard(updatedBoard);
     }
   }
 

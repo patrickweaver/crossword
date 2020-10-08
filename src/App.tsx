@@ -48,13 +48,18 @@ function App() {
   const [board, setBoard] = useState<boardSquare[][]>(initialBoard);
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray);
 
+  function recalculateBoard(updatedBoard: boardSquare[][]): void {
+    
+    setBoard(updatedBoard);
+  }
+
   return (
     <div className="App">
       <h1>Crossword Puzzle Editor</h1>
       <Board
         clueAnswers={clueAnswers}
         board={board}
-        setBoard={setBoard}
+        updateBoard={recalculateBoard}
       />
       <Clues clueAnswers={clueAnswers} setClueAnswers={setClueAnswers} />
     </div>
