@@ -17,7 +17,7 @@ const defaultClueAnswerArray: clueAnswer[] = [
   },
 ];
 
-const defaultBoardSize: number = 10;
+const defaultBoardSize: number = 15;
 const rowCols: number[] = Array.from({length: defaultBoardSize}, (_: undefined, i: number) => i);
 
 const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
@@ -26,8 +26,9 @@ const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
       active: true,
       letter: " ",
       wordStart: false,
-      horizontalWordNumber: colIndex + 1,
-      verticalWordNumber: rowIndex + 1
+      horizontalWordNumber: null,
+      verticalWordNumber: null,
+      squareNumber: (rowIndex * defaultBoardSize) + colIndex,
     }
     return bs;
   });
@@ -44,6 +45,11 @@ function App() {
     const flatBoard = board.flat();
     let wordNumber = 1;
     const wordStartFlatBoard = flatBoard.map((square: boardSquare, index: number): boardSquare => {
+
+      // Clear all word numbers:
+      square.wordStart = false;
+      square.horizontalWordNumber = null;
+      square.verticalWordNumber = null;
       
       if (square.active) {
         // Find horizontal words:
@@ -51,6 +57,7 @@ function App() {
           index % boardSize == 0 // First column
           || !flatBoard[index - 1].active // To the right of a black square
         ) {
+          console.log("set H:", wordNumber)
           square.wordStart = true;
           square.horizontalWordNumber = wordNumber;
           console.log("H", wordNumber, index);
@@ -85,37 +92,6 @@ function App() {
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
 
     const recalculatedUpdatedBoard = calculateBoard(updatedBoard);
-
-
-    // Parse horizontal words:
-    // updatedBoard = updatedBoard.map((row: boardSquare[]): boardSquare[] => {
-    //   return row.map((square: boardSquare): boardSquare => {
-    //     // Square is deactivated
-    //     if (!square.active) {
-    //       square.letter = null;
-    //       square.wordStart = false;
-    //       square.horizontalWordNumber = null;
-    //       square.verticalWordNumber = null;
-    //       inWord = false;
-    //     } else {
-    //     // Square is active
-    //       // First letter of answer
-    //       if (!inWord) {
-    //         inWord = true;
-    //         square.wordStart = true;
-    //       }
-    //     }
-    //     return square;
-    //   })
-    // })
-
-    // // Parse vertical words:
-    // const columnBoard = updatedBoard.map((row: boardSquare[], rowIndex: number): boardSquare[] => {
-    //   const col: boardSquare[] = [];
-
-
-    //   return col;
-    // })
     
     setBoard(recalculatedUpdatedBoard);
   }

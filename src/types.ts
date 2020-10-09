@@ -4,6 +4,7 @@ export interface boardSquare {
   wordStart: boolean;
   horizontalWordNumber: number | null;
   verticalWordNumber: number | null;
+  squareNumber: number;
 }
 
 export interface clueAnswer {
