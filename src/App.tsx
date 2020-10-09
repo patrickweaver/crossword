@@ -6,19 +6,27 @@ import Clues from './Clues';
 // Types:
 import { boardSquare, clueAnswer } from './types';
 
-const defaultClueAnswerArray: clueAnswer[] = [
-  {
-    clue: "Test",
-    answer: ""
-  },
-  {
-    clue: "",
-    answer: ""
-  },
-];
+// Helpers:
+import nArray from './helpers/nArray';
 
-const defaultBoardSize: number = 15;
-const rowCols: number[] = Array.from({length: defaultBoardSize}, (_: undefined, i: number) => i);
+const defaultBoardSize: number = 8;
+const rowCols: number[] = nArray(defaultBoardSize);
+
+const defaultClueAnswerArray: clueAnswer[] = nBlankClueAnswers((defaultBoardSize * 2) - 1); 
+
+function nBlankClueAnswers(n: number): clueAnswer[] {
+  const nClueAnswers: clueAnswer[] = nArray(n).map((i: number): clueAnswer => {
+    return (
+      {
+        clue: "",
+        answer: ""
+      }
+    )
+  });
+  return nClueAnswers;
+}
+
+
 
 const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
   return rowCols.map((colIndex: number) => {
@@ -36,12 +44,15 @@ const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
 
 function App() {
 
-  const [boardSize, setBoardSize] = useState(defaultBoardSize);
-  const [board, setBoard] = useState<boardSquare[][]>(calculateBoard(initialBoard));
+  const blankBoardAndClues: [boardSquare[][], number] = calculateBoard(initialBoard)
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray);
+  const [boardSize, setBoardSize] = useState(defaultBoardSize);
+  const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
+  
 
-  function calculateBoard(board: boardSquare[][]): boardSquare[][] {
+  function calculateBoard(board: boardSquare[][]): [boardSquare[][], number] {
     
+    const boardSize = board.length;
     const flatBoard = board.flat();
     let wordNumber = 1;
     const wordStartFlatBoard = flatBoard.map((square: boardSquare, index: number): boardSquare => {
@@ -79,6 +90,7 @@ function App() {
       return square;
     });
 
+    // Put board back into 2D array
     const reGridBoard: boardSquare[][] = rowCols.map((rowIndex: number): boardSquare[] => {
       return rowCols.map((colIndex: number): boardSquare => {
         const index = (rowIndex * boardSize) + colIndex;
@@ -86,14 +98,17 @@ function App() {
       });
     });
 
-    return reGridBoard;
+    // Update number of clues:
+    const numberOfClues: number = wordNumber - 1
+
+    return [reGridBoard, numberOfClues];
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
 
-    const recalculatedUpdatedBoard = calculateBoard(updatedBoard);
-    
+    const [recalculatedUpdatedBoard, numberOfClueAnswers] = calculateBoard(updatedBoard);
     setBoard(recalculatedUpdatedBoard);
+    setClueAnswers(nBlankClueAnswers(numberOfClueAnswers))
   }
 
   return (

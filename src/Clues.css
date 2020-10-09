@@ -1,0 +1,19 @@
+.clue-answers-list {
+  text-align: left;
+  margin: 0 auto;
+  display: inline-block;
+  overflow: scroll;
+}
+
+.clue-answers-list > li {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.clue-answers-list > li > input, .clue-answers-list > li > label {
+  margin: 0 5px;
+}
+
+.clue-answers-list > li > input {
+  padding: 3px;
+}

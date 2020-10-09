@@ -31,7 +31,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         {`${props.square.wordStart ? (props.square.horizontalWordNumber ? props.square.horizontalWordNumber : props.square.verticalWordNumber) : ''}`}
       </div>
       <div className="letter">
-        {(props.rowIndex * props.boardSize) + props.colIndex}
+        {true ? '' : (props.rowIndex * props.boardSize) + props.colIndex}
       </div>
     </div>
   
