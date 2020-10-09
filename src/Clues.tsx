@@ -1,9 +1,7 @@
 import React from 'react';
 
-interface clueAnswer {
-  clue: string;
-  answer: string;
-}
+// Types:
+import { clueAnswer } from './types';
 
 export interface cluesProps {
   clueAnswers: clueAnswer[],

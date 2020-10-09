@@ -3,18 +3,8 @@ import './App.css';
 import Board from './Board';
 import Clues from './Clues';
 
-interface clueAnswer {
-  clue: string;
-  answer: string;
-}
-
-interface boardSquare {
-  active: boolean;
-  letter: string | null;
-  wordStart: number | null;
-  horizontalWordNumber: number | null;
-  verticalWordNumber: number | null;
-}
+// Types:
+import { boardSquare, clueAnswer } from './types';
 
 const defaultClueAnswerArray: clueAnswer[] = [
   {
@@ -28,29 +18,106 @@ const defaultClueAnswerArray: clueAnswer[] = [
 ];
 
 const defaultBoardSize: number = 10;
-const rowCols = Array.from({length: defaultBoardSize}, (_, id) => ({id}));
-const initialBoard: boardSquare[][] = rowCols.map((row, rowIndex) => {
-  return rowCols.map((col, colIndex) => {
+const rowCols: number[] = Array.from({length: defaultBoardSize}, (_: undefined, i: number) => i);
+
+const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
+  return rowCols.map((colIndex: number) => {
     const bs: boardSquare = {
       active: true,
       letter: " ",
-      wordStart: rowIndex === 0 ? colIndex + 1 : colIndex === 0 ? rowIndex + 1 : null,
+      wordStart: false,
       horizontalWordNumber: colIndex + 1,
       verticalWordNumber: rowIndex + 1
     }
     return bs;
-  })
-})
+  });
+});
 
 function App() {
 
   const [boardSize, setBoardSize] = useState(defaultBoardSize);
-  const [board, setBoard] = useState<boardSquare[][]>(initialBoard);
+  const [board, setBoard] = useState<boardSquare[][]>(calculateBoard(initialBoard));
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray);
 
-  function recalculateBoard(updatedBoard: boardSquare[][]): void {
+  function calculateBoard(board: boardSquare[][]): boardSquare[][] {
     
-    setBoard(updatedBoard);
+    const flatBoard = board.flat();
+    let wordNumber = 1;
+    const wordStartFlatBoard = flatBoard.map((square: boardSquare, index: number): boardSquare => {
+      
+      if (square.active) {
+        // Find horizontal words:
+        if (
+          index % boardSize == 0 // First column
+          || !flatBoard[index - 1].active // To the right of a black square
+        ) {
+          square.wordStart = true;
+          square.horizontalWordNumber = wordNumber;
+          console.log("H", wordNumber, index);
+        }
+        // Find vertical words:
+        if (
+          index < boardSize // First row
+          || !flatBoard[index - boardSize].active // Under a black square
+        ) {
+          square.wordStart = true;
+          square.verticalWordNumber = wordNumber;
+          console.log("V", wordNumber, index);
+        }
+        
+        if (square.wordStart) {
+          wordNumber += 1;
+        }
+      }
+      return square;
+    });
+
+    const reGridBoard: boardSquare[][] = rowCols.map((rowIndex: number): boardSquare[] => {
+      return rowCols.map((colIndex: number): boardSquare => {
+        const index = (rowIndex * boardSize) + colIndex;
+        return wordStartFlatBoard[index];
+      });
+    });
+
+    return reGridBoard;
+  }
+
+  function recalculateBoard(updatedBoard: boardSquare[][]): void {
+
+    const recalculatedUpdatedBoard = calculateBoard(updatedBoard);
+
+
+    // Parse horizontal words:
+    // updatedBoard = updatedBoard.map((row: boardSquare[]): boardSquare[] => {
+    //   return row.map((square: boardSquare): boardSquare => {
+    //     // Square is deactivated
+    //     if (!square.active) {
+    //       square.letter = null;
+    //       square.wordStart = false;
+    //       square.horizontalWordNumber = null;
+    //       square.verticalWordNumber = null;
+    //       inWord = false;
+    //     } else {
+    //     // Square is active
+    //       // First letter of answer
+    //       if (!inWord) {
+    //         inWord = true;
+    //         square.wordStart = true;
+    //       }
+    //     }
+    //     return square;
+    //   })
+    // })
+
+    // // Parse vertical words:
+    // const columnBoard = updatedBoard.map((row: boardSquare[], rowIndex: number): boardSquare[] => {
+    //   const col: boardSquare[] = [];
+
+
+    //   return col;
+    // })
+    
+    setBoard(recalculatedUpdatedBoard);
   }
 
   return (
@@ -59,6 +126,7 @@ function App() {
       <Board
         clueAnswers={clueAnswers}
         board={board}
+        boardSize={boardSize}
         updateBoard={recalculateBoard}
       />
       <Clues clueAnswers={clueAnswers} setClueAnswers={setClueAnswers} />

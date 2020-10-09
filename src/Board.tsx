@@ -2,22 +2,13 @@ import React from 'react';
 import './Board.css';
 import BoardSquare from './BoardSquare';
 
-interface clueAnswer {
-  clue: string;
-  answer: string;
-}
-
-interface boardSquare {
-  active: boolean;
-  letter: string | null;
-  wordStart: number | null;
-  horizontalWordNumber: number | null;
-  verticalWordNumber: number | null;
-}
+// Types:
+import { boardSquare, clueAnswer } from './types';
 
 export interface boardProps {
   clueAnswers: clueAnswer[],
   board: any,
+  boardSize: number,
   updateBoard: (board: boardSquare[][]) => void,
 }
 
@@ -40,6 +31,7 @@ function Board(props: boardProps): JSX.Element {
               key={`${rowIndex}-${colIndex}`}
               rowIndex={rowIndex}
               colIndex={colIndex}
+              boardSize={props.boardSize}
               square={square}
               setBoardSquare={createBoardSquareSetter(rowIndex, colIndex)}
             />

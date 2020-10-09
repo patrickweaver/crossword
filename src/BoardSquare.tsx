@@ -1,18 +1,14 @@
 import React from 'react';
 import './BoardSquare.css';
 
-interface boardSquare {
-  active: boolean;
-  letter: string | null;
-  wordStart: number | null;
-  horizontalWordNumber: number | null;
-  verticalWordNumber: number | null;
-}
+// Types:
+import { boardSquare } from './types';
 
 export interface boardSquareProps {
   rowIndex: number,
   colIndex: number,
   square: boardSquare,
+  boardSize: number,
   setBoardSquare: (
     updatedBoardSquare: boardSquare,
   ) => void
@@ -31,7 +27,12 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
       className={`board-square ${props.square.active ? '' : 'inactive'}`}
       onClick={updateSquare}
     >
-      {`${props.rowIndex}-${props.colIndex}`}
+      <div className="clue-number">
+        {`${props.square.wordStart ? (props.square.horizontalWordNumber ? props.square.horizontalWordNumber : props.square.verticalWordNumber) : ''}`}
+      </div>
+      <div className="letter">
+        {(props.rowIndex * props.boardSize) + props.colIndex}
+      </div>
     </div>
   
   return square;
