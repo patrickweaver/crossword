@@ -6,7 +6,7 @@ import BoardSquare from './BoardSquare';
 import { boardSquare, clueAnswer } from './types';
 
 export interface boardProps {
-  clueAnswers: clueAnswer[],
+  clueAnswers: clueAnswer[][],
   board: any,
   boardSize: number,
   updateBoard: (board: boardSquare[][]) => void,

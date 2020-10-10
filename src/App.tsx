@@ -8,25 +8,10 @@ import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
 import nArray from './helpers/nArray';
+import BoardSquare from './BoardSquare';
 
 const defaultBoardSize: number = 8;
 const rowCols: number[] = nArray(defaultBoardSize);
-
-const defaultClueAnswerArray: clueAnswer[] = nBlankClueAnswers((defaultBoardSize * 2) - 1); 
-
-function nBlankClueAnswers(n: number): clueAnswer[] {
-  const nClueAnswers: clueAnswer[] = nArray(n).map((i: number): clueAnswer => {
-    return (
-      {
-        clue: "",
-        answer: ""
-      }
-    )
-  });
-  return nClueAnswers;
-}
-
-
 
 const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
   return rowCols.map((colIndex: number) => {
@@ -34,8 +19,8 @@ const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
       active: true,
       letter: " ",
       wordStart: false,
-      horizontalWordNumber: null,
-      verticalWordNumber: null,
+      acrossWordNumber: null,
+      downWordNumber: null,
       squareNumber: (rowIndex * defaultBoardSize) + colIndex,
     }
     return bs;
@@ -44,13 +29,15 @@ const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
 
 function App() {
 
-  const blankBoardAndClues: [boardSquare[][], number] = calculateBoard(initialBoard)
-  const [clueAnswers, setClueAnswers] = useState<clueAnswer[]>(defaultClueAnswerArray);
+  const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(initialBoard)
   const [boardSize, setBoardSize] = useState(defaultBoardSize);
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
+
+  // Build clueAnswers arrays from default empty board.
+  const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(calculateBoard(board)[1]);
   
 
-  function calculateBoard(board: boardSquare[][]): [boardSquare[][], number] {
+  function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
     
     const boardSize = board.length;
     const flatBoard = board.flat();
@@ -59,25 +46,25 @@ function App() {
 
       // Clear all word numbers:
       square.wordStart = false;
-      square.horizontalWordNumber = null;
-      square.verticalWordNumber = null;
+      square.acrossWordNumber = null;
+      square.downWordNumber = null;
       
       if (square.active) {
-        // Find horizontal words:
+        // Find across words:
         if (
           index % boardSize == 0 // First column
           || !flatBoard[index - 1].active // To the right of a black square
         ) {
           square.wordStart = true;
-          square.horizontalWordNumber = wordNumber;
+          square.acrossWordNumber = wordNumber;
         }
-        // Find vertical words:
+        // Find down words:
         if (
           index < boardSize // First row
           || !flatBoard[index - boardSize].active // Under a black square
         ) {
           square.wordStart = true;
-          square.verticalWordNumber = wordNumber;
+          square.downWordNumber = wordNumber;
         }
         
         if (square.wordStart) {
@@ -87,6 +74,35 @@ function App() {
       return square;
     });
 
+    // Find Across and Down Clues:
+    const clueAnswers: clueAnswer[][] = wordStartFlatBoard.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
+
+      if (square.wordStart) {
+        if (square.acrossWordNumber) {
+          const ca: clueAnswer = {
+            direction: 'across',
+            number: square.acrossWordNumber,
+            clue: '',
+            answer: `${square.letter}`
+          }
+          clueAnswers[0].push(ca);
+        }
+        if (square.downWordNumber) {
+          const ca: clueAnswer = {
+            direction: 'down',
+            number: square.downWordNumber,
+            clue: '',
+            answer: `${square.letter}`
+          }
+          clueAnswers[1].push(ca);
+        }
+      }
+
+      return clueAnswers;
+
+    }, [[], []]);
+
+
     // Put board back into 2D array
     const reGridBoard: boardSquare[][] = rowCols.map((rowIndex: number): boardSquare[] => {
       return rowCols.map((colIndex: number): boardSquare => {
@@ -95,10 +111,7 @@ function App() {
       });
     });
 
-    // Update number of clues:
-    const numberOfClues: number = wordNumber - 1
-
-    return [reGridBoard, numberOfClues];
+    return [reGridBoard, clueAnswers];
   }
 
   function updateClueAnswers(prevClueAnswers: clueAnswer[]): clueAnswer[] {
@@ -110,9 +123,9 @@ function App() {
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
 
-    const [recalculatedUpdatedBoard, numberOfClueAnswers] = calculateBoard(updatedBoard);
+    const [recalculatedUpdatedBoard, clueAnswers] = calculateBoard(updatedBoard);
     setBoard(recalculatedUpdatedBoard);
-    setClueAnswers(nBlankClueAnswers(numberOfClueAnswers))
+    setClueAnswers(clueAnswers)
   }
 
   return (

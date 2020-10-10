@@ -16,7 +16,7 @@ export interface boardSquareProps {
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
 
-  function updateSquare(event: React.MouseEvent<HTMLDivElement>): void {
+  function toggleSquareActive(event: React.MouseEvent<HTMLDivElement>): void {
     console.log(event);
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
@@ -29,21 +29,26 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     props.setBoardSquare(updatedSquare);
   }
 
+  const letter = 
+    <div className="letter">
+      <input
+        type="text"
+        value={props.square.letter || ''}
+        onChange={addLetter}
+      />
+    </div>
+
   const square =
     <div
       className={`board-square ${props.square.active ? '' : 'inactive'}`}
-      onClick={updateSquare}
+      onDoubleClick={toggleSquareActive}
     >
       <div className="clue-number">
-        {`${props.square.wordStart ? (props.square.horizontalWordNumber ? props.square.horizontalWordNumber : props.square.verticalWordNumber) : ''}`}
+        {`${props.square.wordStart ? (props.square.acrossWordNumber ? props.square.acrossWordNumber : props.square.downWordNumber) : ''}`}
       </div>
-      <div className="letter">
-        <input
-          type="text"
-          value={props.square.letter || ''}
-          onChange={addLetter}
-        />
-      </div>
+
+      {props.square.active ? letter : null}
+      
     </div>
   
   return square;

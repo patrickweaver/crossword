@@ -5,26 +5,26 @@ import './Clues.css';
 import { clueAnswer } from './types';
 
 export interface cluesProps {
-  clueAnswers: clueAnswer[],
-  setClueAnswers: (clueAnswers: clueAnswer[]) => void
+  clueAnswers: clueAnswer[][],
+  setClueAnswers: (clueAnswers: clueAnswer[][]) => void
 }
 
 function Clues(props: cluesProps): JSX.Element {
-  
-  return (
-    <div>
-      <h2>Clues</h2>
+
+  const cluesList = (clueAnswers: clueAnswer[], dirIndex: number): JSX.Element => {
+    return (
       <ol className="clue-answers-list">
-        {props.clueAnswers.map((item: clueAnswer, index: number) => {
+        {clueAnswers.map((item: clueAnswer, index: number) => {
           const clueNumber = index + 1;
           return (
             <li key={index}>
+              <span>{item.number}</span>
               <label>Clue:</label>
               <input
                 value={item.clue}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                  const newClueAnswers: clueAnswer[] = [...props.clueAnswers];
-                  newClueAnswers[index].clue = event.target.value;
+                  const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
+                  newClueAnswers[dirIndex][index].clue = event.target.value;
                   return props.setClueAnswers(newClueAnswers);
                 }}
               />
@@ -32,8 +32,8 @@ function Clues(props: cluesProps): JSX.Element {
               <input
                 value={item.answer}
                 onChange={event => {
-                  const newClueAnswers: clueAnswer[] = [...props.clueAnswers];
-                  newClueAnswers[index].answer = event.target.value;
+                  const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
+                  newClueAnswers[dirIndex][index].answer = event.target.value;
                   return props.setClueAnswers(newClueAnswers);
                 }}
               />
@@ -41,6 +41,23 @@ function Clues(props: cluesProps): JSX.Element {
           )
         })}
       </ol>
+    )
+  }
+  
+  return (
+    <div>
+      <h2>Clues</h2>
+        <ul>
+          <li>
+            <h3>Across:</h3>
+            {cluesList(props.clueAnswers[0], 0)}
+          </li>
+          <li>
+            <h3>Down:</h3>
+            {cluesList(props.clueAnswers[1], 1)}
+          </li>
+
+        </ul>
     </div>
   )
 }
