@@ -22,7 +22,7 @@ function Clues(props: cluesProps): JSX.Element {
               <label>Clue:</label>
               <input
                 value={item.clue}
-                onChange={event => {
+                onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                   const newClueAnswers: clueAnswer[] = [...props.clueAnswers];
                   newClueAnswers[index].clue = event.target.value;
                   return props.setClueAnswers(newClueAnswers);

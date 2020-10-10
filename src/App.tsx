@@ -68,10 +68,8 @@ function App() {
           index % boardSize == 0 // First column
           || !flatBoard[index - 1].active // To the right of a black square
         ) {
-          console.log("set H:", wordNumber)
           square.wordStart = true;
           square.horizontalWordNumber = wordNumber;
-          console.log("H", wordNumber, index);
         }
         // Find vertical words:
         if (
@@ -80,7 +78,6 @@ function App() {
         ) {
           square.wordStart = true;
           square.verticalWordNumber = wordNumber;
-          console.log("V", wordNumber, index);
         }
         
         if (square.wordStart) {
@@ -102,6 +99,13 @@ function App() {
     const numberOfClues: number = wordNumber - 1
 
     return [reGridBoard, numberOfClues];
+  }
+
+  function updateClueAnswers(prevClueAnswers: clueAnswer[]): clueAnswer[] {
+
+
+
+    return prevClueAnswers;
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {

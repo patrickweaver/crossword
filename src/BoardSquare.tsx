@@ -16,9 +16,16 @@ export interface boardSquareProps {
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
 
-  function updateSquare(): void {
+  function updateSquare(event: React.MouseEvent<HTMLDivElement>): void {
+    console.log(event);
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
+    props.setBoardSquare(updatedSquare);
+  }
+
+  function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
+    const updatedSquare = props.square;
+    updatedSquare.letter = event.target.value;
     props.setBoardSquare(updatedSquare);
   }
 
@@ -31,7 +38,11 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         {`${props.square.wordStart ? (props.square.horizontalWordNumber ? props.square.horizontalWordNumber : props.square.verticalWordNumber) : ''}`}
       </div>
       <div className="letter">
-        {true ? '' : (props.rowIndex * props.boardSize) + props.colIndex}
+        <input
+          type="text"
+          value={props.square.letter || ''}
+          onChange={addLetter}
+        />
       </div>
     </div>
   

@@ -6,4 +6,5 @@
 #board {
   margin: 0 auto;
   display: inline-block;
+  border: 1px solid black;
 }

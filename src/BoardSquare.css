@@ -20,5 +20,18 @@
 
 .letter {
   padding-top: 8px;
-  font-size: 20px; 
+  font-size: 20px;
+  position: relative;
+}
+
+.letter > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 28px;
+  width: 28px;
+  line-height: 30px;
+  border: none;
 }
