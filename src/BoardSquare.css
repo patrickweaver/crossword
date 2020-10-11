@@ -19,8 +19,6 @@
 }
 
 .letter {
-  padding-top: 8px;
-  font-size: 20px;
   position: relative;
 }
 
@@ -35,4 +33,7 @@
   line-height: 30px;
   border: none;
   background: none;
+  text-align: center;
+  font-size: 22px;
+  padding-top: 12px;
 }

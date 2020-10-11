@@ -17,7 +17,7 @@ export interface boardSquareProps {
 function BoardSquare(props: boardSquareProps): JSX.Element {
 
   function toggleSquareActive(event: React.MouseEvent<HTMLDivElement>): void {
-    console.log(event);
+    //console.log(event);
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
     props.setBoardSquare(updatedSquare);
@@ -35,6 +35,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         type="text"
         value={props.square.letter || ''}
         onChange={addLetter}
+        maxLength={1}
       />
     </div>
 

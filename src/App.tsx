@@ -17,7 +17,7 @@ const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
   return rowCols.map((colIndex: number) => {
     const bs: boardSquare = {
       active: true,
-      letter: " ",
+      letter: "",
       wordStart: false,
       acrossWordNumber: null,
       downWordNumber: null,
@@ -78,6 +78,7 @@ function App() {
     const clueAnswers: clueAnswer[][] = wordStartFlatBoard.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
 
       if (square.wordStart) {
+      // Find starts of words
         if (square.acrossWordNumber) {
           const ca: clueAnswer = {
             direction: 'across',
@@ -97,6 +98,8 @@ function App() {
           clueAnswers[1].push(ca);
         }
       }
+
+      
 
       return clueAnswers;
 
