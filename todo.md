@@ -3,12 +3,12 @@
 
 ## Doing
 
-- Working input fields in each square
+- Keep set clues on number of answers change
+  - Save the rest of the word (currently saving first letter)
 
 
 ## To Do
 
-- Keep set clues on number of answers change
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function
@@ -24,3 +24,5 @@
 - Calculate correct numbers under black square
 - Clear all clue numbers on activate/deactivate
 - Set correct number of clues and answers
+- Working input fields in each square
+- Limit input field to 1 char
