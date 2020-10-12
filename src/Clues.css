@@ -17,3 +17,7 @@
 .clue-answers-list > li > input {
   padding: 3px;
 }
+
+.clue-answers-list > li > input.answer {
+  letter-spacing: 5px;
+}

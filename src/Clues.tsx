@@ -30,6 +30,7 @@ function Clues(props: cluesProps): JSX.Element {
               />
               <label>Answer:</label>
               <input
+                className="answer"
                 value={item.answer}
                 onChange={event => {
                   const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];

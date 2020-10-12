@@ -45,7 +45,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
       onDoubleClick={toggleSquareActive}
     >
       <div className="clue-number">
-        {`${props.square.wordStart ? (props.square.acrossWordNumber ? props.square.acrossWordNumber : props.square.downWordNumber) : ''}`}
+        {`${props.square.wordStart[0] ? props.square.acrossWordNumber : (props.square.wordStart[1] ? props.square.downWordNumber : '')}`}
       </div>
 
       {props.square.active ? letter : null}

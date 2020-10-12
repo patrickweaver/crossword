@@ -1,7 +1,7 @@
 export interface boardSquare {
   active: boolean;
   letter: string | null;
-  wordStart: boolean;
+  wordStart: boolean[];
   acrossWordNumber: number | null;
   downWordNumber: number | null;
   squareNumber: number;
