@@ -3,8 +3,7 @@
 
 ## Doing
 
-- Keep set clues on number of answers change
-  - Save the rest of the word (currently saving first letter)
+- Set board letters from answer fields
 
 
 ## To Do
@@ -26,3 +25,5 @@
 - Set correct number of clues and answers
 - Working input fields in each square
 - Limit input field to 1 char
+- Keep set clues on number of answers change
+  - Save the rest of the word (currently saving first letter)

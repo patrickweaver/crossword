@@ -13,3 +13,9 @@ export interface clueAnswer {
   clue: string;
   answer: string;
 }
+
+export interface clueAnswerUpdate {
+  clueAnswers: clueAnswer;
+  dirIndex: number;
+  caIndex: number;
+}

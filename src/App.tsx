@@ -134,21 +134,18 @@ function App() {
   
   
     // Put board back into 2D array
-    const reGridBoard: boardSquare[][] = rowCols.map((rowIndex: number): boardSquare[] => {
-      return rowCols.map((colIndex: number): boardSquare => {
-        const index = (rowIndex * boardSize) + colIndex;
-        return wordStartFlatBoard[index];
-      });
-    });
+    const reGridedBoard: boardSquare[][] = reGridBoard(wordStartFlatBoard, boardSize);
   
-    return [reGridBoard, clueAnswers];
+    return [reGridedBoard, clueAnswers];
   }
 
-  function updateClueAnswers(prevClueAnswers: clueAnswer[]): clueAnswer[] {
-
-
-
-    return prevClueAnswers;
+  function reGridBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[][] {
+    return rowCols.map((rowIndex: number): boardSquare[] => {
+      return rowCols.map((colIndex: number): boardSquare => {
+        const index = (rowIndex * boardSize) + colIndex;
+        return flatBoard[index];
+      });
+    });
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
@@ -156,6 +153,37 @@ function App() {
     const [recalculatedUpdatedBoard, clueAnswers] = calculateBoard(updatedBoard);
     setBoard(recalculatedUpdatedBoard);
     setClueAnswers(clueAnswers)
+  }
+
+  const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number): void => {
+    const updatedCA: clueAnswer[][] = [...clueAnswers];
+    const oldLength: number = updatedCA[dirIndex][caIndex][type].length;
+    //console.log("OL:", oldLength);
+    updatedCA[dirIndex][caIndex][type] = newValue;
+    if (type === "answer") {
+      //console.log(updatedCA[dirIndex][caIndex][type], updatedCA[dirIndex][caIndex][type].length);
+      updatedCA[dirIndex][caIndex][type] = updatedCA[dirIndex][caIndex][type].slice(0, oldLength);
+    }
+    setClueAnswers(updatedCA);
+
+    if (type === "answer") {
+      const property: ("acrossWordNumber" | "downWordNumber") = dirIndex === 0 ? "acrossWordNumber" : "downWordNumber";
+      const ca: clueAnswer = updatedCA[dirIndex][caIndex];
+      let firstLetterIndex: (number | null) = null;
+      const boardSquaresFlat: boardSquare[] = board.flat().map((bs: boardSquare, index: number): boardSquare => {
+        const updatedBoardSquare = bs;
+        if (bs[property] === ca.number) {
+          if (firstLetterIndex === null) firstLetterIndex = index;
+          updatedBoardSquare.letter = newValue[index - firstLetterIndex];
+        }
+        
+        return updatedBoardSquare;
+      });
+
+      const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
+      setBoard(reGridedBoard);
+    }
+
   }
 
   return (
@@ -167,7 +195,10 @@ function App() {
         boardSize={boardSize}
         updateBoard={recalculateBoard}
       />
-      <Clues clueAnswers={clueAnswers} setClueAnswers={setClueAnswers} />
+      <Clues
+        clueAnswers={clueAnswers}
+        updateClueAnswer={(updateClueAnswer)}
+      />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { clueAnswer } from './types';
 
 export interface cluesProps {
   clueAnswers: clueAnswer[][],
-  setClueAnswers: (clueAnswers: clueAnswer[][]) => void
+  updateClueAnswer: (type: ("answer" | "clue"), newValue: string, dirIndex: number, caIndex: number) => void,
 }
 
 function Clues(props: cluesProps): JSX.Element {
@@ -23,9 +23,11 @@ function Clues(props: cluesProps): JSX.Element {
               <input
                 value={item.clue}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                  const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
-                  newClueAnswers[dirIndex][index].clue = event.target.value;
-                  return props.setClueAnswers(newClueAnswers);
+                  // const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
+                  // newClueAnswers[dirIndex][index].clue = event.target.value;
+                  // return props.updateClueAnswers(newClueAnswers);
+                  const newValue = event.target.value;
+                  return props.updateClueAnswer("clue", newValue, dirIndex, index);
                 }}
               />
               <label>Answer:</label>
@@ -33,9 +35,11 @@ function Clues(props: cluesProps): JSX.Element {
                 className="answer"
                 value={item.answer}
                 onChange={event => {
-                  const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
-                  newClueAnswers[dirIndex][index].answer = event.target.value;
-                  return props.setClueAnswers(newClueAnswers);
+                  // const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
+                  // newClueAnswers[dirIndex][index].answer = event.target.value;
+                  // return props.updateClueAnswers(newClueAnswers);
+                  const newValue = event.target.value;
+                  return props.updateClueAnswer("answer", newValue, dirIndex, index);
                 }}
               />
             </li>
