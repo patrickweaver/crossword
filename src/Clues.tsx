@@ -17,8 +17,7 @@ function Clues(props: cluesProps): JSX.Element {
         {clueAnswers.map((item: clueAnswer, index: number) => {
           const clueNumber = index + 1;
           return (
-            <li key={index}>
-              <span>{item.number}</span>
+            <li key={index} value={item.number}>
               <label>Clue:</label>
               <input
                 value={item.clue}
