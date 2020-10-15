@@ -1,0 +1,12 @@
+input, label {
+  margin: 0 5px;
+}
+
+input {
+  padding: 3px;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+.answer {
+  letter-spacing: 5px;
+}

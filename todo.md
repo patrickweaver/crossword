@@ -12,7 +12,7 @@
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function
-- Fix: On answer change cursor moves to end of answer
+- Underscores are added to board
 
 ## Someday
 
@@ -21,6 +21,7 @@
 
 ## Done
 
+- Fix: On answer change cursor moves to end of answer
 - Set ol li numbers from clueAnswer numbers
 - Set board letters from answer fields
 - Calculate correct clue numbers at start

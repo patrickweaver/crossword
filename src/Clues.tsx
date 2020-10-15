@@ -22,7 +22,7 @@ function Clues(props: cluesProps): JSX.Element {
             <li key={index} value={item.number}>
               <ClueAnswer
                 clueAnswer={item}
-                updateClueAnswer={(type, newValue) => props.updateClueAnswer(type, newValue, dirIndex, index)}
+                updateClueAnswer={(type: ("answer" | "clue"), newValue: string) => props.updateClueAnswer(type, newValue, dirIndex, index)}
               />
             </li>
           )

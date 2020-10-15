@@ -1,41 +1,54 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+
+import './ClueAnswer.css';
 
 // Types:
 import { clueAnswer } from './types';
 
 export interface clueAnswerProps {
-  // dirIndex: number,
-  // index: number,
   clueAnswer: clueAnswer,
   updateClueAnswer: (type: ("answer" | "clue"), newValue: string) => void,
 }
 
 function ClueAnswer(props: clueAnswerProps): JSX.Element {
 
+  const answerInputRef = useRef<HTMLInputElement>(null);
+  //const cursorPosition = 0;
+
+  const [selectionStart, setSelectionStart] = useState(0);
+
+  useEffect((): void => {
+    if (answerInputRef.current) {
+      answerInputRef.current.setSelectionRange(selectionStart, selectionStart);
+    }
+  })
+
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { value, selectionStart, selectionEnd } = event.target;
-    return props.updateClueAnswer("answer", value);
+    const { value, selectionStart} = event.target;
+    setSelectionStart((selectionStart || 0));
+    props.updateClueAnswer("answer", value);
   }
 
   function updateClue(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
-    return props.updateClueAnswer("clue", value);
+    props.updateClueAnswer("clue", value);
   }
-  
+
   return (
-      <div>
-        <label>Clue:</label>
-        <input
-          value={props.clueAnswer.clue}
-          onChange={updateClue}
-        />
-        <label>Answer:</label>
-        <input
-          className="answer"
-          value={props.clueAnswer.answer}
-          onChange={updateAnswer}
-        />
-      </div>
+    <div className="clue-answer">
+      <label>Clue:</label>
+      <input
+        value={props.clueAnswer.clue}
+        onChange={updateClue}
+      />
+      <label>Answer:</label>
+      <input
+        className="answer"
+        ref={answerInputRef}
+        value={props.clueAnswer.answer}
+        onChange={updateAnswer}
+      />
+    </div>
   )
 }
 

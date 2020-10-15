@@ -9,16 +9,3 @@
   margin: 5px 0;
   font-size: 14px;
 }
-
-.clue-answers-list > li > input, .clue-answers-list > li > label {
-  margin: 0 5px;
-}
-
-.clue-answers-list > li > input {
-  padding: 3px;
-  font-family: "Lucida Console", Monaco, monospace;
-}
-
-.clue-answers-list > li > input.answer {
-  letter-spacing: 5px;
-}

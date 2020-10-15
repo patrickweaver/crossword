@@ -184,7 +184,9 @@ function App() {
     } else {
       uca.clue = newValue;
     }
+
     setClueAnswers(updatedCAs);
+    
 
     if (type === "answer") {
       const property: ("acrossWordNumber" | "downWordNumber") = dirIndex === 0 ? "acrossWordNumber" : "downWordNumber";
