@@ -20,6 +20,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   useEffect((): void => {
     if (answerInputRef.current) {
       answerInputRef.current.setSelectionRange(selectionStart, selectionStart);
+      setSelectionStart(0);
     }
   })
 
