@@ -156,23 +156,42 @@ function App() {
   }
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number): void => {
-    const updatedCA: clueAnswer[][] = [...clueAnswers];
-    const oldLength: number = updatedCA[dirIndex][caIndex][type].length;
-    //console.log("OL:", oldLength);
-    updatedCA[dirIndex][caIndex][type] = newValue;
+    const updatedCAs: clueAnswer[][] = [...clueAnswers];
+    const uca: clueAnswer = updatedCAs[dirIndex][caIndex]
+    const oldLength: number = uca[type].length;
+    
+    
     if (type === "answer") {
-      //console.log(updatedCA[dirIndex][caIndex][type], updatedCA[dirIndex][caIndex][type].length);
-      updatedCA[dirIndex][caIndex][type] = updatedCA[dirIndex][caIndex][type].slice(0, oldLength);
+      // uca[type] = newValue;
+      // uca[type] = uca[type].slice(0, oldLength);
+      // uca[type] = uca[type].split("").map((_: string, index: number) => newValue[index]).join("");
+
+      // Didn't work:
+      let changeIndex: number = uca.answer.split("").reduce((changeIndex: number, letter: string, index: number): number => {
+        if (changeIndex > -1) {
+          return changeIndex;
+        } else {
+          if (newValue[index] !== letter) {
+            return index;
+          } else {
+            return changeIndex;
+          }
+        }
+      }, -1)
+      const update = uca.answer.slice(0, changeIndex) + newValue.slice(changeIndex, changeIndex + 1) + uca.answer.slice(changeIndex + 1, uca.answer.length + 1);
+      console.log(uca.answer, update, changeIndex);
+      uca.answer = uca.answer.slice(0, changeIndex) + newValue.slice(changeIndex, changeIndex + 1) + uca.answer.slice(changeIndex + 1, uca.answer.length + 1);
+    } else {
+      uca.clue = newValue;
     }
-    setClueAnswers(updatedCA);
+    setClueAnswers(updatedCAs);
 
     if (type === "answer") {
       const property: ("acrossWordNumber" | "downWordNumber") = dirIndex === 0 ? "acrossWordNumber" : "downWordNumber";
-      const ca: clueAnswer = updatedCA[dirIndex][caIndex];
       let firstLetterIndex: (number | null) = null;
       const boardSquaresFlat: boardSquare[] = board.flat().map((bs: boardSquare, index: number): boardSquare => {
         const updatedBoardSquare = bs;
-        if (bs[property] === ca.number) {
+        if (bs[property] === uca.number) {
           if (firstLetterIndex === null) firstLetterIndex = index;
           updatedBoardSquare.letter = newValue[index - firstLetterIndex];
         }
@@ -186,9 +205,17 @@ function App() {
 
   }
 
+  function updateBoardSize(event: React.ChangeEvent<HTMLInputElement>): void {
+    setBoardSize(parseInt(event.target.value));
+  }
+
   return (
     <div className="App">
       <h1>Crossword Puzzle Editor</h1>
+      <div id="board-size">
+        <label>Board Size:</label>
+        <input value={boardSize} onChange={updateBoardSize} />
+      </div>
       <Board
         clueAnswers={clueAnswers}
         board={board}

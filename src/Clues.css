@@ -16,6 +16,7 @@
 
 .clue-answers-list > li > input {
   padding: 3px;
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 .clue-answers-list > li > input.answer {

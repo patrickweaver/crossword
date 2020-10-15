@@ -3,14 +3,16 @@
 
 ## Doing
 
-- Set board letters from answer fields
+
 
 
 ## To Do
 
+- Adding char at end of answer makes it twice as long
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function
+- Fix: On answer change cursor moves to end of answer
 
 ## Someday
 
@@ -19,6 +21,8 @@
 
 ## Done
 
+- Set ol li numbers from clueAnswer numbers
+- Set board letters from answer fields
 - Calculate correct clue numbers at start
 - Calculate correct numbers under black square
 - Clear all clue numbers on activate/deactivate

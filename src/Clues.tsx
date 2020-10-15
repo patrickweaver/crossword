@@ -1,6 +1,8 @@
 import React from 'react';
 import './Clues.css';
 
+import ClueAnswer from './ClueAnswer';
+
 // Types:
 import { clueAnswer } from './types';
 
@@ -18,28 +20,9 @@ function Clues(props: cluesProps): JSX.Element {
           const clueNumber = index + 1;
           return (
             <li key={index} value={item.number}>
-              <label>Clue:</label>
-              <input
-                value={item.clue}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                  // const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
-                  // newClueAnswers[dirIndex][index].clue = event.target.value;
-                  // return props.updateClueAnswers(newClueAnswers);
-                  const newValue = event.target.value;
-                  return props.updateClueAnswer("clue", newValue, dirIndex, index);
-                }}
-              />
-              <label>Answer:</label>
-              <input
-                className="answer"
-                value={item.answer}
-                onChange={event => {
-                  // const newClueAnswers: clueAnswer[][] = [...props.clueAnswers];
-                  // newClueAnswers[dirIndex][index].answer = event.target.value;
-                  // return props.updateClueAnswers(newClueAnswers);
-                  const newValue = event.target.value;
-                  return props.updateClueAnswer("answer", newValue, dirIndex, index);
-                }}
+              <ClueAnswer
+                clueAnswer={item}
+                updateClueAnswer={(type, newValue) => props.updateClueAnswer(type, newValue, dirIndex, index)}
               />
             </li>
           )
