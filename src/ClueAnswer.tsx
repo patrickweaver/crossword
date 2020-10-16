@@ -7,7 +7,7 @@ import { clueAnswer } from './types';
 
 export interface clueAnswerProps {
   clueAnswer: clueAnswer,
-  updateClueAnswer: (type: ("answer" | "clue"), newValue: string) => void,
+  updateClueAnswer: (type: ("answer" | "clue"), newValue: string, selectionStart?: number) => void,
 }
 
 function ClueAnswer(props: clueAnswerProps): JSX.Element {
@@ -26,10 +26,8 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
 
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, selectionStart} = event.target;
-     // Don't add to length of answer
-    if (value[value.length - 1] !== " ") return;
     setSelectionStart((selectionStart || 0));
-    props.updateClueAnswer("answer", value);
+    props.updateClueAnswer("answer", value, selectionStart || 0);
   }
 
   function updateClue(event: React.ChangeEvent<HTMLInputElement>): void {

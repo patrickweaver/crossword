@@ -152,32 +152,17 @@ function App() {
     setClueAnswers(clueAnswers)
   }
 
-  const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number): void => {
+  const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
     const uca: clueAnswer = updatedCAs[dirIndex][caIndex]
-    const oldLength: number = uca[type].length;
     
     
+    let editIndex = selectionStart || 1;
     if (type === "answer") {
-      // uca[type] = newValue;
-      // uca[type] = uca[type].slice(0, oldLength);
-      // uca[type] = uca[type].split("").map((_: string, index: number) => newValue[index]).join("");
-
-      // Didn't work:
-      let changeIndex: number = uca.answer.split("").reduce((changeIndex: number, letter: string, index: number): number => {
-        if (changeIndex > -1) {
-          return changeIndex;
-        } else {
-          if (newValue[index] !== letter) {
-            return index;
-          } else {
-            return changeIndex;
-          }
-        }
-      }, -1)
-      const update = uca.answer.slice(0, changeIndex) + newValue.slice(changeIndex, changeIndex + 1) + uca.answer.slice(changeIndex + 1, uca.answer.length + 1);
-      console.log(uca.answer, update, changeIndex);
-      uca.answer = uca.answer.slice(0, changeIndex) + newValue.slice(changeIndex, changeIndex + 1) + uca.answer.slice(changeIndex + 1, uca.answer.length + 1);
+      // Remove character after cursor and trim
+      // to the correct length
+      const oldLength: number = uca.answer.length;
+      uca.answer = (newValue.slice(0, editIndex) + newValue.slice(editIndex + 1, newValue.length)).slice(0, oldLength);
     } else {
       uca.clue = newValue;
     }
@@ -190,9 +175,10 @@ function App() {
       let firstLetterIndex: (number | null) = null;
       const boardSquaresFlat: boardSquare[] = board.flat().map((bs: boardSquare, index: number): boardSquare => {
         const updatedBoardSquare = bs;
+        // Update board square with new value
         if (bs[property] === uca.number) {
           if (firstLetterIndex === null) firstLetterIndex = index;
-          updatedBoardSquare.letter = newValue[index - firstLetterIndex];
+          updatedBoardSquare.letter = uca.answer[index - firstLetterIndex];
         }
         
         return updatedBoardSquare;
@@ -223,7 +209,7 @@ function App() {
       />
       <Clues
         clueAnswers={clueAnswers}
-        updateClueAnswer={(updateClueAnswer)}
+        updateClueAnswer={updateClueAnswer}
       />
     </div>
   );

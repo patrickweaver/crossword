@@ -8,7 +8,7 @@
 
 ## To Do
 
-- Filling in blank no longer works (makes the answer longer and last letter is not blank)
+
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function
@@ -21,6 +21,7 @@
 
 ## Done
 
+- Filling in blank no longer works (makes the answer longer and last letter is not blank)
 - Underline on each character with CSS
 - Adding char at end of answer makes it twice as long
 - Underscores are added to board
