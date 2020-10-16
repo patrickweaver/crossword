@@ -8,7 +8,6 @@ import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
 import nArray from './helpers/nArray';
-import BoardSquare from './BoardSquare';
 
 const defaultBoardSize: number = 8;
 const rowCols: number[] = nArray(defaultBoardSize);
@@ -52,7 +51,7 @@ function App() {
       if (square.active) {
         // Find across words:
         if (
-          index % boardSize == 0 // First column
+          index % boardSize === 0 // First column
           || !flatBoard[index - 1].active // To the right of a black square
         ) {
           square.wordStart[0] = true;
@@ -79,9 +78,7 @@ function App() {
         if (!square.downWordNumber) {
           square.downWordNumber = updatedFlatBoard[index - boardSize].downWordNumber;
         }
-      
-        
-        const aboveIndex = index - boardSize
+
         
       
       }
@@ -105,12 +102,12 @@ function App() {
           direction: 'across',
           number: square.acrossWordNumber,
           clue: '',
-          answer: `${square.letter || "_"}`
+          answer: `${square.letter || " "}`
         }
         clueAnswers[0].push(ca);
       } else {
         const caIndex = acrossNumbers.indexOf(square.acrossWordNumber);
-        const ca = clueAnswers[0][caIndex].answer += square.letter || "_";
+        const ca = clueAnswers[0][caIndex].answer += square.letter || " ";
       }
       
       
@@ -120,12 +117,12 @@ function App() {
           direction: 'down',
           number: square.downWordNumber,
           clue: '',
-          answer: `${square.letter || "_"}`
+          answer: `${square.letter || " "}`
         }
         clueAnswers[1].push(ca);
       } else {
         const caIndex = downNumbers.indexOf(square.downWordNumber);
-        const ca = clueAnswers[1][caIndex].answer += square.letter || "_";
+        const ca = clueAnswers[1][caIndex].answer += square.letter || " ";
       }
   
       return clueAnswers;

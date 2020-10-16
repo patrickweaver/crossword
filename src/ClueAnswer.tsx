@@ -13,16 +13,16 @@ export interface clueAnswerProps {
 function ClueAnswer(props: clueAnswerProps): JSX.Element {
 
   const answerInputRef = useRef<HTMLInputElement>(null);
-  //const cursorPosition = 0;
 
-  const [selectionStart, setSelectionStart] = useState(0);
+  const [selectionStart, setSelectionStart] = useState<(number | null)>(0);
 
   useEffect((): void => {
-    if (answerInputRef.current) {
-      answerInputRef.current.setSelectionRange(selectionStart, selectionStart);
-      setSelectionStart(0);
+    if (answerInputRef.current && selectionStart !== null) {
+      const start = selectionStart || 0;
+      answerInputRef.current.setSelectionRange(start, start);
+      setSelectionStart(null);
     }
-  })
+  }, [selectionStart]);
 
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, selectionStart} = event.target;

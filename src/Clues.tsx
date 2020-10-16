@@ -17,7 +17,6 @@ function Clues(props: cluesProps): JSX.Element {
     return (
       <ol className="clue-answers-list">
         {clueAnswers.map((item: clueAnswer, index: number) => {
-          const clueNumber = index + 1;
           return (
             <li key={index} value={item.number}>
               <ClueAnswer

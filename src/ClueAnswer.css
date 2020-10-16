@@ -1,10 +1,11 @@
-input, label {
+.clue-answer input, .clue-answer label {
   margin: 0 5px;
 }
 
-input {
+.clue-answer input {
   padding: 3px;
   font-family: "Lucida Console", Monaco, monospace;
+  text-decoration: underline;
 }
 
 .answer {
