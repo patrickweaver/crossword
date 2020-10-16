@@ -26,6 +26,8 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
 
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, selectionStart} = event.target;
+     // Don't add to length of answer
+    if (value[value.length - 1] !== " ") return;
     setSelectionStart((selectionStart || 0));
     props.updateClueAnswer("answer", value);
   }
