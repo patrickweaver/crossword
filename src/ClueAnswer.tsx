@@ -37,6 +37,10 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
     props.updateClueAnswer("clue", value);
   }
 
+  const answerInputStyle = {
+    background: `repeating-linear-gradient(90deg, black 0, black 1.25ch, transparent 0, transparent 2ch) 5px 85%/ ${props.clueAnswer.answer.length * (2)}ch 1px no-repeat`
+  }
+
   return (
     <div className="clue-answer">
       <label>Clue:</label>
@@ -46,6 +50,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
       />
       <label>Answer:</label>
       <input
+        style={answerInputStyle}
         className="answer"
         ref={answerInputRef}
         value={props.clueAnswer.answer}

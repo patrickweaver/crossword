@@ -2,12 +2,26 @@
   margin: 0 5px;
 }
 
-.clue-answer input {
-  padding: 3px;
-  font-family: "Lucida Console", Monaco, monospace;
-  text-decoration: underline;
-}
-
 .answer {
   letter-spacing: 5px;
+}
+
+.clue-answer input {
+  padding: 3px 5px;
+	margin: 2em auto;
+  border: 1px solid black;
+  border-radius: 3px;
+	width: (7 * (1ch + (1ch * 0.5)));
+  /* background-image: linear-gradient(to right, black 50%, transparent 50%);
+  background-position: 0 1.04em;
+  background-repeat: no-repeat;
+  background-size: 20px 2px; */
+	letter-spacing: 1ch;
+	font: 2ch "Lucida Console", Monaco, monospace;
+
+}
+
+.clue-answer input:focus {
+  outline: none;
+  color: dodgerblue;
 }

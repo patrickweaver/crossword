@@ -1,3 +1,15 @@
+# Crossword
+
+
+## Notes
+
+- Individual character underline: https://codepen.io/thebabydino/pen/mRrPwB
+
+
+
+
+## Create React App Info:
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
