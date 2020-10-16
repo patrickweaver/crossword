@@ -7,13 +7,12 @@
 
 ## To Do
 
-- Fix: Can delete answer letters
-- Answer and board letters uppercase
 - Scroll clueAnswers behind board
 - Update board size on boardSize change
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function
+- Navigate with arrow keys
 - Dictionary suggestions
 
 
@@ -24,6 +23,8 @@
 
 ## Done
 
+- Answer and board letters uppercase
+- Fix: Can delete answer letters
 - Style on clue input
 - Filling in blank no longer works (makes the answer longer and last letter is not blank)
 - Underline on each character with CSS

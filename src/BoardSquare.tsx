@@ -24,9 +24,18 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
+    //console.log(event.target.value.toUpperCase())
     const updatedSquare = props.square;
-    updatedSquare.letter = event.target.value;
+    updatedSquare.letter = event.target.value.toUpperCase();
+    console.log(updatedSquare.letter);
     props.setBoardSquare(updatedSquare);
+    const target = event.target;
+    setTimeout(() => target.setSelectionRange(0, target.value.length), 0)
+  }
+
+  function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
+    const target = event.target as HTMLInputElement;
+    target.setSelectionRange(0, target.value.length); 
   }
 
   const letter = 
@@ -35,6 +44,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         type="text"
         value={props.square.letter || ''}
         onChange={addLetter}
+        onClick={selectLetterOnFocus}
         maxLength={1}
       />
     </div>

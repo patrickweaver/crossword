@@ -27,7 +27,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, selectionStart} = event.target;
     setSelectionStart((selectionStart || 0));
-    props.updateClueAnswer("answer", value, selectionStart || 0);
+    props.updateClueAnswer("answer", value.toUpperCase(), selectionStart || 0);
   }
 
   function updateClue(event: React.ChangeEvent<HTMLInputElement>): void {

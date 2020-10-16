@@ -37,7 +37,7 @@ function App() {
   
 
   function letterOrBlank(letter: (string | null)): string {
-    return (letter || " ").toUpperCase();
+    return (letter || " ");
   }
 
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
@@ -163,10 +163,19 @@ function App() {
     
     let editIndex = selectionStart || 1;
     if (type === "answer") {
+      
+      const oldLength: number = uca.answer.length;
+      if (newValue.length < oldLength) {
+      const filler = " ".repeat(oldLength - newValue.length);
+      // Deleted characters: 
+        uca.answer = (newValue.slice(0, editIndex) + filler + newValue.slice(editIndex, newValue.length));
+      } else {
+      // Added characteres:
       // Remove character after cursor and trim
       // to the correct length
-      const oldLength: number = uca.answer.length;
-      uca.answer = (newValue.slice(0, editIndex) + newValue.slice(editIndex + 1, newValue.length)).slice(0, oldLength);
+        uca.answer = (newValue.slice(0, editIndex) + newValue.slice(editIndex + 1, newValue.length)).slice(0, oldLength);
+      }
+      
     } else {
       uca.clue = newValue;
     }
