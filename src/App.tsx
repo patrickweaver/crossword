@@ -36,6 +36,10 @@ function App() {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(calculateBoard(board)[1]);
   
 
+  function letterOrBlank(letter: (string | null)): string {
+    return (letter || " ").toUpperCase();
+  }
+
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
     
     const boardSize = board.length;
@@ -102,12 +106,12 @@ function App() {
           direction: 'across',
           number: square.acrossWordNumber,
           clue: '',
-          answer: `${square.letter || " "}`
+          answer: letterOrBlank(square.letter)
         }
         clueAnswers[0].push(ca);
       } else {
         const caIndex = acrossNumbers.indexOf(square.acrossWordNumber);
-        const ca = clueAnswers[0][caIndex].answer += square.letter || " ";
+        const ca = clueAnswers[0][caIndex].answer += letterOrBlank(square.letter);
       }
       
       
@@ -117,12 +121,12 @@ function App() {
           direction: 'down',
           number: square.downWordNumber,
           clue: '',
-          answer: `${square.letter || " "}`
+          answer: letterOrBlank(square.letter)
         }
         clueAnswers[1].push(ca);
       } else {
         const caIndex = downNumbers.indexOf(square.downWordNumber);
-        const ca = clueAnswers[1][caIndex].answer += square.letter || " ";
+        const ca = clueAnswers[1][caIndex].answer += letterOrBlank(square.letter);
       }
   
       return clueAnswers;

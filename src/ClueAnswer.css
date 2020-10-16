@@ -11,10 +11,12 @@
 	margin: .25em auto;
   border: 1px solid black;
   border-radius: 3px;
-	width: (7 * (1ch + (1ch * 0.5)));
+}
+
+.clue-answer input.answer {
+  width: (7 * (1ch + (1ch * 0.5)));
 	letter-spacing: 1ch;
 	font: 2ch "Lucida Console", Monaco, monospace;
-
 }
 
 .clue-answer input:focus {
