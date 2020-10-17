@@ -7,88 +7,33 @@ import Clues from './Clues';
 import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
+import blankBoard from './helpers/blankBoard';
+import clearBoardNumbers from './helpers/clearBoardNumbers';
+import letterOrBlank from './helpers/letterOrBlank';
 import nArray from './helpers/nArray';
-
-const defaultBoardSize: number = 8;
-const rowCols: number[] = nArray(defaultBoardSize);
-
-const initialBoard: boardSquare[][] = rowCols.map((rowIndex: number) => {
-  return rowCols.map((colIndex: number) => {
-    const bs: boardSquare = {
-      active: true,
-      letter: "",
-      wordStart: [false, false],
-      acrossWordNumber: null,
-      downWordNumber: null,
-      squareNumber: (rowIndex * defaultBoardSize) + colIndex,
-    }
-    return bs;
-  });
-});
+import reNumberBoard from './helpers/reNumberBoard';
 
 function App() {
+  const defaultBoardSize: number = 8;
+  const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
-  const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(initialBoard)
+  // - - - - - - - - -
+  // State
+  // - - - - - - - - -
   const [boardSize, setBoardSize] = useState(defaultBoardSize);
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
-
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(calculateBoard(board)[1]);
-  
-
-  function letterOrBlank(letter: (string | null)): string {
-    return (letter || " ");
-  }
 
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
-    
+
     const boardSize = board.length;
     const flatBoard = board.flat();
-    let wordNumber = 1;
-    const wordStartFlatBoard = flatBoard.reduce((updatedFlatBoard: boardSquare[], square: boardSquare, index: number): boardSquare[] => {
-  
-      // Clear all word numbers:
-      square.wordStart = [false, false];
-      square.acrossWordNumber = null;
-      square.downWordNumber = null;
-  
-      if (square.active) {
-        // Find across words:
-        if (
-          index % boardSize === 0 // First column
-          || !flatBoard[index - 1].active // To the right of a black square
-        ) {
-          square.wordStart[0] = true;
-          square.acrossWordNumber = wordNumber;
-        }
-        // Find down words:
-        if (
-          index < boardSize // First row
-          || !flatBoard[index - boardSize].active // Under a black square
-        ) {
-          square.wordStart[1] = true;
-          square.downWordNumber = wordNumber;
-        }
-  
-        if (square.wordStart[0] || square.wordStart[1]) {
-          wordNumber += 1;
-        }
-      
-      
-        // Check Across:
-        if (!square.acrossWordNumber) {
-          square.acrossWordNumber = updatedFlatBoard[index - 1].acrossWordNumber;
-        }
-        if (!square.downWordNumber) {
-          square.downWordNumber = updatedFlatBoard[index - boardSize].downWordNumber;
-        }
 
-        
-      
-      }
-      updatedFlatBoard.push(square);
-      return updatedFlatBoard;
-    }, []);
+    const flatBoardCleared = clearBoardNumbers(flatBoard);
+
+    // Update each square based on other squares across and down from it
+    const wordStartFlatBoard = reNumberBoard(flatBoardCleared, boardSize);
   
     // Find Across and Down Clues:
     const clueAnswers: clueAnswer[][] = wordStartFlatBoard.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
@@ -113,8 +58,6 @@ function App() {
         const caIndex = acrossNumbers.indexOf(square.acrossWordNumber);
         const ca = clueAnswers[0][caIndex].answer += letterOrBlank(square.letter);
       }
-      
-      
       
       if (square.wordStart[1]) {
         const ca: clueAnswer = {
@@ -141,6 +84,7 @@ function App() {
   }
 
   function reGridBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[][] {
+    const rowCols: number[] = nArray(boardSize);
     return rowCols.map((rowIndex: number): boardSquare[] => {
       return rowCols.map((colIndex: number): boardSquare => {
         const index = (rowIndex * boardSize) + colIndex;
@@ -158,8 +102,7 @@ function App() {
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
-    const uca: clueAnswer = updatedCAs[dirIndex][caIndex]
-    
+    const uca: clueAnswer = updatedCAs[dirIndex][caIndex];
     
     let editIndex = selectionStart || 1;
     if (type === "answer") {
@@ -175,10 +118,11 @@ function App() {
       // to the correct length
         uca.answer = (newValue.slice(0, editIndex) + newValue.slice(editIndex + 1, newValue.length)).slice(0, oldLength);
       }
-      
     } else {
       uca.clue = newValue;
     }
+    console.log(`|${uca.answer}|`);
+    console.log(updatedCAs);
 
     setClueAnswers(updatedCAs);
     
@@ -204,7 +148,15 @@ function App() {
   }
 
   function updateBoardSize(event: React.ChangeEvent<HTMLInputElement>): void {
-    setBoardSize(parseInt(event.target.value));
+    const newBoardSize: number = parseInt(event.target.value);
+    if (newBoardSize < boardSize) {
+      const updatedBoard = board.map((i, index) => {
+
+      });
+    } else if (newBoardSize > boardSize) {
+
+    }
+    setBoardSize(newBoardSize);
   }
 
   return (

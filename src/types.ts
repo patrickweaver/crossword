@@ -19,3 +19,15 @@ export interface clueAnswerUpdate {
   dirIndex: number;
   caIndex: number;
 }
+
+export interface boardSquareContext {
+  flatBoard: boardSquare[];
+  index: number;
+  boardSize: number;
+}
+
+export interface wordStart {
+  acrossWordStart: boolean;
+  downWordStart: boolean;
+  eitherWordStart: boolean;
+}

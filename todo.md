@@ -3,12 +3,11 @@
 
 ## Doing
 
-
+- Update board size on boardSize change
 
 ## To Do
 
 - Scroll clueAnswers behind board
-- Update board size on boardSize change
 - Make board responsive (min width/shrinking)
 - Symmetry mode
 - Move onChange out of clueAnswer list generating function

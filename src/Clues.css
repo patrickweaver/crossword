@@ -1,3 +1,7 @@
+.clue-answers {
+  list-style-type: none;
+}
+
 .clue-answers-list {
   text-align: left;
   margin: 0 auto;

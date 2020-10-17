@@ -47,7 +47,7 @@ function Clues(props: cluesProps): JSX.Element {
   return (
     <div>
       <h2>Clues</h2>
-        <ul>
+        <ul className="clue-answers">
           <li>
             <h3>Across:</h3>
             {cluesList(props.clueAnswers[0], 0)}

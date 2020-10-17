@@ -45,6 +45,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         value={props.square.letter || ''}
         onChange={addLetter}
         onClick={selectLetterOnFocus}
+        //onFocus={selectLetterOnFocus}
         maxLength={1}
       />
     </div>
