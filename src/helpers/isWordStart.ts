@@ -1,5 +1,7 @@
 import { boardSquareContext, wordStart } from '../types';
 
+// Determine whether a square at an index of a flattened board is the start of a down word, an across word, or either
+
 export default function isWordStart({flatBoard, index, boardSize}: boardSquareContext): wordStart {
 
   const firstCol = index % boardSize === 0;

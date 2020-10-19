@@ -7,6 +7,7 @@
 
 ## To Do
 
+- Preserve previously entered clues
 - Scroll clueAnswers behind board
 - Make board responsive (min width/shrinking)
 - Symmetry mode

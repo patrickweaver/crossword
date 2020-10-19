@@ -8,8 +8,7 @@ import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
 import blankBoard from './helpers/blankBoard';
-import clearBoardNumbers from './helpers/clearBoardNumbers';
-import letterOrBlank from './helpers/letterOrBlank';
+import clueAnswersFromFlatBoard from './helpers/clueAnswersFromFlatBoard';
 import nArray from './helpers/nArray';
 import reNumberBoard from './helpers/reNumberBoard';
 
@@ -23,64 +22,24 @@ function App() {
   const [boardSize, setBoardSize] = useState(defaultBoardSize);
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
   // Build clueAnswers arrays from default empty board.
-  const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(calculateBoard(board)[1]);
+  const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
 
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
 
     const boardSize = board.length;
-    const flatBoard = board.flat();
 
-    const flatBoardCleared = clearBoardNumbers(flatBoard);
-
-    // Update each square based on other squares across and down from it
-    const wordStartFlatBoard = reNumberBoard(flatBoardCleared, boardSize);
+    // Update each square's word numbers based on
+    // other squares across and down from it
+    const flatBoardWithWordNumbers = reNumberBoard(board.flat(), boardSize);
   
     // Find Across and Down Clues:
-    const clueAnswers: clueAnswer[][] = wordStartFlatBoard.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
-
-      if (!square.acrossWordNumber || !square.downWordNumber) {
-        return clueAnswers;
-      }
-      
-      const acrossNumbers = clueAnswers[0].map(i => i.number);
-      const downNumbers = clueAnswers[1].map(i => i.number);
-  
-      if (square.wordStart[0]) {
-      // Find starts of words
-        const ca: clueAnswer = {
-          direction: 'across',
-          number: square.acrossWordNumber,
-          clue: '',
-          answer: letterOrBlank(square.letter)
-        }
-        clueAnswers[0].push(ca);
-      } else {
-        const caIndex = acrossNumbers.indexOf(square.acrossWordNumber);
-        const ca = clueAnswers[0][caIndex].answer += letterOrBlank(square.letter);
-      }
-      
-      if (square.wordStart[1]) {
-        const ca: clueAnswer = {
-          direction: 'down',
-          number: square.downWordNumber,
-          clue: '',
-          answer: letterOrBlank(square.letter)
-        }
-        clueAnswers[1].push(ca);
-      } else {
-        const caIndex = downNumbers.indexOf(square.downWordNumber);
-        const ca = clueAnswers[1][caIndex].answer += letterOrBlank(square.letter);
-      }
-  
-      return clueAnswers;
-  
-    }, [[], []]);
+    const updatedClueAnswers: clueAnswer[][] = clueAnswersFromFlatBoard(flatBoardWithWordNumbers);
   
   
     // Put board back into 2D array
-    const reGridedBoard: boardSquare[][] = reGridBoard(wordStartFlatBoard, boardSize);
+    const reGridedBoard: boardSquare[][] = reGridBoard(flatBoardWithWordNumbers, boardSize);
   
-    return [reGridedBoard, clueAnswers];
+    return [reGridedBoard, updatedClueAnswers];
   }
 
   function reGridBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[][] {

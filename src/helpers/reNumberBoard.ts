@@ -1,10 +1,16 @@
 import { boardSquare, boardSquareContext, wordStart } from '../types';
 import isWordStart from './isWordStart';
+import clearBoardNumbers from './clearBoardNumbers';
+
+// Update down and across word numbers based on active board squares
 
 export default function reNumberBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[] {
+
+  const flatBoardCleared = clearBoardNumbers(flatBoard);
+
   let wordNumber = 1; // clueAnswers are 1 indexed
-  
-  return flatBoard.reduce((updatedFlatBoard: boardSquare[], square: boardSquare, index: number, flatBoard: boardSquare[]): boardSquare[] => {
+
+  return flatBoardCleared.reduce((updatedFlatBoard: boardSquare[], square: boardSquare, index: number, flatBoard: boardSquare[]): boardSquare[] => {
 
     const bsContext: boardSquareContext = { flatBoard, index, boardSize }
     const { downWordStart, acrossWordStart, eitherWordStart }: wordStart = isWordStart(bsContext);
