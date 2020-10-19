@@ -9,7 +9,7 @@ import { boardSquare, clueAnswer } from './types';
 // Helpers:
 import blankBoard from './helpers/blankBoard';
 import clueAnswersFromFlatBoard from './helpers/clueAnswersFromFlatBoard';
-import nArray from './helpers/nArray';
+import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
 
 function App() {
@@ -35,21 +35,10 @@ function App() {
     // Find Across and Down Clues:
     const updatedClueAnswers: clueAnswer[][] = clueAnswersFromFlatBoard(flatBoardWithWordNumbers);
   
-  
     // Put board back into 2D array
     const reGridedBoard: boardSquare[][] = reGridBoard(flatBoardWithWordNumbers, boardSize);
   
     return [reGridedBoard, updatedClueAnswers];
-  }
-
-  function reGridBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[][] {
-    const rowCols: number[] = nArray(boardSize);
-    return rowCols.map((rowIndex: number): boardSquare[] => {
-      return rowCols.map((colIndex: number): boardSquare => {
-        const index = (rowIndex * boardSize) + colIndex;
-        return flatBoard[index];
-      });
-    });
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
