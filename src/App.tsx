@@ -13,7 +13,7 @@ import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
 
 function App() {
-  const defaultBoardSize: number = 8;
+  const defaultBoardSize: number = 9;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
@@ -23,6 +23,7 @@ function App() {
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
+  const [mode, setMode] = useState<string>('normal');
 
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
 
@@ -42,7 +43,6 @@ function App() {
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
-
     const [recalculatedUpdatedBoard, clueAnswers] = calculateBoard(updatedBoard);
     setBoard(recalculatedUpdatedBoard);
     setClueAnswers(clueAnswers)
@@ -114,11 +114,20 @@ function App() {
         <label>Board Size:</label>
         <input value={boardSize} onChange={updateBoardSize} />
       </div>
+
+      <h3>Current Mode: <span>{mode}</span></h3>
+      <select onChange={(e) => setMode(e.target.value)}>
+        <option>normal</option>
+        <option>horizontal</option>
+        <option>vertical</option>
+        <option>diagonal</option>
+      </select>
       <Board
         clueAnswers={clueAnswers}
         board={board}
         boardSize={boardSize}
         updateBoard={recalculateBoard}
+        mode={mode}
       />
       <Clues
         clueAnswers={clueAnswers}

@@ -2,7 +2,7 @@ import { boardSquare } from '../types';
 
 import nArray from './nArray';
 
-// Converts a flattened board back into a 2D grid
+// Converts a flattened board back into a 2D grid 
 
 export default function reGridBoard(flatBoard: boardSquare[], boardSize: number): boardSquare[][] {
   const rowCols: number[] = nArray(boardSize);

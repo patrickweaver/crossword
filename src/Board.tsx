@@ -10,14 +10,36 @@ export interface boardProps {
   board: any,
   boardSize: number,
   updateBoard: (board: boardSquare[][]) => void,
+  mode: string,
 }
 
 function Board(props: boardProps): JSX.Element {
 
-  const createBoardSquareSetter = (rowIndex: number, colIndex: number): (updatedSquare: boardSquare) => void => {
-    return (updatedSquare: boardSquare) => {
+  const createBoardSquareSetter = (rowIndex: number, colIndex: number): (updatedSquares: boardSquare[]) => void => {
+
+    let partners: number[][] = [];
+
+    if (props.mode === 'normal') {
+
+    } else if (props.mode === 'diagonal') {
+      //const index = (props.rowIndex - 1 * props.boardSize) + props.colIndex;
+      //const partnerIndex = (props.boardSize * props.boardSize) - 1 - index;
+      const partnerIndex = [props.boardSize - rowIndex - 1, props.boardSize - colIndex - 1]
+
+      partners.push(partnerIndex)
+    } else if (props.mode === 'horizontal') {
+
+    } else if (props.mode === 'vertical') {
+
+    } else {
+      // Mode doens't exist yet.
+    }
+
+
+    return (updatedSquares: boardSquare[]) => {
       const updatedBoard: boardSquare[][] = [...props.board];
-      updatedBoard[rowIndex][colIndex] = updatedSquare;
+      updatedBoard[rowIndex][colIndex] = updatedSquares[0];
+      updatedBoard[partners[0][0]][partners[0][1]].active = !props.board[partners[0][0]][partners[0][1]].active
       props.updateBoard(updatedBoard);
     }
   }
@@ -34,6 +56,7 @@ function Board(props: boardProps): JSX.Element {
               boardSize={props.boardSize}
               square={square}
               setBoardSquare={createBoardSquareSetter(rowIndex, colIndex)}
+              mode={props.mode}
             />
           })
         }
