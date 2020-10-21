@@ -121,6 +121,8 @@ function App() {
         <option>horizontal</option>
         <option>vertical</option>
         <option>diagonal</option>
+        <option>horizontal-vertical</option>
+        <option>square</option>
       </select>
       <Board
         clueAnswers={clueAnswers}

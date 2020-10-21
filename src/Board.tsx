@@ -15,31 +15,34 @@ export interface boardProps {
 
 function Board(props: boardProps): JSX.Element {
 
-  const createBoardSquareSetter = (rowIndex: number, colIndex: number): (updatedSquares: boardSquare[]) => void => {
-
+  const createBoardSquareSetter = (rowIndex: number, colIndex: number): (updatedSquare: boardSquare) => void => {
+    const end = props.boardSize - 1;
+    const mode = props.mode;
     let partners: number[][] = [];
-
-    if (props.mode === 'normal') {
-
-    } else if (props.mode === 'diagonal') {
-      //const index = (props.rowIndex - 1 * props.boardSize) + props.colIndex;
-      //const partnerIndex = (props.boardSize * props.boardSize) - 1 - index;
-      const partnerIndex = [props.boardSize - rowIndex - 1, props.boardSize - colIndex - 1]
-
-      partners.push(partnerIndex)
-    } else if (props.mode === 'horizontal') {
-
-    } else if (props.mode === 'vertical') {
-
-    } else {
-      // Mode doens't exist yet.
+    
+    if (mode === 'diagonal' || mode === 'square') {
+      const partnerIndexes = [end - rowIndex, end - colIndex];
+      partners.push(partnerIndexes);
+    }
+    
+    if (mode === 'horizontal' || mode === 'horizontal-vertical'|| mode === 'square') {
+      const partnerIndexes = [rowIndex, end - colIndex];
+      partners.push(partnerIndexes);
+    }
+    
+    if (mode === 'vertical' || mode === 'horizontal-vertical'|| mode === 'square') {
+      const partnerIndexes = [end - rowIndex, colIndex];
+      partners.push(partnerIndexes);
     }
 
-
-    return (updatedSquares: boardSquare[]) => {
+    return (updatedSquare: boardSquare) => {
       const updatedBoard: boardSquare[][] = [...props.board];
-      updatedBoard[rowIndex][colIndex] = updatedSquares[0];
-      updatedBoard[partners[0][0]][partners[0][1]].active = !props.board[partners[0][0]][partners[0][1]].active
+      const newStatus = updatedSquare.active;
+      updatedBoard[rowIndex][colIndex] = updatedSquare;
+      partners.forEach(partner => {
+        const [pRow, pCol] = partner;
+        updatedBoard[pRow][pCol].active = newStatus;
+      });
       props.updateBoard(updatedBoard);
     }
   }

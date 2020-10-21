@@ -10,7 +10,7 @@ export interface boardSquareProps {
   square: boardSquare,
   boardSize: number,
   setBoardSquare: (
-    updatedBoardSquares: boardSquare[],
+    updatedSquare: boardSquare,
   ) => void,
   mode: string,
 }
@@ -20,7 +20,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   function toggleSquareActive(event: React.MouseEvent<HTMLDivElement>): void {
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
-    props.setBoardSquare([updatedSquare]);
+    props.setBoardSquare(updatedSquare);
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -28,7 +28,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     const updatedSquare = props.square;
     updatedSquare.letter = event.target.value.toUpperCase();
     console.log(updatedSquare.letter);
-    props.setBoardSquare([updatedSquare]);
+    props.setBoardSquare(updatedSquare);
     const target = event.target;
     setTimeout(() => target.setSelectionRange(0, target.value.length), 0)
   }

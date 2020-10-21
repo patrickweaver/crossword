@@ -7,10 +7,11 @@
 
 ## To Do
 
+- Activate all squares button
+- Clear all letters button
 - Preserve previously entered clues
 - Scroll clueAnswers behind board
 - Make board responsive (min width/shrinking)
-- Symmetry mode
 - Move onChange out of clueAnswer list generating function
 - Navigate with arrow keys
 - Dictionary suggestions
@@ -23,6 +24,7 @@
 
 ## Done
 
+- Symmetry mode
 - Answer and board letters uppercase
 - Fix: Can delete answer letters
 - Style on clue input
