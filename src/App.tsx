@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Board from './Board';
 import Clues from './Clues';
+import ModeSelect from './ModeSelect';
 
 // Types:
 import { boardSquare, clueAnswer } from './types';
@@ -142,15 +143,8 @@ function App() {
         <input type="number" value={boardSize} onChange={updateBoardSize} />
       </div>
 
-      <h3>Current Mode: <span>{mode}</span></h3>
-      <select onChange={(e) => setMode(e.target.value)}>
-        <option>normal</option>
-        <option>horizontal</option>
-        <option>vertical</option>
-        <option>diagonal</option>
-        <option>horizontal-vertical</option>
-        <option>square</option>
-      </select>
+      <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
+      
       <Board
         clueAnswers={clueAnswers}
         board={board}

@@ -3,11 +3,11 @@
 
 ## Doing
 
-- Update board size on boardSize change
+- Board size in modal to prevent accidental shrinks
 
 ## To Do
 
-- Board size in modal to prevent accidental shrinks
+
 - Activate all squares button
 - Clear all letters button
 - Preserve previously entered clues
@@ -25,6 +25,7 @@
 
 ## Done
 
+- Update board size on boardSize change
 - Symmetry mode
 - Answer and board letters uppercase
 - Fix: Can delete answer letters
