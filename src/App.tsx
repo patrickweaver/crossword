@@ -8,7 +8,9 @@ import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
 import blankBoard from './helpers/blankBoard';
+import blankSquare from './helpers/blankSquare';
 import clueAnswersFromFlatBoard from './helpers/clueAnswersFromFlatBoard';
+import nArray from './helpers/nArray';
 import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
 
@@ -97,13 +99,38 @@ function App() {
 
   function updateBoardSize(event: React.ChangeEvent<HTMLInputElement>): void {
     const newBoardSize: number = parseInt(event.target.value);
+    let updatedBoard: boardSquare[][] = [...board];
     if (newBoardSize < boardSize) {
-      const updatedBoard = board.map((i, index) => {
-
-      });
+      updatedBoard = board
+        // remove squares from each row:
+        .map((row) => row.slice(0, newBoardSize))
+        // remove rows beyond board size:
+        .filter((_, index) => index < newBoardSize);
     } else if (newBoardSize > boardSize) {
-
+      const diff: number = newBoardSize - boardSize;
+      const diffBlankArray: number[] = nArray(diff);
+      const fullBlankArray: number[] = nArray(newBoardSize);
+      // Function to build an array of squares when we know the rowIndex
+      const makePaddingSquares = (rowIndex: number): boardSquare[] => {
+        return diffBlankArray.map((padIndex) => {
+          return blankSquare(rowIndex, boardSize + padIndex, newBoardSize);
+        });
+      }
+      // Function to build a full row array of square when we know the rowIndex
+      const makeFullRow = (rowIndex: number): boardSquare[] => {
+        return fullBlankArray.map((colIndex) => blankSquare(rowIndex, colIndex, newBoardSize));
+      }
+      const extraRows: boardSquare[][] = diffBlankArray.map((padIndex) => {
+        return makeFullRow(boardSize + padIndex);
+      });
+      updatedBoard = board
+        // add blank squares to each row:
+        .map((row, index) => row.concat(makePaddingSquares(index)))
+        // add additional blank rows:
+        .concat(extraRows);
     }
+    setBoard(updatedBoard);
+    recalculateBoard(updatedBoard);
     setBoardSize(newBoardSize);
   }
 
@@ -112,7 +139,7 @@ function App() {
       <h1>Crossword Puzzle Editor</h1>
       <div id="board-size">
         <label>Board Size:</label>
-        <input value={boardSize} onChange={updateBoardSize} />
+        <input type="number" value={boardSize} onChange={updateBoardSize} />
       </div>
 
       <h3>Current Mode: <span>{mode}</span></h3>

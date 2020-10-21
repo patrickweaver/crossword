@@ -7,6 +7,7 @@
 
 ## To Do
 
+- Board size in modal to prevent accidental shrinks
 - Activate all squares button
 - Clear all letters button
 - Preserve previously entered clues
