@@ -4,7 +4,7 @@ import './BoardSquare.css';
 // Types:
 import { boardSquare } from './types';
 
-export interface boardSquareProps {
+interface boardSquareProps {
   rowIndex: number,
   colIndex: number,
   square: boardSquare,
@@ -24,7 +24,6 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
-    //console.log(event.target.value.toUpperCase())
     const updatedSquare = props.square;
     updatedSquare.letter = event.target.value.toUpperCase();
     console.log(updatedSquare.letter);

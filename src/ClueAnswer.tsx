@@ -5,7 +5,7 @@ import './ClueAnswer.css';
 // Types:
 import { clueAnswer } from './types';
 
-export interface clueAnswerProps {
+interface clueAnswerProps {
   clueAnswer: clueAnswer,
   updateClueAnswer: (type: ("answer" | "clue"), newValue: string, selectionStart?: number) => void,
 }

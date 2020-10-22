@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Board from './Board';
+import BoardSize from './BoardSize';
 import Clues from './Clues';
 import ModeSelect from './ModeSelect';
 
@@ -138,10 +139,8 @@ function App() {
   return (
     <div className="App">
       <h1>Crossword Puzzle Editor</h1>
-      <div id="board-size">
-        <label>Board Size:</label>
-        <input type="number" value={boardSize} onChange={updateBoardSize} />
-      </div>
+
+      <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
 
       <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
       

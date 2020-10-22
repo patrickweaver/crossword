@@ -6,7 +6,7 @@ import ClueAnswer from './ClueAnswer';
 // Types:
 import { clueAnswer } from './types';
 
-export interface cluesProps {
+interface cluesProps {
   clueAnswers: clueAnswer[][],
   updateClueAnswer: (type: ("answer" | "clue"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number) => void,
 }
