@@ -7,7 +7,15 @@ import { clueAnswer } from './types';
 
 interface clueAnswerProps {
   clueAnswer: clueAnswer,
-  updateClueAnswer: (type: ("answer" | "clue"), newValue: string, selectionStart?: number) => void,
+  updateClueAnswer: (
+    type: ("answer" | "clue"),
+    newValue: string,
+    index: number,
+    dirIndex: number,
+    selectionStart?: number
+  ) => void,
+  dirIndex: number,
+  index: number,
 }
 
 function ClueAnswer(props: clueAnswerProps): JSX.Element {
@@ -27,12 +35,12 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   function updateAnswer(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value, selectionStart} = event.target;
     setSelectionStart((selectionStart || 0));
-    props.updateClueAnswer("answer", value.toUpperCase(), selectionStart || 0);
+    props.updateClueAnswer("answer", value.toUpperCase(), props.index, props.dirIndex, selectionStart || 0);
   }
 
   function updateClue(event: React.ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
-    props.updateClueAnswer("clue", value);
+    props.updateClueAnswer("clue", value, props.index, props.dirIndex);
   }
 
   const answerInputStyle = {

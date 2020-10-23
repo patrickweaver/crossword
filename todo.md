@@ -3,7 +3,6 @@
 
 ## Doing
 
-- Move onChange out of clueAnswer list generating function
 
 
 ## To Do
@@ -23,6 +22,7 @@
 
 ## Done
 
+- Move onChange out of clueAnswer list generating function
 - Preserve previously entered clues
 - Fix down clue entering
 - Board size in modal to prevent accidental shrinks

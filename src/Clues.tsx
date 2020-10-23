@@ -13,33 +13,39 @@ interface cluesProps {
 
 function Clues(props: cluesProps): JSX.Element {
 
+  function updateClueAnswer(
+    type: ("answer" | "clue"),
+    newValue: string,
+    index: number,
+    dirIndex: number,
+    selectionStart?: number,
+  ) {
+    if (type === "answer") {
+      props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
+    } else {
+      props.updateClueAnswer(type, newValue, dirIndex, index)
+    }
+  }
+
   const cluesList = (clueAnswers: clueAnswer[], dirIndex: number): JSX.Element => {
 
     return (
       <ol className="clue-answers-list">
-        {clueAnswers.map((item: clueAnswer, index: number) => {
+        {clueAnswers.map(
+          (item: clueAnswer, index: number) => {
 
-          function updateClueAnswer(
-            type: ("answer" | "clue"),
-            newValue: string,
-            selectionStart?: number
-          ) {
-            if (type === "answer") {
-              props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
-            } else {
-              props.updateClueAnswer(type, newValue, dirIndex, index)
-            }
+            return (
+              <li key={index} value={item.number}>
+                <ClueAnswer
+                  clueAnswer={item}
+                  updateClueAnswer={updateClueAnswer}
+                  dirIndex={dirIndex}
+                  index={index}
+                />
+              </li>
+            )
           }
-
-          return (
-            <li key={index} value={item.number}>
-              <ClueAnswer
-                clueAnswer={item}
-                updateClueAnswer={updateClueAnswer}
-              />
-            </li>
-          )
-        })}
+        )}
       </ol>
     )
   }
