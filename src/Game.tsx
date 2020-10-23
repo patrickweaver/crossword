@@ -15,8 +15,6 @@ import { boardSquare, clueAnswer } from './types';
 
 export default function Game(): JSX.Element {
 
-  
-
   const hash = window.location.hash
   const hashTrimmed = hash.slice(1, hash.length);
   const [hashBoard, hashClueAnswers] = expandState(hashTrimmed)
@@ -34,6 +32,7 @@ export default function Game(): JSX.Element {
         <Board
           clueAnswers={clueAnswers}
           board={board}
+          correctBoard={hashBoard}
           boardSize={board.length}
           updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
           mode={"game"}

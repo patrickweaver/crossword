@@ -7,7 +7,8 @@ import { boardSquare, clueAnswer } from './types';
 
 interface boardProps {
   clueAnswers: clueAnswer[][],
-  board: any,
+  board: boardSquare[][],
+  correctBoard?: boardSquare[][],
   boardSize: number,
   updateBoard: (board: boardSquare[][]) => void,
   mode: string,
@@ -47,11 +48,12 @@ function Board(props: boardProps): JSX.Element {
     }
   }
 
-  const boardSquares: JSX.Element = props.board.map((row: boardSquare[], rowIndex: number): JSX.Element => {
+  const boardSquares: JSX.Element[] = props.board.map((row: boardSquare[], rowIndex: number): JSX.Element => {
     return (
       <div key={`row-${rowIndex}`} className="board-row">
         {
           row.map((square: boardSquare, colIndex: number): JSX.Element => {
+            const answer = props.correctBoard ? props.correctBoard[rowIndex][colIndex].letter : null;
             return <BoardSquare
               key={`${rowIndex}-${colIndex}`}
               rowIndex={rowIndex}
@@ -60,6 +62,7 @@ function Board(props: boardProps): JSX.Element {
               square={square}
               setBoardSquare={createBoardSquareSetter(rowIndex, colIndex)}
               mode={props.mode}
+              answer={answer}
             />
           })
         }

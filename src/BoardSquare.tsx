@@ -13,6 +13,7 @@ interface boardSquareProps {
     updatedSquare: boardSquare,
   ) => void,
   mode: string,
+  answer: (string | null),
 }
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
@@ -37,9 +38,12 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     target.setSelectionRange(0, target.value.length); 
   }
 
+  const letterClass: string = props.mode === "game" ? (props.answer === props.square.letter ? "correct" : "incorrect") : "";
+
   const letter = 
     <div className="letter">
       <input
+        className={letterClass}
         type="text"
         value={props.square.letter || ''}
         onChange={addLetter}
