@@ -99,8 +99,7 @@ function App() {
 
   }
 
-  function updateBoardSize(event: React.ChangeEvent<HTMLInputElement>): void {
-    const newBoardSize: number = parseInt(event.target.value);
+  function updateBoardSize(newBoardSize: number): void {
     let updatedBoard: boardSquare[][] = [...board];
     if (newBoardSize < boardSize) {
       updatedBoard = board

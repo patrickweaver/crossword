@@ -1,0 +1,9 @@
+.bs-label {
+  display: block;
+  margin: 0 0 .5em;
+}
+
+.bs-element {
+  display: inline-block;
+  margin: 0 5px;
+}
