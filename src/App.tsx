@@ -17,7 +17,7 @@ import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
 
 function App() {
-  const defaultBoardSize: number = 9;
+  const defaultBoardSize: number = 3;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
@@ -73,22 +73,25 @@ function App() {
     } else {
       uca.clue = newValue;
     }
-    console.log(`|${uca.answer}|`);
-    console.log(updatedCAs);
 
     setClueAnswers(updatedCAs);
     
 
     if (type === "answer") {
+      // store kind of answer in property
       const property: ("acrossWordNumber" | "downWordNumber") = dirIndex === 0 ? "acrossWordNumber" : "downWordNumber";
-      let firstLetterIndex: (number | null) = null;
-      const boardSquaresFlat: boardSquare[] = board.flat().map((bs: boardSquare, index: number): boardSquare => {
-        const updatedBoardSquare = bs;
-        // Update board square with new value
-        if (bs[property] === uca.number) {
-          if (firstLetterIndex === null) firstLetterIndex = index;
-          updatedBoardSquare.letter = uca.answer[index - firstLetterIndex];
-        }
+
+      // Store new answer in flattened boardSquares array:
+      let answerIndex = 0;
+      const boardSquaresFlat: boardSquare[] = board
+        .flat()
+        .map((bs: boardSquare, index: number): boardSquare => {
+          const updatedBoardSquare = bs;
+          // Update board square with new value
+          if (bs[property] === uca.number) {
+            updatedBoardSquare.letter = uca.answer[answerIndex];
+            answerIndex += 1;
+          }
         
         return updatedBoardSquare;
       });
