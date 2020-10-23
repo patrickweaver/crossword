@@ -10,11 +10,14 @@ import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
 import blankBoard from './helpers/blankBoard';
-import blankSquare from './helpers/blankSquare';
 import clueAnswersFromFlatBoard from './helpers/clueAnswersFromFlatBoard';
-import nArray from './helpers/nArray';
+import extractClues from './helpers/extractClues';
+import reAddClues from './helpers/reAddClues';
 import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
+import reSizeBoard from './helpers/reSizeBoard';
+import updateAnswer from './helpers/updateAnswer';
+import updateAnswersOnBoard from './helpers/updateAnswersOnBoard';
 
 function App() {
   const defaultBoardSize: number = 9;
@@ -48,53 +51,20 @@ function App() {
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
     // Save clue values:
-    const clues: {[key: number]: string}[] = clueAnswers.map(ar => {
-      return ar.reduce((a, c) => {
-        const index: (number | null) = c.firstLetterSquareNumber
-        if (index != null) {
-          a[index] = c.clue;
-        }
-        return a;
-      }, {} as {[key: number]: string});
-    })
-    const [recalculatedUpdatedBoard, updatedClues] = calculateBoard(updatedBoard);
+    const clues: {[key: number]: string}[] = extractClues(clueAnswers);
+    // Update clueAnswer numbers:
+    const [recalculatedUpdatedBoard, updatedAnswers] = calculateBoard(updatedBoard);
     // Re-add clue values:
-    const updatedClueAnswers = updatedClues.map((clueOrAnserArray, coaaIndex) => {
-      return clueOrAnserArray.map((ca, caIndex) => {
-        const answerFirstLetterNumber = ca.firstLetterSquareNumber;
-        if (
-          answerFirstLetterNumber !== null
-          && clues[coaaIndex][answerFirstLetterNumber]
-        ) {
-          ca.clue = clues[coaaIndex][answerFirstLetterNumber];
-        } else {
-          ca.clue = "";
-        }
-        return ca;
-      });
-    });
+    const updatedClueAnswers: clueAnswer[][] = reAddClues(updatedAnswers, clues)
     setBoard(recalculatedUpdatedBoard);
     setClueAnswers(updatedClueAnswers)
   }
 
-  const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number): void => {
+  const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
-    const uca: clueAnswer = updatedCAs[dirIndex][caIndex];
-    
-    let editIndex = selectionStart || 1;
+    let uca: clueAnswer = updatedCAs[dirIndex][caIndex];
     if (type === "answer") {
-      
-      const oldLength: number = uca.answer.length;
-      if (newValue.length < oldLength) {
-      const filler = " ".repeat(oldLength - newValue.length);
-      // Deleted characters: 
-        uca.answer = (newValue.slice(0, editIndex) + filler + newValue.slice(editIndex, newValue.length));
-      } else {
-      // Added characteres:
-      // Remove character after cursor and trim
-      // to the correct length
-        uca.answer = (newValue.slice(0, editIndex) + newValue.slice(editIndex + 1, newValue.length)).slice(0, oldLength);
-      }
+      uca = updateAnswer(uca, newValue, selectionStart);
     } else {
       uca.clue = newValue;
     } 
@@ -103,22 +73,8 @@ function App() {
     setClueAnswers(updatedCAs);
 
     if (type === "answer") {
-      // store kind of answer in property
-      const property: ("acrossWordNumber" | "downWordNumber") = dirIndex === 0 ? "acrossWordNumber" : "downWordNumber";
-
-      // Store new answer in flattened boardSquares array:
-      let answerIndex = 0;
-      const boardSquaresFlat: boardSquare[] = board
-        .flat()
-        .map((bs: boardSquare, index: number): boardSquare => {
-          const updatedBoardSquare = bs;
-          // Update board square with new value
-          if (bs[property] === uca.number) {
-            updatedBoardSquare.letter = uca.answer[answerIndex];
-            answerIndex += 1;
-          }
-        return updatedBoardSquare;
-      });
+      
+      const boardSquaresFlat = updateAnswersOnBoard(board, uca, dirIndex);
 
       const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
       recalculateBoard(reGridedBoard);
@@ -127,36 +83,7 @@ function App() {
   }
 
   function updateBoardSize(newBoardSize: number): void {
-    let updatedBoard: boardSquare[][] = [...board];
-    if (newBoardSize < boardSize) {
-      updatedBoard = board
-        // remove squares from each row:
-        .map((row) => row.slice(0, newBoardSize))
-        // remove rows beyond board size:
-        .filter((_, index) => index < newBoardSize);
-    } else if (newBoardSize > boardSize) {
-      const diff: number = newBoardSize - boardSize;
-      const diffBlankArray: number[] = nArray(diff);
-      const fullBlankArray: number[] = nArray(newBoardSize);
-      // Function to build an array of squares when we know the rowIndex
-      const makePaddingSquares = (rowIndex: number): boardSquare[] => {
-        return diffBlankArray.map((padIndex) => {
-          return blankSquare(rowIndex, boardSize + padIndex, newBoardSize);
-        });
-      }
-      // Function to build a full row array of square when we know the rowIndex
-      const makeFullRow = (rowIndex: number): boardSquare[] => {
-        return fullBlankArray.map((colIndex) => blankSquare(rowIndex, colIndex, newBoardSize));
-      }
-      const extraRows: boardSquare[][] = diffBlankArray.map((padIndex) => {
-        return makeFullRow(boardSize + padIndex);
-      });
-      updatedBoard = board
-        // add blank squares to each row:
-        .map((row, index) => row.concat(makePaddingSquares(index)))
-        // add additional blank rows:
-        .concat(extraRows);
-    }
+    let updatedBoard: boardSquare[][] = reSizeBoard(board, newBoardSize, boardSize);
     setBoard(updatedBoard);
     recalculateBoard(updatedBoard);
     setBoardSize(newBoardSize);
