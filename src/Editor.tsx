@@ -11,6 +11,8 @@ import { boardSquare, clueAnswer } from './types';
 // Helpers:
 import blankBoard from './helpers/blankBoard';
 import clueAnswersFromFlatBoard from './helpers/clueAnswersFromFlatBoard';
+import condenseState from './helpers/condenseState';
+import expandState from './helpers/expandState';
 import extractClues from './helpers/extractClues';
 import reAddClues from './helpers/reAddClues';
 import reGridBoard from './helpers/reGridBoard';
@@ -31,6 +33,7 @@ function Editor() {
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
   const [mode, setMode] = useState<string>('normal');
+  const [urlState, setUrlState] = useState<string>("");
 
   function calculateBoard(board: boardSquare[][]): [boardSquare[][], clueAnswer[][]] {
 
@@ -57,7 +60,7 @@ function Editor() {
     // Re-add clue values:
     const updatedClueAnswers: clueAnswer[][] = reAddClues(updatedAnswers, clues)
     setBoard(recalculatedUpdatedBoard);
-    setClueAnswers(updatedClueAnswers)
+    setClueAnswers(updatedClueAnswers);
   }
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
@@ -88,9 +91,25 @@ function Editor() {
     setBoardSize(newBoardSize);
   }
 
+  function updateUrlState(b: boardSquare[][], ca: clueAnswer[][]): void {
+    const condensedState: string = condenseState(b, ca);
+    setUrlState(condensedState);
+  }
+
   return (
     <div className="editor">
       <h1>Crossword Puzzle Editor</h1>
+
+      <div id="state">
+      <textarea
+        value={condenseState(board, clueAnswers)}
+        readOnly={true}
+      />
+      <textarea
+        value={JSON.stringify(expandState(condenseState(board, clueAnswers)))}
+        readOnly={true}
+      />
+      </div>
 
       <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
 
