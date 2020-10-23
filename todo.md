@@ -3,15 +3,13 @@
 
 ## Doing
 
+- Move onChange out of clueAnswer list generating function
 
 
 ## To Do
 
-
-- Preserve previously entered clues
 - Scroll clueAnswers behind board
 - Make board responsive (min width/shrinking)
-- Move onChange out of clueAnswer list generating function
 - Navigate with arrow keys
 - Clear all letters button
 - Activate all squares button
@@ -26,6 +24,7 @@
 
 ## Done
 
+- Preserve previously entered clues
 - Fix down clue entering
 - Board size in modal to prevent accidental shrinks
 - Update board size on boardSize change
