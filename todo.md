@@ -7,6 +7,8 @@
 
 ## To Do
 
+- Save state to URL
+- Play mode
 - Scroll clueAnswers behind board
 - Make board responsive (min width/shrinking)
 - Navigate with arrow keys
