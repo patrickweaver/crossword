@@ -3,7 +3,7 @@
 
 ## Doing
 
-- Fix down clue entering
+
 
 ## To Do
 
@@ -26,6 +26,7 @@
 
 ## Done
 
+- Fix down clue entering
 - Board size in modal to prevent accidental shrinks
 - Update board size on boardSize change
 - Symmetry mode

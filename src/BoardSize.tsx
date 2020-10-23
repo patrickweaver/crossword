@@ -14,8 +14,6 @@ export default function BoardSize(props: boardSizeProps): JSX.Element {
   const [tempBoardSize, setTempBoardSize] = useState(props.boardSize);
 
   function tempUpdateBoardSize(event: React.ChangeEvent<HTMLInputElement>): void {
-    console.log(event.target);
-    console.log(document.activeElement);
     const newBoardSize: number = parseInt(event.target.value);
     setTempBoardSize(newBoardSize)
   }

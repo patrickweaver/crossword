@@ -20,13 +20,13 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   function toggleSquareActive(event: React.MouseEvent<HTMLDivElement>): void {
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
+    updatedSquare.letter = "";
     props.setBoardSquare(updatedSquare);
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
     const updatedSquare = props.square;
     updatedSquare.letter = event.target.value.toUpperCase();
-    console.log(updatedSquare.letter);
     props.setBoardSquare(updatedSquare);
     const target = event.target;
     setTimeout(() => target.setSelectionRange(0, target.value.length), 0)

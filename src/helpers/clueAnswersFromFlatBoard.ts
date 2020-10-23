@@ -21,7 +21,8 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
         direction: 'across',
         number: square.acrossWordNumber,
         clue: '',
-        answer: letterOrBlank(square.letter)
+        answer: letterOrBlank(square.letter),
+        firstLetterSquareNumber: index,
       }
       clueAnswers[0].push(ca);
     } else {
@@ -34,7 +35,8 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
         direction: 'down',
         number: square.downWordNumber,
         clue: '',
-        answer: letterOrBlank(square.letter)
+        answer: letterOrBlank(square.letter),
+        firstLetterSquareNumber: index,
       }
       clueAnswers[1].push(ca);
     } else {

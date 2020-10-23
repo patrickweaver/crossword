@@ -17,7 +17,7 @@ import reGridBoard from './helpers/reGridBoard';
 import reNumberBoard from './helpers/reNumberBoard';
 
 function App() {
-  const defaultBoardSize: number = 3;
+  const defaultBoardSize: number = 9;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
@@ -38,18 +38,43 @@ function App() {
     const flatBoardWithWordNumbers = reNumberBoard(board.flat(), boardSize);
   
     // Find Across and Down Clues:
-    const updatedClueAnswers: clueAnswer[][] = clueAnswersFromFlatBoard(flatBoardWithWordNumbers);
+    const updatedAnswers: clueAnswer[][] = clueAnswersFromFlatBoard(flatBoardWithWordNumbers);
   
     // Put board back into 2D array
     const reGridedBoard: boardSquare[][] = reGridBoard(flatBoardWithWordNumbers, boardSize);
   
-    return [reGridedBoard, updatedClueAnswers];
+    return [reGridedBoard, updatedAnswers];
   }
 
   function recalculateBoard(updatedBoard: boardSquare[][]): void {
-    const [recalculatedUpdatedBoard, clueAnswers] = calculateBoard(updatedBoard);
+    // Save clue values:
+    const clues: {[key: number]: string}[] = clueAnswers.map(ar => {
+      return ar.reduce((a, c) => {
+        const index: (number | null) = c.firstLetterSquareNumber
+        if (index != null) {
+          a[index] = c.clue;
+        }
+        return a;
+      }, {} as {[key: number]: string});
+    })
+    const [recalculatedUpdatedBoard, updatedClues] = calculateBoard(updatedBoard);
+    // Re-add clue values:
+    const updatedClueAnswers = updatedClues.map((clueOrAnserArray, coaaIndex) => {
+      return clueOrAnserArray.map((ca, caIndex) => {
+        const answerFirstLetterNumber = ca.firstLetterSquareNumber;
+        if (
+          answerFirstLetterNumber !== null
+          && clues[coaaIndex][answerFirstLetterNumber]
+        ) {
+          ca.clue = clues[coaaIndex][answerFirstLetterNumber];
+        } else {
+          ca.clue = "";
+        }
+        return ca;
+      });
+    });
     setBoard(recalculatedUpdatedBoard);
-    setClueAnswers(clueAnswers)
+    setClueAnswers(updatedClueAnswers)
   }
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number): void => {
@@ -72,10 +97,10 @@ function App() {
       }
     } else {
       uca.clue = newValue;
-    }
+    } 
 
+    // Needed to save clue values
     setClueAnswers(updatedCAs);
-    
 
     if (type === "answer") {
       // store kind of answer in property
@@ -92,12 +117,11 @@ function App() {
             updatedBoardSquare.letter = uca.answer[answerIndex];
             answerIndex += 1;
           }
-        
         return updatedBoardSquare;
       });
 
       const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
-      setBoard(reGridedBoard);
+      recalculateBoard(reGridedBoard);
     }
 
   }

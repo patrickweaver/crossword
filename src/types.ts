@@ -12,6 +12,7 @@ export interface clueAnswer {
   number: number;
   clue: string;
   answer: string;
+  firstLetterSquareNumber: (number | null);
 }
 
 export interface clueAnswerUpdate {
