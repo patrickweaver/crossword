@@ -7,6 +7,7 @@
 
 ## To Do
 
+- Bug: Deleting firs letter from CA moves second letter back
 - Save state to URL
 - Play mode
 - Scroll clueAnswers behind board

@@ -34,9 +34,6 @@ function Editor(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
-  
-
-  
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
