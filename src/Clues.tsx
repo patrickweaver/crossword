@@ -8,7 +8,8 @@ import { clueAnswer } from './types';
 
 interface cluesProps {
   clueAnswers: clueAnswer[][],
-  updateClueAnswer: (type: ("answer" | "clue"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number) => void,
+  updateClueAnswer?: (type: ("answer" | "clue"), newValue: string, dirIndex: number, caIndex: number, selectionStart?: number) => void,
+  mode: string,
 }
 
 function Clues(props: cluesProps): JSX.Element {
@@ -20,10 +21,12 @@ function Clues(props: cluesProps): JSX.Element {
     dirIndex: number,
     selectionStart?: number,
   ) {
-    if (type === "answer") {
-      props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
-    } else {
-      props.updateClueAnswer(type, newValue, dirIndex, index)
+    if (props.updateClueAnswer) {
+      if (type === "answer") {
+        props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
+      } else {
+        props.updateClueAnswer(type, newValue, dirIndex, index)
+      }
     }
   }
 
@@ -41,6 +44,7 @@ function Clues(props: cluesProps): JSX.Element {
                   updateClueAnswer={updateClueAnswer}
                   dirIndex={dirIndex}
                   index={index}
+                  mode={props.mode}
                 />
               </li>
             )

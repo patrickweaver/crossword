@@ -16,6 +16,7 @@ interface clueAnswerProps {
   ) => void,
   dirIndex: number,
   index: number,
+  mode: string,
 }
 
 function ClueAnswer(props: clueAnswerProps): JSX.Element {
@@ -47,21 +48,44 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
     background: `repeating-linear-gradient(90deg, black 0, black 1.25ch, transparent 0, transparent 2ch) 5px 85%/ ${props.clueAnswer.answer.length * (2)}ch 1px no-repeat`
   }
 
+  let answer;
+  let clue;
+  if (props.mode === "editor") {
+    answer = (
+      <span>
+        <label>Answer:</label>
+        <input
+          style={answerInputStyle}
+          className="answer"
+          ref={answerInputRef}
+          value={props.clueAnswer.answer}
+          onChange={updateAnswer}
+        />
+      </span>
+    )
+    clue = (
+      <span>
+        <label>Clue:</label>
+        <input
+          value={props.clueAnswer.clue}
+          onChange={updateClue}
+        />
+      </span>
+    )
+  } else {
+    clue = (
+      <div>
+        <p>
+          {props.clueAnswer.clue}
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="clue-answer">
-      <label>Clue:</label>
-      <input
-        value={props.clueAnswer.clue}
-        onChange={updateClue}
-      />
-      <label>Answer:</label>
-      <input
-        style={answerInputStyle}
-        className="answer"
-        ref={answerInputRef}
-        value={props.clueAnswer.answer}
-        onChange={updateAnswer}
-      />
+      {clue}
+      {answer}
     </div>
   )
 }

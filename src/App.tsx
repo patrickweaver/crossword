@@ -5,7 +5,9 @@ import {
   Redirect,
   Route,
 } from 'react-router-dom';
+
 import Editor from './Editor';
+import Game from './Game';
 
 function App() {
 
@@ -17,6 +19,9 @@ function App() {
         </Route>
         <Route path="/editor">
           <Editor />
+        </Route>
+        <Route path="/play">
+          <Game />
         </Route>
       </Switch>
     </Router>
