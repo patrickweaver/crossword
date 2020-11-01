@@ -1,7 +1,7 @@
 import { clueAnswer } from '../types';
 
 export default function updateAnswer(uca: clueAnswer, newValue: string, selectionStart: number): clueAnswer {
-  let editIndex = selectionStart || 1;
+  let editIndex = selectionStart || 0;
   const oldLength: number = uca.answer.length;
   if (newValue.length < oldLength) {
   const filler = " ".repeat(oldLength - newValue.length);

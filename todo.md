@@ -4,12 +4,10 @@
 ## Doing
 
 
-
 ## To Do
 
-- Bug: Deleting firs letter from CA moves second letter back
-- Save state to URL
-- Play mode
+- Active direction when editing board
+- Input position increments after adding, decerements on backspace
 - Scroll clueAnswers behind board
 - Make board responsive (min width/shrinking)
 - Navigate with arrow keys
@@ -17,14 +15,15 @@
 - Activate all squares button
 - Dictionary suggestions
 
-
 ## Someday
 
 - Double click as long press for mobile?
 
-
 ## Done
 
+- Play mode
+- Bug: Deleting first letter from CA moves second letter back
+- Save state to URL
 - Move onChange out of clueAnswer list generating function
 - Preserve previously entered clues
 - Fix down clue entering

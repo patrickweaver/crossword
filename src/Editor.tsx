@@ -22,7 +22,7 @@ import updateAnswer from './helpers/updateAnswer';
 import updateAnswersOnBoard from './helpers/updateAnswersOnBoard';
 
 function Editor(): JSX.Element {
-  const defaultBoardSize: number = 9;
+  const defaultBoardSize: number = 7;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
@@ -40,20 +40,17 @@ function Editor(): JSX.Element {
     let uca: clueAnswer = updatedCAs[dirIndex][caIndex];
     if (type === "answer") {
       uca = updateAnswer(uca, newValue, selectionStart);
-    } else {
-      uca.clue = newValue;
-    } 
-
-    // Needed to save clue values
-    setClueAnswers(updatedCAs);
-
-    // Board is source of truth for answers
-    if (type === "answer") {
+      // Board is source of truth for answers
+      // send updated answer to board, then recalculate
+      // updated answers will be saved from updated board
       const boardSquaresFlat = updateAnswersOnBoard(board, uca, dirIndex);
       const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
       recalculateBoard(reGridedBoard, clueAnswers, setBoard, setClueAnswers);
+    } else {
+      uca.clue = newValue;
+      // Needed to save clue values
+      setClueAnswers(updatedCAs);
     }
-
   }
 
   function updateBoardSize(newBoardSize: number): void {
@@ -74,7 +71,7 @@ function Editor(): JSX.Element {
 
       <p id="state">
         <Link to={`/play#${condenseState(board, clueAnswers)}`} >
-          Play Game
+          Play this Game
         </Link>
       </p>
 

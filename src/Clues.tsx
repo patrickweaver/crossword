@@ -19,14 +19,10 @@ function Clues(props: cluesProps): JSX.Element {
     newValue: string,
     index: number,
     dirIndex: number,
-    selectionStart?: number,
+    selectionStart?: number, // Undefined for clues
   ) {
     if (props.updateClueAnswer) {
-      if (type === "answer") {
-        props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
-      } else {
-        props.updateClueAnswer(type, newValue, dirIndex, index)
-      }
+      props.updateClueAnswer(type, newValue, dirIndex, index, selectionStart)
     }
   }
 
