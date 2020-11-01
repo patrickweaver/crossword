@@ -3,18 +3,16 @@
 
 ## Doing
 
-- Fix first select word
+- Activate all squares button
 
 ## To Do
 
 - Fix edge cases for input incrementing
-- input decerements on backspace
-- Clues dynamic top marign based on board size
+- Clues dynamic top margin based on board size
 - Make board responsive (min width/shrinking)
-- Clear all letters button
-- Activate all squares button
 - Dictionary suggestions
 - Reveal if correct in play mode toggle
+- Game clues are missing numbers
 
 ## Someday
 
@@ -23,6 +21,9 @@
 
 ## Done
 
+- Clear all letters button
+- input decerements on backspace
+- Fix first select word
 - Navigate with arrow keys
 - Input position increments after adding
 - Only highlight active word

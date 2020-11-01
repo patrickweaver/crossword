@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './ModeSelect.css';
+
 export interface modeSelectProps {
   mode: string,
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void,
@@ -8,8 +10,8 @@ export interface modeSelectProps {
 export default function ModeSelect(props: modeSelectProps): JSX.Element {
   
   return (
-    <div>
-      <h3>Current Mode: <span>{props.mode}</span></h3>
+    <div className="mode-select">
+      <h4>Toggle Square Mode:</h4>
       <select onChange={props.onChange}>
         <option>normal</option>
         <option>horizontal</option>

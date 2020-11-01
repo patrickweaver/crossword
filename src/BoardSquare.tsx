@@ -34,11 +34,18 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
+    console.log("addLetter")
     const updatedSquare = props.square;
     updatedSquare.letter = event.target.value.toUpperCase();
     props.setBoardSquare(updatedSquare);
     const target = event.target;
     target.setSelectionRange(0, target.value.length);
+    
+    // Don't increment input square on delete
+    if (updatedSquare.letter.length === 0) {
+      return;
+    }
+    // Increment input square on letter input
     const command = props.selectedDirection === "down" ? "down" : "right";
     props.moveInput(props.square.squareNumber, command);
   }
@@ -49,12 +56,15 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     target.setSelectionRange(0, target.value.length); 
   }
 
+  // Navigate with arrow keys
   function keyPressed(event: React.KeyboardEvent): void {
+    console.log(event.key);
     let command: ("up" | "left" | "down" | "right" | null) = null;
     if (event.key === "ArrowUp") command = "up";
-    if (event.key === "ArrowLeft") command = "left";
+    if (event.key === "ArrowLeft" || event.key === "Backspace") command = "left";
     if (event.key === "ArrowDown") command = "down";
     if (event.key === "ArrowRight") command = "right";
+    console.log({command})
     if (command !== null) {
       props.moveInput(props.square.squareNumber, command as ("up" | "left" | "down" | "right"));
     }

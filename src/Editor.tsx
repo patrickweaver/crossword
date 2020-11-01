@@ -11,8 +11,10 @@ import ModeSelect from './ModeSelect';
 import { boardSquare, clueAnswer } from './types';
 
 // Helpers:
+import activateAll from './helpers/activateAll';
 import blankBoard from './helpers/blankBoard';
 import calculateBoard from './helpers/calculateBoard';
+import clearAll from './helpers/clearAll';
 import condenseState from './helpers/condenseState';
 import onSelectSquare from './helpers/onSelectSquare';
 import recalculateBoard from './helpers/recalculateBoard';
@@ -32,6 +34,7 @@ function Editor(): JSX.Element {
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
+  const recalculateBoardWithSet = (updatedBoard: boardSquare[][], updatedClueAnswers: clueAnswer[][]) => recalculateBoard(updatedBoard, updatedClueAnswers, setBoard, setClueAnswers);
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
@@ -48,7 +51,7 @@ function Editor(): JSX.Element {
       // updated answers will be saved from updated board
       const boardSquaresFlat = updateAnswersOnBoard(board, uca, dirIndex);
       const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
-      recalculateBoard(reGridedBoard, clueAnswers, setBoard, setClueAnswers);
+      recalculateBoardWithSet(reGridedBoard, clueAnswers);
     } else {
       uca.clue = newValue;
       // Needed to save clue values
@@ -59,7 +62,7 @@ function Editor(): JSX.Element {
   function updateBoardSize(newBoardSize: number): void {
     let updatedBoard: boardSquare[][] = reSizeBoard(board, newBoardSize, boardSize);
     setBoard(updatedBoard);
-    recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers);
+    recalculateBoardWithSet(updatedBoard, clueAnswers);
     setBoardSize(newBoardSize);
   }
 
@@ -85,23 +88,22 @@ function Editor(): JSX.Element {
           <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
 
           <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
-          
-          <ul>
-            <li>Y: {selectedSquare[0]}</li>
-            <li>X: {selectedSquare[1]}</li>
-            <li>Dir: {selectedDirection}</li>
-          </ul>
 
           <Board
             clueAnswers={clueAnswers}
             board={board}
             boardSize={boardSize}
-            updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
+            updateBoard={(updatedBoard) => recalculateBoardWithSet(updatedBoard, clueAnswers)}
             mode={mode}
             selectedSquare={selectedSquare}
             onSelectSquare={onSelectSquareWithSet}
             selectedDirection={selectedDirection}
           />
+
+          <div className="button-section">
+            <button onClick={() => activateAll(board)}>Activate All</button>
+            <button onClick={() => recalculateBoardWithSet(clearAll(board), clueAnswers)}>Clear All</button>
+          </div>
         </div>
       </div>
       <div id="clues-container">

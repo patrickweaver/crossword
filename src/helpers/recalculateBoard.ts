@@ -9,7 +9,6 @@ export default function recalculateBoard(
   clueAnswers: clueAnswer[][],
   setBoard: (updatedBoard: boardSquare[][]) => void,
   setClueAnswers: (updatedClueAnswers: clueAnswer[][]) => void,
-
 ): void {
   // Save clue values:
   const clues: {[key: number]: string}[] = extractClues(clueAnswers);
