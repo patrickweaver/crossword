@@ -14,7 +14,7 @@ import { boardSquare, clueAnswer } from './types';
 import blankBoard from './helpers/blankBoard';
 import calculateBoard from './helpers/calculateBoard';
 import condenseState from './helpers/condenseState';
-import expandState from './helpers/expandState';
+import onSelectSquare from './helpers/onSelectSquare';
 import recalculateBoard from './helpers/recalculateBoard';
 import reGridBoard from './helpers/reGridBoard';
 import reSizeBoard from './helpers/reSizeBoard';
@@ -34,6 +34,9 @@ function Editor(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
+  const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
+  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(setSelectedSquare, rowIndex, colIndex);
+  const [selectedDirection, setSelectedDirection] = useState<string>("across");
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
@@ -83,23 +86,27 @@ function Editor(): JSX.Element {
 
           <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
           
+          <ul>
+            <li>Y: {selectedSquare[0]}</li>
+            <li>X: {selectedSquare[1]}</li>
+          </ul>
+
           <Board
             clueAnswers={clueAnswers}
             board={board}
             boardSize={boardSize}
             updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
             mode={mode}
+            onSelectSquare={onSelectSquareWithSet}
           />
         </div>
       </div>
-      <div id="clues-wrapper">
-        <div id="clues-container">
-          <Clues
-            clueAnswers={clueAnswers}
-            updateClueAnswer={updateClueAnswer}
-            mode="editor"
-          />
-        </div>
+      <div id="clues-container">
+        <Clues
+          clueAnswers={clueAnswers}
+          updateClueAnswer={updateClueAnswer}
+          mode="editor"
+        />
       </div>
     </div>
   );

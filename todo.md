@@ -14,6 +14,7 @@
 - Clear all letters button
 - Activate all squares button
 - Dictionary suggestions
+- Reveal if correct in play mode toggle
 
 ## Someday
 

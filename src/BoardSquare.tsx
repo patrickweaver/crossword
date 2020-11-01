@@ -14,6 +14,7 @@ interface boardSquareProps {
   ) => void,
   mode: string,
   answer: (string | null),
+  onSelectSquare: (rowIndex: number, colIndex: number) => void,
 }
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
@@ -34,6 +35,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
+    props.onSelectSquare(props.rowIndex, props.colIndex)
     const target = event.target as HTMLInputElement;
     target.setSelectionRange(0, target.value.length); 
   }
