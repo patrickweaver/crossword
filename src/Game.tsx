@@ -26,8 +26,8 @@ export default function Game(): JSX.Element {
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(hashClueAnswers);
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
-  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(setSelectedSquare, rowIndex, colIndex);
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
+  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, rowIndex, colIndex);
 
   let game;
   if (window.location.hash) {

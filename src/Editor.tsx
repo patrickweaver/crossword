@@ -35,8 +35,8 @@ function Editor(): JSX.Element {
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
-  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(setSelectedSquare, rowIndex, colIndex);
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
+  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, rowIndex, colIndex);
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
@@ -89,6 +89,7 @@ function Editor(): JSX.Element {
           <ul>
             <li>Y: {selectedSquare[0]}</li>
             <li>X: {selectedSquare[1]}</li>
+            <li>Dir: {selectedDirection}</li>
           </ul>
 
           <Board
