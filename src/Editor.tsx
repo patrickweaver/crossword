@@ -67,30 +67,40 @@ function Editor(): JSX.Element {
 
   return (
     <div className="editor">
-      <h1>Crossword Puzzle Editor</h1>
+      <div className="header">
+        <h1>Crossword Puzzle Editor</h1>
 
-      <p id="state">
-        <Link to={`/play#${condenseState(board, clueAnswers)}`} >
-          Play this Game
-        </Link>
-      </p>
+        <p id="state">
+          <Link to={`/play#${condenseState(board, clueAnswers)}`} >
+            Play this Game
+          </Link>
+        </p>
+      </div>
 
-      <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
+      <div id="board-wrapper">
+        <div id="board-container">
+          <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
 
-      <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
-      
-      <Board
-        clueAnswers={clueAnswers}
-        board={board}
-        boardSize={boardSize}
-        updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
-        mode={mode}
-      />
-      <Clues
-        clueAnswers={clueAnswers}
-        updateClueAnswer={updateClueAnswer}
-        mode="editor"
-      />
+          <ModeSelect mode={mode} onChange={(e) => setMode(e.target.value)} />
+          
+          <Board
+            clueAnswers={clueAnswers}
+            board={board}
+            boardSize={boardSize}
+            updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
+            mode={mode}
+          />
+        </div>
+      </div>
+      <div id="clues-wrapper">
+        <div id="clues-container">
+          <Clues
+            clueAnswers={clueAnswers}
+            updateClueAnswer={updateClueAnswer}
+            mode="editor"
+          />
+        </div>
+      </div>
     </div>
   );
 }

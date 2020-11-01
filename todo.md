@@ -8,7 +8,7 @@
 
 - Active direction when editing board
 - Input position increments after adding, decerements on backspace
-- Scroll clueAnswers behind board
+- Clues dynamic top marign based on board size
 - Make board responsive (min width/shrinking)
 - Navigate with arrow keys
 - Clear all letters button
@@ -21,6 +21,7 @@
 
 ## Done
 
+- Scroll clueAnswers behind board
 - Play mode
 - Bug: Deleting first letter from CA moves second letter back
 - Save state to URL
