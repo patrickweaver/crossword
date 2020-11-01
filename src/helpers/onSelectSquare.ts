@@ -3,13 +3,18 @@ export default function onSelectSquare(
   setSelectedSquare: (selectedSquare: [number, number]) => void,
   selectedDirection: string,
   setSelectedDirection: (selectedDirection: string) => void,
-  rowIndex: number,
-  colIndex: number
+  acrossWordNumber: number,
+  downWordNumber: number,
 ): void {
   let updatedSelectedDirection = selectedDirection;
-  if (rowIndex === selectedSquare[0] && colIndex === selectedSquare[1]) {
+  // Cancel on double click, reset direction, don't update square
+  if (acrossWordNumber === -1 && downWordNumber === -1) {
     updatedSelectedDirection = selectedDirection === "across" ? "down" : "across";
+  } else {
+    if (acrossWordNumber === selectedSquare[0] && downWordNumber === selectedSquare[1]) {
+      updatedSelectedDirection = selectedDirection === "across" ? "down" : "across";
+    }
+    setSelectedSquare([acrossWordNumber, downWordNumber]);
   }
   setSelectedDirection(updatedSelectedDirection);
-  setSelectedSquare([rowIndex, colIndex]);
 }

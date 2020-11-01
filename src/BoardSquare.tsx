@@ -22,6 +22,10 @@ interface boardSquareProps {
 function BoardSquare(props: boardSquareProps): JSX.Element {
 
   function toggleSquareActive(event: React.MouseEvent<HTMLDivElement>): void {
+    // This is kind of a hack, on double click call the onSelectSquare
+    // function again to cancel out the highlighted row toggle that
+    // happened on the first click.
+    props.onSelectSquare(-1, -1);
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
     updatedSquare.letter = "";
@@ -37,24 +41,25 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
-    props.onSelectSquare(props.rowIndex, props.colIndex)
+    props.onSelectSquare(props.square.acrossWordNumber || 0, props.square.downWordNumber || 0)
     const target = event.target as HTMLInputElement;
     target.setSelectionRange(0, target.value.length); 
   }
 
+  // Set class for guess in Game mode
   const letterClass: string = props.mode === "game" ? (props.answer === props.square.letter ? "correct" : "incorrect") : "";
 
+  // Set class for selected row or column
   let selected: string = "";
   if (
     (
-      props.selectedSquare[0] === props.rowIndex
+      props.selectedSquare[0] === props.square.acrossWordNumber
       && props.selectedDirection === "across"
     ) || (
-      props.selectedSquare[1] === props.colIndex
+      props.selectedSquare[1] === props.square.downWordNumber
       && props.selectedDirection === "down"
     ) && props.square.active
   ) {
-    console.log("TRUE", props.rowIndex, props.colIndex)
     selected = "selected";
   }
 

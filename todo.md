@@ -4,8 +4,6 @@
 ## Doing
 
 
-- Don't toggle selected direciton when toggling activeness
-
 ## To Do
 
 - Input position increments after adding, decerements on backspace
@@ -20,9 +18,12 @@
 ## Someday
 
 - Double click as long press for mobile?
+- If activity toggled square is first in word, set word index to previous word (except on first word in row?)
 
 ## Done
 
+- Only highlight active word
+- Don't toggle selected direciton when toggling activeness
 - Active direction when editing board
 - Scroll clueAnswers behind board
 - Play mode

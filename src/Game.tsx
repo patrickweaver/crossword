@@ -27,7 +27,7 @@ export default function Game(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(hashClueAnswers);
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
-  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, rowIndex, colIndex);
+  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
 
   let game;
   if (window.location.hash) {

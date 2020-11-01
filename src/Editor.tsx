@@ -34,9 +34,9 @@ function Editor(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
-  const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
+  const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
-  const onSelectSquareWithSet = (rowIndex: number, colIndex: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, rowIndex, colIndex);
+  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];

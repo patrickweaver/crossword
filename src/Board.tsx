@@ -13,7 +13,7 @@ interface boardProps {
   updateBoard: (board: boardSquare[][]) => void,
   mode: string,
   selectedSquare: [number, number],
-  onSelectSquare: (rowIndex: number, colIndex: number) => void,
+  onSelectSquare: (acrossWordNumber: number, downWordNumber: number) => void,
   selectedDirection: string,
 }
 
