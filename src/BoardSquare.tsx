@@ -17,6 +17,7 @@ interface boardSquareProps {
   selectedSquare: [number, number],
   onSelectSquare: (rowIndex: number, colIndex: number) => void,
   selectedDirection: string,
+  moveInput: (squareNumber: number) => void,
 }
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
@@ -37,7 +38,8 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     updatedSquare.letter = event.target.value.toUpperCase();
     props.setBoardSquare(updatedSquare);
     const target = event.target;
-    setTimeout(() => target.setSelectionRange(0, target.value.length), 0)
+    target.setSelectionRange(0, target.value.length)
+    props.moveInput(props.square.squareNumber);
   }
 
   function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
@@ -66,12 +68,12 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   const letter = 
     <div className="letter">
       <input
+        id={`${props.square.squareNumber}-input`}
         className={letterClass}
         type="text"
         value={props.square.letter || ''}
         onChange={addLetter}
         onClick={selectLetterOnFocus}
-        //onFocus={selectLetterOnFocus}
         maxLength={1}
       />
     </div>

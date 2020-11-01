@@ -51,6 +51,23 @@ function Board(props: boardProps): JSX.Element {
     }
   }
 
+  function moveInput(squareNumber: number): void {
+    console.log(squareNumber);
+    let newSquareNumber: number;
+    if (props.selectedDirection === "across") {
+      newSquareNumber = squareNumber + 1;
+    } else {
+      newSquareNumber = squareNumber + props.boardSize;
+    }
+    const newInput = document.getElementById(`${newSquareNumber}-input`);
+    // Reasons it might not exist:
+    // - Next square is inactive
+    // - Last row/last square
+    if (newInput) {
+      newInput.focus();
+    }
+  }
+
   const boardSquares: JSX.Element[] = props.board.map((row: boardSquare[], rowIndex: number): JSX.Element => {
     return (
       <div key={`row-${rowIndex}`} className="board-row">
@@ -69,6 +86,7 @@ function Board(props: boardProps): JSX.Element {
               selectedSquare={props.selectedSquare}
               onSelectSquare={props.onSelectSquare}
               selectedDirection={props.selectedDirection}
+              moveInput={moveInput}
             />
           })
         }

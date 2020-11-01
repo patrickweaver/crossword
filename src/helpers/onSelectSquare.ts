@@ -13,6 +13,8 @@ export default function onSelectSquare(
   } else {
     if (acrossWordNumber === selectedSquare[0] && downWordNumber === selectedSquare[1]) {
       updatedSelectedDirection = selectedDirection === "across" ? "down" : "across";
+    } else if (selectedDirection === "none") {
+      selectedDirection = "across";
     }
     setSelectedSquare([acrossWordNumber, downWordNumber]);
   }

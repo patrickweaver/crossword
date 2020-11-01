@@ -35,7 +35,7 @@ function Editor(): JSX.Element {
   const [mode, setMode] = useState<string>('normal');
   const [urlState, setUrlState] = useState<string>("");
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
-  const [selectedDirection, setSelectedDirection] = useState<string>("across");
+  const [selectedDirection, setSelectedDirection] = useState<string>("none");
   const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
