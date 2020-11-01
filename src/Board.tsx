@@ -12,7 +12,9 @@ interface boardProps {
   boardSize: number,
   updateBoard: (board: boardSquare[][]) => void,
   mode: string,
+  selectedSquare: [number, number],
   onSelectSquare: (rowIndex: number, colIndex: number) => void,
+  selectedDirection: string,
 }
 
 function Board(props: boardProps): JSX.Element {
@@ -64,7 +66,9 @@ function Board(props: boardProps): JSX.Element {
               setBoardSquare={createBoardSquareSetter(rowIndex, colIndex)}
               mode={props.mode}
               answer={answer}
+              selectedSquare={props.selectedSquare}
               onSelectSquare={props.onSelectSquare}
+              selectedDirection={props.selectedDirection}
             />
           })
         }

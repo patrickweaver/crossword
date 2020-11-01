@@ -98,7 +98,9 @@ function Editor(): JSX.Element {
             boardSize={boardSize}
             updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
             mode={mode}
+            selectedSquare={selectedSquare}
             onSelectSquare={onSelectSquareWithSet}
+            selectedDirection={selectedDirection}
           />
         </div>
       </div>

@@ -14,7 +14,9 @@ interface boardSquareProps {
   ) => void,
   mode: string,
   answer: (string | null),
+  selectedSquare: [number, number],
   onSelectSquare: (rowIndex: number, colIndex: number) => void,
+  selectedDirection: string,
 }
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
@@ -42,6 +44,20 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
 
   const letterClass: string = props.mode === "game" ? (props.answer === props.square.letter ? "correct" : "incorrect") : "";
 
+  let selected: string = "";
+  if (
+    (
+      props.selectedSquare[0] === props.rowIndex
+      && props.selectedDirection === "across"
+    ) || (
+      props.selectedSquare[1] === props.colIndex
+      && props.selectedDirection === "down"
+    ) && props.square.active
+  ) {
+    console.log("TRUE", props.rowIndex, props.colIndex)
+    selected = "selected";
+  }
+
   const letter = 
     <div className="letter">
       <input
@@ -57,7 +73,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
 
   const square =
     <div
-      className={`board-square ${props.square.active ? '' : 'inactive'}`}
+      className={`board-square ${props.square.active ? selected : 'inactive'}`}
       onDoubleClick={toggleSquareActive}
     >
       <div className="clue-number">

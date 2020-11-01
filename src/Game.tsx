@@ -40,7 +40,9 @@ export default function Game(): JSX.Element {
           boardSize={board.length}
           updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
           mode={"game"}
+          selectedSquare={selectedSquare}
           onSelectSquare={onSelectSquareWithSet}
+          selectedDirection={selectedDirection}
         />
         <Clues
           clueAnswers={clueAnswers}

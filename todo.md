@@ -4,9 +4,10 @@
 ## Doing
 
 
+- Don't toggle selected direciton when toggling activeness
+
 ## To Do
 
-- Active direction when editing board
 - Input position increments after adding, decerements on backspace
 - Clues dynamic top marign based on board size
 - Make board responsive (min width/shrinking)
@@ -22,6 +23,7 @@
 
 ## Done
 
+- Active direction when editing board
 - Scroll clueAnswers behind board
 - Play mode
 - Bug: Deleting first letter from CA moves second letter back

@@ -45,3 +45,7 @@
 .incorrect {
   color: red;
 }
+
+.selected {
+  background-color: lightBlue;
+}
