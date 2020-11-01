@@ -3,13 +3,14 @@
 
 ## Doing
 
+- Fix first select word
 
 ## To Do
 
-- Input position increments after adding, decerements on backspace
+- Fix edge cases for input incrementing
+- input decerements on backspace
 - Clues dynamic top marign based on board size
 - Make board responsive (min width/shrinking)
-- Navigate with arrow keys
 - Clear all letters button
 - Activate all squares button
 - Dictionary suggestions
@@ -22,6 +23,8 @@
 
 ## Done
 
+- Navigate with arrow keys
+- Input position increments after adding
 - Only highlight active word
 - Don't toggle selected direciton when toggling activeness
 - Active direction when editing board

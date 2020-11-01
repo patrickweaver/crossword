@@ -17,7 +17,7 @@ interface boardSquareProps {
   selectedSquare: [number, number],
   onSelectSquare: (rowIndex: number, colIndex: number) => void,
   selectedDirection: string,
-  moveInput: (squareNumber: number) => void,
+  moveInput: (squareNumber: number, command: ("right" | "left" | "down" | "up")) => void,
 }
 
 function BoardSquare(props: boardSquareProps): JSX.Element {
@@ -38,14 +38,26 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     updatedSquare.letter = event.target.value.toUpperCase();
     props.setBoardSquare(updatedSquare);
     const target = event.target;
-    target.setSelectionRange(0, target.value.length)
-    props.moveInput(props.square.squareNumber);
+    target.setSelectionRange(0, target.value.length);
+    const command = props.selectedDirection === "down" ? "down" : "right";
+    props.moveInput(props.square.squareNumber, command);
   }
 
   function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
     props.onSelectSquare(props.square.acrossWordNumber || 0, props.square.downWordNumber || 0)
     const target = event.target as HTMLInputElement;
     target.setSelectionRange(0, target.value.length); 
+  }
+
+  function keyPressed(event: React.KeyboardEvent): void {
+    let command: ("up" | "left" | "down" | "right" | null) = null;
+    if (event.key === "ArrowUp") command = "up";
+    if (event.key === "ArrowLeft") command = "left";
+    if (event.key === "ArrowDown") command = "down";
+    if (event.key === "ArrowRight") command = "right";
+    if (command !== null) {
+      props.moveInput(props.square.squareNumber, command as ("up" | "left" | "down" | "right"));
+    }
   }
 
   // Set class for guess in Game mode
@@ -75,6 +87,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         onChange={addLetter}
         onClick={selectLetterOnFocus}
         maxLength={1}
+        onKeyDown={keyPressed}
       />
     </div>
 

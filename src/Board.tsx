@@ -51,14 +51,16 @@ function Board(props: boardProps): JSX.Element {
     }
   }
 
-  function moveInput(squareNumber: number): void {
-    console.log(squareNumber);
-    let newSquareNumber: number;
-    if (props.selectedDirection === "across") {
-      newSquareNumber = squareNumber + 1;
-    } else {
-      newSquareNumber = squareNumber + props.boardSize;
+  function moveInput(squareNumber: number, command: ("right" | "left" | "down" | "up")): void {
+    const offsets = {
+      right: 1,
+      left: -1,
+      down: props.boardSize,
+      up: -props.boardSize,
     }
+
+    let newSquareNumber: number = squareNumber + offsets[command];
+
     const newInput = document.getElementById(`${newSquareNumber}-input`);
     // Reasons it might not exist:
     // - Next square is inactive
