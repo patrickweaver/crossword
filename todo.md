@@ -3,10 +3,10 @@
 
 ## Doing
 
-- Game clues are missing numbers
 
 ## To Do
 
+- Clue text in input should be black
 - Fix edge cases for input incrementing
 - Clues dynamic top margin based on board size
 - Make board responsive (min width/shrinking)
@@ -20,6 +20,7 @@
 
 ## Done
 
+- Game clues are missing numbers
 - Activate all squares button
 - Clear all letters button
 - input decerements on backspace

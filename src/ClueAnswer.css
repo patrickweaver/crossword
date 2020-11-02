@@ -19,7 +19,12 @@
 	font: 2ch "Lucida Console", Monaco, monospace;
 }
 
-.clue-answer input:focus {
+.clue-answer input.answer:focus {
   outline: none;
   color: dodgerblue;
+}
+
+.clue-answer input.clue {
+  font-size: 18px;
+  line-height: 22px;
 }

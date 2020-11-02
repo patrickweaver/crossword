@@ -8,7 +8,6 @@
   margin: 0 auto;
   padding: 0;
   display: inline-block;
-  overflow: scroll;
 }
 
 .clue-answers-list > li {

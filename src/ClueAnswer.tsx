@@ -67,6 +67,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
       <span>
         <label>Clue:</label>
         <input
+          className="clue"
           value={props.clueAnswer.clue}
           onChange={updateClue}
         />
