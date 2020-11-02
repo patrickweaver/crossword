@@ -58,7 +58,6 @@ function Board(props: boardProps): JSX.Element {
       down: props.boardSize,
       up: -props.boardSize,
     }
-
     let newSquareNumber: number = squareNumber + offsets[command];
 
     const newInput = document.getElementById(`${newSquareNumber}-input`);
@@ -67,6 +66,12 @@ function Board(props: boardProps): JSX.Element {
     // - Last row/last square
     if (newInput) {
       newInput.focus();
+      // Update selected square
+      const newInputSquareArray = props.board.flat().filter(s => s.squareNumber === newSquareNumber);
+      if (newInputSquareArray && newInputSquareArray[0]) {
+        const newSquare = newInputSquareArray[0];
+        props.onSelectSquare(newSquare.acrossWordNumber || 0, newSquare.downWordNumber || 0)
+      }
     }
   }
 

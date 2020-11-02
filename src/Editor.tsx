@@ -101,7 +101,7 @@ function Editor(): JSX.Element {
           />
 
           <div className="button-section">
-            <button onClick={() => activateAll(board)}>Activate All</button>
+            <button onClick={() => recalculateBoardWithSet(activateAll(board), clueAnswers)}>Activate All</button>
             <button onClick={() => recalculateBoardWithSet(clearAll(board), clueAnswers)}>Clear All</button>
           </div>
         </div>

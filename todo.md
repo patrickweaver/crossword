@@ -3,7 +3,7 @@
 
 ## Doing
 
-- Activate all squares button
+- Game clues are missing numbers
 
 ## To Do
 
@@ -12,7 +12,6 @@
 - Make board responsive (min width/shrinking)
 - Dictionary suggestions
 - Reveal if correct in play mode toggle
-- Game clues are missing numbers
 
 ## Someday
 
@@ -21,6 +20,7 @@
 
 ## Done
 
+- Activate all squares button
 - Clear all letters button
 - input decerements on backspace
 - Fix first select word

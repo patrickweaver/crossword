@@ -46,6 +46,10 @@
   color: red;
 }
 
-.selected {
+.selected-word {
+  background-color: lightcyan ;
+}
+
+.selected-square {
   background-color: lightBlue;
 }

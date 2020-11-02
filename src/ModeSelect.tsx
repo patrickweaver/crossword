@@ -11,7 +11,7 @@ export default function ModeSelect(props: modeSelectProps): JSX.Element {
   
   return (
     <div className="mode-select">
-      <h4>Toggle Square Mode:</h4>
+      <h4>Toggle Square Symmetry Mode:</h4>
       <select onChange={props.onChange}>
         <option>normal</option>
         <option>horizontal</option>

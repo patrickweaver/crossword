@@ -34,7 +34,6 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
-    console.log("addLetter")
     const updatedSquare = props.square;
     updatedSquare.letter = event.target.value.toUpperCase();
     props.setBoardSquare(updatedSquare);
@@ -58,13 +57,17 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
 
   // Navigate with arrow keys
   function keyPressed(event: React.KeyboardEvent): void {
-    console.log(event.key);
     let command: ("up" | "left" | "down" | "right" | null) = null;
-    if (event.key === "ArrowUp") command = "up";
-    if (event.key === "ArrowLeft" || event.key === "Backspace") command = "left";
+    if (
+      event.key === "ArrowUp"
+      || (props.selectedDirection === "down" && event.key === "Backspace")
+    ) command = "up";
+    if (
+      event.key === "ArrowLeft"
+      || (props.selectedDirection === "across" && event.key === "Backspace")
+    ) command = "left";
     if (event.key === "ArrowDown") command = "down";
     if (event.key === "ArrowRight") command = "right";
-    console.log({command})
     if (command !== null) {
       props.moveInput(props.square.squareNumber, command as ("up" | "left" | "down" | "right"));
     }
@@ -75,16 +78,21 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
 
   // Set class for selected row or column
   let selected: string = "";
+  const acrossMatch = props.selectedSquare[0] === props.square.acrossWordNumber;
+  const downMatch = props.selectedSquare[1] === props.square.downWordNumber
   if (
     (
-      props.selectedSquare[0] === props.square.acrossWordNumber
+      acrossMatch
       && props.selectedDirection === "across"
     ) || (
-      props.selectedSquare[1] === props.square.downWordNumber
+      downMatch
       && props.selectedDirection === "down"
     ) && props.square.active
   ) {
-    selected = "selected";
+    selected = "selected-word";
+    if (acrossMatch && downMatch) {
+      selected += " selected-square"
+    }
   }
 
   const letter = 
