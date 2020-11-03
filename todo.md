@@ -3,12 +3,11 @@
 
 ## Doing
 
-
+- Up/down arrows navigate inside inputs
 
 ## To Do
 
 - Dictionary suggestions
-
 
 ## Someday
 

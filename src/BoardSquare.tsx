@@ -67,6 +67,13 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     let command: ("up" | "left" | "down" | "right" | null) = null;
     if (
       event.key === "ArrowUp"
+      || event.key === "ArrrowDown"
+    ) {
+      event.preventDefault();
+    }
+
+    if (
+      event.key === "ArrowUp"
       || (props.selectedDirection === "down" && event.key === "Backspace")
     ) command = "up";
     if (
