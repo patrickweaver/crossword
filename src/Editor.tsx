@@ -24,6 +24,10 @@ import updateAnswer from './helpers/updateAnswer';
 import updateAnswersOnBoard from './helpers/updateAnswersOnBoard';
 
 function Editor(): JSX.Element {
+
+  // Put this into a config at some point
+  const HOST = "https://doodles.patrickweaver.net";
+
   const defaultBoardSize: number = 7;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
@@ -88,7 +92,7 @@ function Editor(): JSX.Element {
             <button onClick={copyLinkToGame}>Copy Link</button>
           </li>
           <li>
-            <input type="text" id="game-link" readOnly value={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} />
+            <input type="text" id="game-link" readOnly value={`${HOST}${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} />
           </li>
         </ul>
       </div>
