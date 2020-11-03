@@ -5,7 +5,9 @@ export default function onSelectSquare(
   setSelectedDirection: (selectedDirection: string) => void,
   acrossWordNumber: number,
   downWordNumber: number,
+  updateDirection: boolean,
 ): void {
+  console.log("On select", selectedDirection);
   let updatedSelectedDirection = selectedDirection;
   // Cancel on double click, reset direction, don't update square
   if (acrossWordNumber === -1 && downWordNumber === -1) {
@@ -18,5 +20,7 @@ export default function onSelectSquare(
     }
     setSelectedSquare([acrossWordNumber, downWordNumber]);
   }
-  setSelectedDirection(updatedSelectedDirection);
+  if (updateDirection) {
+    setSelectedDirection(updatedSelectedDirection);
+  }
 }

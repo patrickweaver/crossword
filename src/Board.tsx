@@ -13,8 +13,9 @@ interface boardProps {
   updateBoard: (board: boardSquare[][]) => void,
   mode: string,
   selectedSquare: [number, number],
-  onSelectSquare: (acrossWordNumber: number, downWordNumber: number) => void,
+  onSelectSquare: (acrossWordNumber: number, downWordNumber: number, updateDirection: boolean) => void,
   selectedDirection: string,
+  setSelectedDirection: (direction: string) => void,
   checkAnswers: boolean,
 }
 
@@ -52,13 +53,14 @@ function Board(props: boardProps): JSX.Element {
     }
   }
 
-  function moveInput(squareNumber: number, command: ("right" | "left" | "down" | "up")): void {
+  function moveInput(squareNumber: number, command: ("right" | "left" | "down" | "up"), updateDirection: boolean): void {
     const offsets = {
       right: 1,
       left: -1,
       down: props.boardSize,
       up: -props.boardSize,
     }
+
     let newSquareNumber: number = squareNumber + offsets[command];
 
     const newInput = document.getElementById(`${newSquareNumber}-input`);
@@ -72,7 +74,7 @@ function Board(props: boardProps): JSX.Element {
       // Update selected square
       const newSquare = props.board.flat()[newSquareNumber];
       if (newSquare) {
-        props.onSelectSquare(newSquare.acrossWordNumber || 0, newSquare.downWordNumber || 0)
+        props.onSelectSquare(newSquare.acrossWordNumber || 0, newSquare.downWordNumber || 0, false)
       }
     }
   }
@@ -95,6 +97,7 @@ function Board(props: boardProps): JSX.Element {
               selectedSquare={props.selectedSquare}
               onSelectSquare={props.onSelectSquare}
               selectedDirection={props.selectedDirection}
+              setSelectedDirection={props.setSelectedDirection}
               moveInput={moveInput}
               checkAnswers={props.checkAnswers}
             />
@@ -112,6 +115,7 @@ function Board(props: boardProps): JSX.Element {
   return (
     <div>
       <h2>Board</h2>
+      <h3>Selected Direction: {props.selectedDirection}</h3>
       {board}
     </div>
   )

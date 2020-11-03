@@ -15,9 +15,10 @@ interface boardSquareProps {
   mode: string,
   answer: (string | null),
   selectedSquare: [number, number],
-  onSelectSquare: (rowIndex: number, colIndex: number) => void,
+  onSelectSquare: (rowIndex: number, colIndex: number, updateDirection: boolean) => void,
   selectedDirection: string,
-  moveInput: (squareNumber: number, command: ("right" | "left" | "down" | "up")) => void,
+  setSelectedDirection: (direction: string) => void,
+  moveInput: (squareNumber: number, command: ("right" | "left" | "down" | "up"), updateDirection: boolean) => void,
   checkAnswers: boolean,
 }
 
@@ -29,7 +30,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     // This is kind of a hack, on double click call the onSelectSquare
     // function again to cancel out the highlighted row toggle that
     // happened on the first click.
-    props.onSelectSquare(-1, -1);
+    props.onSelectSquare(-1, -1, false);
     const updatedSquare = props.square;
     updatedSquare.active = !updatedSquare.active;
     updatedSquare.letter = "";
@@ -52,11 +53,11 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     }
     // Increment input square on letter input
     const command = props.selectedDirection === "down" ? "down" : "right";
-    props.moveInput(props.square.squareNumber, command);
+    props.moveInput(props.square.squareNumber, command, false);
   }
 
   function selectLetterOnFocus(event: (React.FocusEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>)): void {
-    props.onSelectSquare(props.square.acrossWordNumber || 0, props.square.downWordNumber || 0)
+    props.onSelectSquare(props.square.acrossWordNumber || 0, props.square.downWordNumber || 0, true)
     const target = event.target as HTMLInputElement;
     target.setSelectionRange(0, target.value.length); 
   }
@@ -69,10 +70,17 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     // Override default behavior
     if (
       event.key === "ArrowUp"
-      || event.key === "ArrrowDown"
+      || event.key === "ArrowDown"
       || event.key === "Backspace"
     ) {
       event.preventDefault(); 
+    }
+
+    // Update selected direction
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      props.setSelectedDirection("down");
+    } else if (event.key ===  "ArrowLeft" || event.key === "ArrowRight") {
+      props.setSelectedDirection("across");
     }
 
     // Clear content on backspace
@@ -93,7 +101,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     if (event.key === "ArrowDown") command = "down";
     if (event.key === "ArrowRight") command = "right";
     if (command !== null) {
-      props.moveInput(props.square.squareNumber, command as ("up" | "left" | "down" | "right"));
+      props.moveInput(props.square.squareNumber, command as ("up" | "left" | "down" | "right"), false);
     }
   }
 

@@ -42,7 +42,7 @@ function Editor(): JSX.Element {
   const [mode, setMode] = useState<string>('normal');
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
   const [selectedDirection, setSelectedDirection] = useState<string>("none");
-  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
+  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number, updateDirection: boolean) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber, updateDirection);
 
   const updateClueAnswer = (type: ("clue" | "answer"), newValue: string, dirIndex: number, caIndex: number, selectionStart: number = 1): void => {
     const updatedCAs: clueAnswer[][] = [...clueAnswers];
@@ -114,6 +114,10 @@ function Editor(): JSX.Element {
             selectedSquare={selectedSquare}
             onSelectSquare={onSelectSquareWithSet}
             selectedDirection={selectedDirection}
+            setSelectedDirection={(direction: string) => {
+              console.log("D:", direction);
+              setSelectedDirection(direction);
+            }}
             checkAnswers={false}
           />
 

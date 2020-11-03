@@ -27,7 +27,7 @@ export default function Game(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(hashClueAnswers);
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
-  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
+  const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number, updateDirection: boolean) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber, updateDirection);
 
   const [checkAnswers, setCheckAnswers] = useState<boolean>(false);
 
@@ -54,6 +54,7 @@ export default function Game(): JSX.Element {
               selectedSquare={selectedSquare}
               onSelectSquare={onSelectSquareWithSet}
               selectedDirection={selectedDirection}
+              setSelectedDirection={setSelectedDirection}
               checkAnswers={checkAnswers}
             />
             <div id="check-answers-toggle">
