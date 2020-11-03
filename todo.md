@@ -3,7 +3,7 @@
 
 ## Doing
 
-
+- Update square number on board re-draw
 
 ## To Do
 

@@ -31,6 +31,7 @@ export default function reNumberBoard(flatBoard: boardSquare[], boardSize: numbe
       // Set wordNumbers for non start words based on previous
       square.acrossWordNumber = aWN || updatedFlatBoard[index - 1].acrossWordNumber;
       square.downWordNumber = dWN || updatedFlatBoard[index - boardSize].downWordNumber;
+      square.squareNumber = index;
     }
     updatedFlatBoard.push(square);
     return updatedFlatBoard;
