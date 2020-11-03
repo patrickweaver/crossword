@@ -10,6 +10,7 @@ import './App.css';
 
 import Editor from './Editor';
 import Game from './Game';
+import Footer from './Footer';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Game />
         </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }

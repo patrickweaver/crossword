@@ -28,7 +28,7 @@ function Editor(): JSX.Element {
   // Put this into a config at some point
   const HOST = "https://doodles.patrickweaver.net";
 
-  const defaultBoardSize: number = 7;
+  const defaultBoardSize: number = 9;
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
@@ -80,16 +80,18 @@ function Editor(): JSX.Element {
   return (
     <div className="editor">
       <div className="header">
-        <h1>Crossword Puzzle Editor</h1>
+        <h1>Crossword Puzzle Composer</h1>
+
+        <p id="description">This is a composer for creating crossword puzzles. Answer updates will display both on the board and next to the clues below. Double click on a square to toggle it on or off.</p>
 
         <ul id="state">
           <li>
             <Link to={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} >
-              Play this Game
+              Play This Game
             </Link>
           </li>
           <li>
-            <button onClick={copyLinkToGame}>Copy Link</button>
+            <button onClick={copyLinkToGame}>Copy Link to This Game</button>
           </li>
           <li>
             <input type="text" id="game-link" readOnly value={`${HOST}${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} />

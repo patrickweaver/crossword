@@ -3,9 +3,7 @@
 
 ## Doing
 
-- Clues are mis-numbered in game
-- Underlines are wrong if inputs are wider than answer
-- Typing up to a filled square stop incrementing
+- Update readme
 
 ## To Do
 
@@ -14,12 +12,16 @@
 
 ## Someday
 
+- Bug where lues are mis-numbered in game? Maybe?
+- Typing up to a filled square stop incrementing
 - Fix edge cases for input incrementing
 - Double click as long press for mobile?
 - If activity toggled square is first in word, set word index to previous word (except on first word in row?)
 
 ## Done
 
+- Don't give fill suggesions
+- Underlines are wrong if inputs are wider than answer
 - Make board responsive (min width/shrinking)
 - Reveal if correct in play mode toggle
 - Deploy to subdirectory: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1

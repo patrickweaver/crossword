@@ -45,7 +45,8 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   }
 
   const answerInputStyle = {
-    background: `repeating-linear-gradient(90deg, black 0, black 1.25ch, transparent 0, transparent 2ch) 5px 85%/ ${props.clueAnswer.answer.length * (2)}ch 1px no-repeat`
+    background: `repeating-linear-gradient(90deg, black 0, black 1.25ch, transparent 0, transparent 2ch) 5px 85%/ ${props.clueAnswer.answer.length * (2)}ch 1px no-repeat`,
+    width: `Calc(2ch * ${props.clueAnswer.answer.length} - 1px)`,
   }
 
   let answer;
@@ -60,6 +61,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
           ref={answerInputRef}
           value={props.clueAnswer.answer}
           onChange={updateAnswer}
+          autoComplete="off"
         />
       </span>
     )
@@ -70,6 +72,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
           className="clue"
           value={props.clueAnswer.clue}
           onChange={updateClue}
+          autoComplete="off"
         />
       </span>
     )

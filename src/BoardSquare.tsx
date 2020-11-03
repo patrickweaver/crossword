@@ -37,10 +37,13 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   }
 
   function addLetter(event: React.ChangeEvent<HTMLInputElement>): void {
+    // This object will be updated
     const updatedSquare = props.square;
-    updatedSquare.letter = event.target.value.toUpperCase();
-    props.setBoardSquare(updatedSquare);
+    // Update letter value from event
     const target = event.target;
+    updatedSquare.letter = target.value.toUpperCase();
+    props.setBoardSquare(updatedSquare);
+    // Select correct amount of word (for deletions)
     target.setSelectionRange(0, target.value.length);
     
     // Don't increment input square on delete
@@ -58,7 +61,8 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
     target.setSelectionRange(0, target.value.length); 
   }
 
-  // Navigate with arrow keys
+  // Navigate with arrow keys or backspace
+  // all other keys are ignored.
   function keyPressed(event: React.KeyboardEvent): void {
     let command: ("up" | "left" | "down" | "right" | null) = null;
     if (
@@ -112,6 +116,7 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
         onClick={selectLetterOnFocus}
         maxLength={1}
         onKeyDown={keyPressed}
+        autoComplete="off"
       />
     </div>
 

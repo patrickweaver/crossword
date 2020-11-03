@@ -65,8 +65,10 @@ function Board(props: boardProps): JSX.Element {
     // Reasons it might not exist:
     // - Next square is inactive
     // - Last row/last square
+    const newInputAsInput = newInput as HTMLInputElement;
     if (newInput) {
-      newInput.focus();
+      newInputAsInput.focus();
+      newInputAsInput.select();
       // Update selected square
       const newInputSquareArray = props.board.flat().filter(s => s.squareNumber === newSquareNumber);
       if (newInputSquareArray && newInputSquareArray[0]) {

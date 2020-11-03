@@ -6,6 +6,14 @@ body {
   width: 100%;
 }
 
+#description {
+  max-width: 500px;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0 auto;
+  text-align: left;
+}
+
 #sections > div {
   margin: 10px;
 }
@@ -17,13 +25,12 @@ body {
   background-color: white;
   display: inline-block;
   vertical-align: top;
-  margin: 
 }
 
 #clues-container {
   background-color: white;
   display: inline-block;
-  padding: 1em 40px;
+  padding: 1em 10px;
   border: 2px solid black;
   border-radius: 5px;
   max-height: Calc(90vh - 8em);

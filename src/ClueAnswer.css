@@ -14,9 +14,12 @@
 }
 
 .clue-answer input.answer {
-  width: (7 * (1ch + (1ch * 0.5)));
+  width: Calc(2ch * 10 - 1px);
 	letter-spacing: 1ch;
-	font: 2ch "Lucida Console", Monaco, monospace;
+  font: 2ch "Lucida Console", Monaco, monospace;
+  padding-right: 1px;
+  box-sizing: content-box;
+  overflow: hidden;
 }
 
 .clue-answer input.answer:focus {

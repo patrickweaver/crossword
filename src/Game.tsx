@@ -39,6 +39,9 @@ export default function Game(): JSX.Element {
   if (window.location.hash) {
     game = (
       <div>
+
+      <p id="description">This is a crossword puzzle created in this app. The clues and correct answers are encoded in the URL, which is why it is so long. Toggle the checkbox below the board to autocheck your answers.</p>
+
         <div id="sections">
           <div id="board-container">
             <Board

@@ -3,10 +3,14 @@
   padding: 0;
 }
 
+.clue-answers > li {
+  display: inline-block;
+  width: 100%;
+}
+
 .clue-answers-list {
-  text-align: left;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 0 0 40px;
   display: inline-block;
 }
 
