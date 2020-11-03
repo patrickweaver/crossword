@@ -5,3 +5,7 @@
 #game {
   text-align: center;
 }
+
+#check-answers-toggle {
+  margin: 1em 10px .5em;
+}

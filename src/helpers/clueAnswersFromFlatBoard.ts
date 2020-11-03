@@ -27,7 +27,7 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
       clueAnswers[0].push(ca);
     } else {
       const caIndex = acrossNumbers.indexOf(square.acrossWordNumber);
-      const ca = clueAnswers[0][caIndex].answer += letterOrBlank(square.letter);
+      clueAnswers[0][caIndex].answer += letterOrBlank(square.letter);
     }
     
     if (square.wordStart[1]) {
@@ -41,7 +41,7 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
       clueAnswers[1].push(ca);
     } else {
       const caIndex = downNumbers.indexOf(square.downWordNumber);
-      const ca = clueAnswers[1][caIndex].answer += letterOrBlank(square.letter);
+      clueAnswers[1][caIndex].answer += letterOrBlank(square.letter);
     }
 
     return clueAnswers;

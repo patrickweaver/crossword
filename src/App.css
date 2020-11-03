@@ -1,0 +1,26 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+}
+
+#board-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-top: 10em;
+}
+
+#board-container {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px 40px 5px;
+  display: inline-block;
+  margin: 0 auto;
+  background-color: white;
+}
+
+#clues-container {
+  margin-top: 38em;
+}

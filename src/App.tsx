@@ -6,6 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import './App.css';
+
 import Editor from './Editor';
 import Game from './Game';
 

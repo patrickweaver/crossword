@@ -29,25 +29,42 @@ export default function Game(): JSX.Element {
   const [selectedDirection, setSelectedDirection] = useState<string>("across");
   const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
 
+  const [checkAnswers, setCheckAnswers] = useState<boolean>(false);
+
+  function updateCheckAnswers(event: React.ChangeEvent<HTMLInputElement>):void {
+    setCheckAnswers(event.target.checked);
+  }
+
   let game;
   if (window.location.hash) {
     game = (
       <div>
-        <Board
-          clueAnswers={clueAnswers}
-          board={board}
-          correctBoard={hashBoard}
-          boardSize={board.length}
-          updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
-          mode={"game"}
-          selectedSquare={selectedSquare}
-          onSelectSquare={onSelectSquareWithSet}
-          selectedDirection={selectedDirection}
-        />
-        <Clues
-          clueAnswers={clueAnswers}
-          mode="game"
-        />
+        <div id="board-wrapper">
+          <div id="board-container">
+            <Board
+              clueAnswers={clueAnswers}
+              board={board}
+              correctBoard={hashBoard}
+              boardSize={board.length}
+              updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
+              mode={"game"}
+              selectedSquare={selectedSquare}
+              onSelectSquare={onSelectSquareWithSet}
+              selectedDirection={selectedDirection}
+              checkAnswers={checkAnswers}
+            />
+            <div id="check-answers-toggle">
+              <label>Check answers:</label>
+              <input type="checkbox" onChange={updateCheckAnswers} />
+            </div>
+          </div>
+        </div>
+        <div id="clues-container">
+          <Clues
+            clueAnswers={clueAnswers}
+            mode="game"
+          />
+        </div>
       </div>
     )
   } else {

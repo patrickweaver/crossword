@@ -6,37 +6,19 @@
   text-align: center;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white;
-}
-
-#board-wrapper {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  margin-top: 8em;
-}
-
-#board-container {
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 10px 40px 5px;
-  display: inline-block;
-  margin: 0 auto;
-  background-color: white;
-}
-
-#clues-container {
-  margin-top: 38em;
-}
-
 .button-section {
   padding: 5px 5px 0px;
 }
 
 .button-section button {
   margin: 5px 10px;
+}
+
+ul#state {
+  padding: 0;
+}
+
+#state li {
+  list-style-type: none;
+  margin: 5px 0;
 }

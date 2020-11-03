@@ -15,6 +15,7 @@ interface boardProps {
   selectedSquare: [number, number],
   onSelectSquare: (acrossWordNumber: number, downWordNumber: number) => void,
   selectedDirection: string,
+  checkAnswers: boolean,
 }
 
 function Board(props: boardProps): JSX.Element {
@@ -94,6 +95,7 @@ function Board(props: boardProps): JSX.Element {
               onSelectSquare={props.onSelectSquare}
               selectedDirection={props.selectedDirection}
               moveInput={moveInput}
+              checkAnswers={props.checkAnswers}
             />
           })
         }

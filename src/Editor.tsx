@@ -36,7 +36,6 @@ function Editor(): JSX.Element {
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
   const recalculateBoardWithSet = (updatedBoard: boardSquare[][], updatedClueAnswers: clueAnswer[][]) => recalculateBoard(updatedBoard, updatedClueAnswers, setBoard, setClueAnswers);
   const [mode, setMode] = useState<string>('normal');
-  const [urlState, setUrlState] = useState<string>("");
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
   const [selectedDirection, setSelectedDirection] = useState<string>("none");
   const onSelectSquareWithSet = (acrossWordNumber: number, downWordNumber: number) => onSelectSquare(selectedSquare, setSelectedSquare, selectedDirection, setSelectedDirection, acrossWordNumber, downWordNumber);
@@ -66,9 +65,12 @@ function Editor(): JSX.Element {
     setBoardSize(newBoardSize);
   }
 
-  function updateUrlState(b: boardSquare[][], ca: clueAnswer[][]): void {
-    const condensedState: string = condenseState(b, ca);
-    setUrlState(condensedState);
+  function copyLinkToGame(event: React.MouseEvent<HTMLButtonElement>) {
+    const gameLink: (HTMLElement | null) = document.getElementById("game-link");
+    if (!gameLink) return ;
+    const gameLinkInput = gameLink as HTMLInputElement
+    gameLinkInput.select();
+    document.execCommand('copy');
   }
 
   return (
@@ -76,11 +78,19 @@ function Editor(): JSX.Element {
       <div className="header">
         <h1>Crossword Puzzle Editor</h1>
 
-        <p id="state">
-          <Link to={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} >
-            Play this Game
-          </Link>
-        </p>
+        <ul id="state">
+          <li>
+            <Link to={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} >
+              Play this Game
+            </Link>
+          </li>
+          <li>
+            <button onClick={copyLinkToGame}>Copy Link</button>
+          </li>
+          <li>
+            <input type="text" id="game-link" readOnly value={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} />
+          </li>
+        </ul>
       </div>
 
       <div id="board-wrapper">
@@ -98,6 +108,7 @@ function Editor(): JSX.Element {
             selectedSquare={selectedSquare}
             onSelectSquare={onSelectSquareWithSet}
             selectedDirection={selectedDirection}
+            checkAnswers={false}
           />
 
           <div className="button-section">
