@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-import wordlist from 'wordlist-english';
-
 import './ClueAnswer.css';
 
 // Types:
