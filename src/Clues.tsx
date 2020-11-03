@@ -34,7 +34,10 @@ function Clues(props: cluesProps): JSX.Element {
           (item: clueAnswer, index: number) => {
 
             return (
-              <li key={index} value={item.number}>
+              <li
+                key={index}
+                value={item.number}
+              >
                 <ClueAnswer
                   clueAnswer={item}
                   updateClueAnswer={updateClueAnswer}
@@ -52,8 +55,7 @@ function Clues(props: cluesProps): JSX.Element {
   
   return (
     <div>
-      <h2>Clues</h2>
-        <ul className="clue-answers">
+        <ul className="clue-answers-sections">
           <li>
             <h3>Across:</h3>
             {cluesList(props.clueAnswers[0], 0)}

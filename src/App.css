@@ -30,7 +30,7 @@ body {
 #clues-container {
   background-color: white;
   display: inline-block;
-  padding: 1em 10px;
+  padding: 0.5em 10px;
   border: 2px solid black;
   border-radius: 5px;
   max-height: Calc(90vh - 8em);

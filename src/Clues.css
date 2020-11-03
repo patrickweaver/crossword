@@ -1,16 +1,19 @@
-.clue-answers {
+#clues-container h3 {
+  margin: 5px;
+}
+
+ul.clue-answers-sections {
   list-style-type: none;
   padding: 0;
 }
 
-.clue-answers > li {
-  display: inline-block;
+ul.clue-answers-sections > li {
   width: 100%;
 }
 
 .clue-answers-list {
   margin: 0 auto;
-  padding: 0 0 0 40px;
+  padding: 0 0 0 30px;
   display: inline-block;
 }
 

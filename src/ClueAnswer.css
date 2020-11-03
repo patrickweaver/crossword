@@ -1,18 +1,18 @@
-.clue-answer input {
-  margin: 0 5px;
-}
 
 .answer {
   letter-spacing: 5px;
 }
 
-.ca-label {
-  margin: 0 5px 0 10px;
+ul.clue-answer {
+  list-style-type: none;
+  display: flex;
+  width: 100%;
+  padding-left: 0;
 }
 
 .clue-answer input {
   padding: 3px 5px;
-	margin: .25em auto;
+	margin: 0.25em 15px 0.25em 5px;
   border: 1px solid black;
   border-radius: 3px;
 }

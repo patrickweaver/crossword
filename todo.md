@@ -3,7 +3,7 @@
 
 ## Doing
 
-- Update readme
+
 
 ## To Do
 
@@ -18,6 +18,7 @@
 
 ## Done
 
+- Update readme
 - Fix board letters in Safari
 - Don't give fill suggesions
 - Underlines are wrong if inputs are wider than answer

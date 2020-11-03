@@ -53,7 +53,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   let clue;
   if (props.mode === "editor") {
     answer = (
-      <span>
+      <li>
         <label className="ca-label">Answer:</label>
         <input
           style={answerInputStyle}
@@ -63,10 +63,10 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
           onChange={updateAnswer}
           autoComplete="off"
         />
-      </span>
+      </li>
     )
     clue = (
-      <span>
+      <li>
         <label className="ca-label">Clue:</label>
         <input
           className="clue"
@@ -74,23 +74,23 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
           onChange={updateClue}
           autoComplete="off"
         />
-      </span>
+      </li>
     )
   } else {
     clue = (
-      <div>
+      <li>
         <p>
           {props.clueAnswer.clue}
         </p>
-      </div>
+      </li>
     )
   }
 
   return (
-    <div className="clue-answer">
+    <ul className="clue-answer">
       {clue}
       {answer}
-    </div>
+    </ul>
   )
 }
 
