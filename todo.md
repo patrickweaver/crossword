@@ -3,7 +3,7 @@
 
 ## Doing
 
-- Up/down arrows navigate inside inputs
+
 
 ## To Do
 
@@ -17,6 +17,8 @@
 
 ## Done
 
+- Override default backspace
+- Up/down arrows navigate inside inputs
 - Update readme
 - Fix board letters in Safari
 - Don't give fill suggesions

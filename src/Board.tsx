@@ -74,8 +74,6 @@ function Board(props: boardProps): JSX.Element {
       if (newSquare) {
         props.onSelectSquare(newSquare.acrossWordNumber || 0, newSquare.downWordNumber || 0)
       }
-    } else {
-      console.log("No New INput")
     }
   }
 
