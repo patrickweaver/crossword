@@ -39,7 +39,7 @@ export default function Game(): JSX.Element {
   if (window.location.hash) {
     game = (
       <div>
-        <div id="board-wrapper">
+        <div id="sections">
           <div id="board-container">
             <Board
               clueAnswers={clueAnswers}
@@ -58,12 +58,12 @@ export default function Game(): JSX.Element {
               <input type="checkbox" onChange={updateCheckAnswers} />
             </div>
           </div>
-        </div>
-        <div id="clues-container">
-          <Clues
-            clueAnswers={clueAnswers}
-            mode="game"
-          />
+          <div id="clues-container">
+            <Clues
+              clueAnswers={clueAnswers}
+              mode="game"
+            />
+          </div>
         </div>
       </div>
     )

@@ -3,12 +3,12 @@
 
 ## Doing
 
-
+- Clues are mis-numbered in game
+- Underlines are wrong if inputs are wider than answer
+- Typing up to a filled square stop incrementing
 
 ## To Do
 
-- Clues dynamic top margin based on board size
-- Make board responsive (min width/shrinking)
 - Dictionary suggestions
 - Fix board letters in Safari
 
@@ -20,6 +20,7 @@
 
 ## Done
 
+- Make board responsive (min width/shrinking)
 - Reveal if correct in play mode toggle
 - Deploy to subdirectory: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1
 - Clue text in input should be black

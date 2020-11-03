@@ -97,7 +97,7 @@ function Editor(): JSX.Element {
         </ul>
       </div>
 
-      <div id="board-wrapper">
+      <div id="sections">
         <div id="board-container">
           <BoardSize boardSize={boardSize} updateBoardSize={updateBoardSize} />  
 
@@ -120,13 +120,13 @@ function Editor(): JSX.Element {
             <button onClick={() => recalculateBoardWithSet(clearAll(board), clueAnswers)}>Clear All</button>
           </div>
         </div>
-      </div>
-      <div id="clues-container">
-        <Clues
-          clueAnswers={clueAnswers}
-          updateClueAnswer={updateClueAnswer}
-          mode="editor"
-        />
+        <div id="clues-container">
+          <Clues
+            clueAnswers={clueAnswers}
+            updateClueAnswer={updateClueAnswer}
+            mode="editor"
+          />
+        </div>
       </div>
     </div>
   );

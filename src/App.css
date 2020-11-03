@@ -1,26 +1,31 @@
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white;
+body {
+  background-color: lightYellow;
 }
 
-#board-wrapper {
-  position: fixed;
-  top: 0;
+.header {
   width: 100%;
-  margin-top: 10em;
+}
+
+#sections > div {
+  margin: 10px;
 }
 
 #board-container {
   border: 2px solid black;
   border-radius: 5px;
-  padding: 10px 40px 5px;
-  display: inline-block;
-  margin: 0 auto;
+  padding: 20px 40px 10px;
   background-color: white;
+  display: inline-block;
+  vertical-align: top;
+  margin: 
 }
 
 #clues-container {
-  margin-top: 38em;
+  background-color: white;
+  display: inline-block;
+  padding: 1em 40px;
+  border: 2px solid black;
+  border-radius: 5px;
+  max-height: Calc(90vh - 8em);
+  overflow-y: scroll;
 }
