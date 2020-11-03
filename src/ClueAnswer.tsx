@@ -54,7 +54,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   if (props.mode === "editor") {
     answer = (
       <span>
-        <label>Answer:</label>
+        <label className="ca-label">Answer:</label>
         <input
           style={answerInputStyle}
           className="answer"
@@ -67,7 +67,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
     )
     clue = (
       <span>
-        <label>Clue:</label>
+        <label className="ca-label">Clue:</label>
         <input
           className="clue"
           value={props.clueAnswer.clue}

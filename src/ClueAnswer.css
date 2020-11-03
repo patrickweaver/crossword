@@ -1,9 +1,13 @@
-.clue-answer input, .clue-answer label {
+.clue-answer input {
   margin: 0 5px;
 }
 
 .answer {
   letter-spacing: 5px;
+}
+
+.ca-label {
+  margin: 0 5px 0 10px;
 }
 
 .clue-answer input {

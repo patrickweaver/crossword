@@ -8,7 +8,7 @@
 ## To Do
 
 - Dictionary suggestions
-- Fix board letters in Safari
+
 
 ## Someday
 
@@ -20,6 +20,7 @@
 
 ## Done
 
+- Fix board letters in Safari
 - Don't give fill suggesions
 - Underlines are wrong if inputs are wider than answer
 - Make board responsive (min width/shrinking)

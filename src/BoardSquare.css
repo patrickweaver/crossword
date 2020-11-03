@@ -24,9 +24,8 @@
 
 .letter > input {
   position: absolute;
-  top: 0;
-  left: 0px;
-  bottom: 0;
+  top: 0px;
+  left: 0;
   right: 0;
   height: 28px;
   width: 28px;
@@ -35,7 +34,8 @@
   background: none;
   text-align: center;
   font-size: 22px;
-  padding-top: 12px;
+  padding-top: 4px;
+  vertical-align: bottom;
 }
 
 .correct {
