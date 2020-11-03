@@ -115,7 +115,6 @@ function Board(props: boardProps): JSX.Element {
   return (
     <div>
       <h2>Board</h2>
-      <h3>Selected Direction: {props.selectedDirection}</h3>
       {board}
     </div>
   )
