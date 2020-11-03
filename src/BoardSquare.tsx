@@ -65,11 +65,21 @@ function BoardSquare(props: boardSquareProps): JSX.Element {
   // all other keys are ignored.
   function keyPressed(event: React.KeyboardEvent): void {
     let command: ("up" | "left" | "down" | "right" | null) = null;
+
+    // Override default behavior
     if (
       event.key === "ArrowUp"
       || event.key === "ArrrowDown"
+      || event.key === "Backspace"
     ) {
-      event.preventDefault();
+      event.preventDefault(); 
+    }
+
+    // Clear content on backspace
+    if (event.key === "Backspace") {
+      const updatedSquare = props.square;
+      updatedSquare.letter = "";
+      props.setBoardSquare(updatedSquare);
     }
 
     if (

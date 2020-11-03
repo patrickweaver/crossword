@@ -70,11 +70,12 @@ function Board(props: boardProps): JSX.Element {
       newInputAsInput.focus();
       newInputAsInput.select();
       // Update selected square
-      const newInputSquareArray = props.board.flat().filter(s => s.squareNumber === newSquareNumber);
-      if (newInputSquareArray && newInputSquareArray[0]) {
-        const newSquare = newInputSquareArray[0];
+      const newSquare = props.board.flat()[newSquareNumber];
+      if (newSquare) {
         props.onSelectSquare(newSquare.acrossWordNumber || 0, newSquare.downWordNumber || 0)
       }
+    } else {
+      console.log("No New INput")
     }
   }
 
