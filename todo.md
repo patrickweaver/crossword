@@ -12,9 +12,7 @@
 
 ## Someday
 
-- Bug where lues are mis-numbered in game? Maybe?
-- Typing up to a filled square stop incrementing
-- Fix edge cases for input incrementing
+- Bug where clues are mis-numbered in game? Maybe?
 - Double click as long press for mobile?
 - If activity toggled square is first in word, set word index to previous word (except on first word in row?)
 
