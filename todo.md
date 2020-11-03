@@ -13,6 +13,7 @@
 - Make board responsive (min width/shrinking)
 - Dictionary suggestions
 - Reveal if correct in play mode toggle
+- Fix board letters in Safari
 
 ## Someday
 

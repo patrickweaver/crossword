@@ -1,1 +1,1 @@
-rm -r ../doodles/build/crossword && mkdir ../doodles/build/crossword && cp -r ./build/* ../doodles/build/crossword
+rm -r ../doodles/build/crossword && mkdir ../doodles/build/crossword && cp -r ./build/* ../doodles/build/crossword && mkdir ../doodles/build/crossword/editor && cp -r ./build/* ../doodles/build/crossword/editor && mkdir ../doodles/build/crossword/play && cp -r ./build/* ../doodles/build/crossword/play
