@@ -77,7 +77,7 @@ function Editor(): JSX.Element {
         <h1>Crossword Puzzle Editor</h1>
 
         <p id="state">
-          <Link to={`/play#${condenseState(board, clueAnswers)}`} >
+          <Link to={`${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} >
             Play this Game
           </Link>
         </p>

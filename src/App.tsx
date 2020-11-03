@@ -11,16 +11,18 @@ import Game from './Game';
 
 function App() {
 
+  console.log("process.env.PUBLIC_URL", process.env.PUBLIC_URL)
+
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/editor" />
+        <Route exact path={`${process.env.PUBLIC_URL}/`}>
+          <Redirect to={`${process.env.PUBLIC_URL}/editor`} />
         </Route>
-        <Route path="/editor">
+        <Route path={`${process.env.PUBLIC_URL}/editor`}>
           <Editor />
         </Route>
-        <Route path="/play">
+        <Route path={`${process.env.PUBLIC_URL}/play`}>
           <Game />
         </Route>
       </Switch>

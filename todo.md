@@ -3,10 +3,11 @@
 
 ## Doing
 
+- Deploy to subdirectory: https://medium.com/@svinkle/how-to-deploy-a-react-app-to-a-subdirectory-f694d46427c1
 
 ## To Do
 
-- Clue text in input should be black
+  - Config file? https://medium.com/@tacomanator/environments-with-create-react-app-7b645312c09d
 - Fix edge cases for input incrementing
 - Clues dynamic top margin based on board size
 - Make board responsive (min width/shrinking)
@@ -20,6 +21,7 @@
 
 ## Done
 
+- Clue text in input should be black
 - Game clues are missing numbers
 - Activate all squares button
 - Clear all letters button

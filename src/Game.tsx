@@ -54,7 +54,7 @@ export default function Game(): JSX.Element {
     game = (
       <div>
         <h2>Invalid Game Link</h2>
-        <p>This link does not correspond to a crossword. <Link to="/editor">Try making your own here.</Link></p>
+        <p>This link does not correspond to a crossword. <Link to={`${process.env.PUBLIC_URL}/editor`}>Try making your own here.</Link></p>
       </div>
     )
   }
@@ -62,7 +62,7 @@ export default function Game(): JSX.Element {
 
   return (
     <div id="game">
-      <p><Link to="/editor">Make your own crossword here.</Link></p>
+      <p><Link to={`${process.env.PUBLIC_URL}/editor`}>Make your own crossword here.</Link></p>
       <h1>Crossword Puzzle Game</h1>
 
       {game}
