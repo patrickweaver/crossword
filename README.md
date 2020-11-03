@@ -1,8 +1,8 @@
 # Crossword
 
-A crossword composer and game made with React, TypeScript, and Create React App.
+A crossword composer and game made with React, TypeScript, React Router, and Create React App.
 
-
+Set up to be deployed to a subdirectory, with `/editor` and `/game` as additional subdirectories with the whole app to work around React Router issues. `copy.sh` file copies to my local static site generator.
 
 ## Notes
 
