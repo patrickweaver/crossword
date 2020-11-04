@@ -94,7 +94,7 @@ function Editor(): JSX.Element {
             <button onClick={copyLinkToGame}>Copy Link to This Game</button>
           </li>
           <li>
-            <input type="text" id="game-link" readOnly value={`${HOST}${process.env.PUBLIC_URL}/play#${condenseState(board, clueAnswers)}`} />
+            <input type="text" id="game-link" readOnly value={`${HOST}${process.env.PUBLIC_URL}/play/#${condenseState(board, clueAnswers)}`} />
           </li>
         </ul>
       </div>
