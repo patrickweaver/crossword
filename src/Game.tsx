@@ -15,14 +15,20 @@ import './Game.css';
 import { boardSquare, clueAnswer } from './types';
 
 export default function Game(): JSX.Element {
-
   const hash = window.location.hash
   const hashTrimmed = hash.slice(1, hash.length);
   const [hashBoard, hashClueAnswers] = expandState(hashTrimmed)
   
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(hashBoard.length))
 
-  const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
+  // Not sure why creating a copy of the object is necessary
+  const clearedBoard: boardSquare[][] = hashBoard.map((row: boardSquare[]) => row.map((square: boardSquare) => {
+    const updatedSquare = Object.assign({}, square);
+    updatedSquare.letter = "";
+    return updatedSquare;
+  }));
+  const [board, setBoard] = useState<boardSquare[][]>(clearedBoard);
+
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(hashClueAnswers);
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([0, 0]);

@@ -3,7 +3,6 @@
 
 ## Doing
 
-- Update square number on board re-draw
 
 ## To Do
 
@@ -17,6 +16,8 @@
 
 ## Done
 
+- Game doesn't show disabled squares
+- Update square number on board re-draw
 - Override default backspace
 - Up/down arrows navigate inside inputs
 - Update readme
