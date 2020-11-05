@@ -9,7 +9,7 @@ export default function condenseState(board: boardSquare[][], clueAnswers: clueA
   }
 
 
-  const condBoard = board.map(a => a.map(bs => {
+  const condBoard: (string | number | null)[][][] = board.map(a => a.map(bs => {
     return [
       bs.active ? 't' : 'f',
       bs.letter,
@@ -19,7 +19,7 @@ export default function condenseState(board: boardSquare[][], clueAnswers: clueA
       bs.squareNumber
     ]
   }));
-  const condCA = clueAnswers.map(dir => dir.map(ca => {
+  const condCA: (string | number | null)[][][] = clueAnswers.map(dir => dir.map(ca => {
     return [
       ca.direction === 'down' ? 'd' : 'a',
       ca.number,

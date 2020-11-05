@@ -15,9 +15,18 @@ import './Game.css';
 import { boardSquare, clueAnswer } from './types';
 
 export default function Game(): JSX.Element {
-  const hash = window.location.hash
+  const hash = window.location.hash || "";
   const hashTrimmed = hash.slice(1, hash.length);
-  const [hashBoard, hashClueAnswers] = expandState(hashTrimmed)
+
+  let expandedState: [boardSquare[][], clueAnswer[][]] = [[[]], [[]]];
+  let validHash: boolean = false;
+  // Require a hash
+  if (hashTrimmed) {
+    expandedState = expandState(hashTrimmed);
+    validHash = expandedState && expandedState[0] && expandedState[0][0] && expandedState[0][0][0] && expandedState[0][0][0].letter !== null && expandedState[0][0][0].letter !== undefined && expandedState[0][0][0].letter === "";
+  }
+  
+  const [hashBoard, hashClueAnswers] = expandedState;
   
   const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(hashBoard.length))
 
@@ -42,7 +51,7 @@ export default function Game(): JSX.Element {
   }
 
   let game;
-  if (window.location.hash) {
+  if (window.location.hash && validHash) {
     game = (
       <div>
 

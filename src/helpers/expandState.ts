@@ -2,7 +2,14 @@ import { boardSquare, clueAnswer } from '../types';
 
 export default function expandState(b64State: string): [boardSquare[][], clueAnswer[][]] {
 
-  const [condBoard, condCA] = JSON.parse(atob(b64State));
+  let condBoard: (string | number | null)[][][];
+  let condCA: (string | number | null)[][][];
+  try {
+    [condBoard, condCA] = JSON.parse(atob(b64State));
+  } catch (error) {
+    console.log(error);
+    return [[[]], [[]]];
+  }
 
   function expWordStart(condWordStart: string): [boolean, boolean] {
     const [a, b] = condWordStart.split("");
@@ -11,14 +18,15 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
     return [aBool, bBool];
   }
 
-  const board: boardSquare[][] = condBoard.map((a: string[]) => a.map(bs => {
+
+  const board: boardSquare[][] = condBoard.map((a: (string | number | null)[][]) => a.map(bs => {
 
     const active = bs[0] === 't';
-    const letter = bs[1];
-    const wordStart = expWordStart(bs[2]);
-    const acrossWordNumber = bs[3];
-    const downWordNumber = bs[4];
-    const squareNumber = bs[5];
+    const letter = bs[1] as string;
+    const wordStart = expWordStart(bs[2] as string);
+    const acrossWordNumber = parseInt(bs[3] as string);
+    const downWordNumber = parseInt(bs[4] as string);
+    const squareNumber = parseInt(bs[5] as string);
 
     return {
       active,
@@ -29,13 +37,14 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
       squareNumber
     }
   }));
-  const clueAnswers: clueAnswer[][] = condCA.map((dir: string[]) => dir.map(ca => {
+
+  const clueAnswers: clueAnswer[][] = condCA.map((dir: (string | number | null)[][]) => dir.map(ca => {
 
     const direction = ca[0] === 'd' ? 'down' : 'across';
-    const number = ca[1];
-    const clue = ca[2];
-    const answer = ca[3];
-    const firstLetterSquareNumber = ca[4];
+    const number = parseInt(ca[1] as string);
+    const clue = ca[2] as string;
+    const answer = ca[3] as string;
+    const firstLetterSquareNumber = parseInt(ca[4] as string);
 
     return {
       direction,

@@ -6,6 +6,7 @@
 
 ## To Do
 
+- No message on broken play page
 - Dictionary suggestions
 
 ## Someday
@@ -16,6 +17,7 @@
 
 ## Done
 
+- Slash before hash in url
 - Game doesn't show disabled squares
 - Update square number on board re-draw
 - Override default backspace
