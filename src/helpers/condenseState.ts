@@ -29,5 +29,17 @@ export default function condenseState(board: boardSquare[][], clueAnswers: clueA
     ]
   }));
   const miniJson = JSON.stringify([condBoard, condCA]);
-  return btoa(miniJson);
+  const btoaString = btoa(miniJson);
+
+  let i = 0;
+  let hyphenedString = "";
+  while (i < btoaString.length) {
+    if (i > 0 && i % 5 === 0) {
+      hyphenedString += "-";
+    }
+    hyphenedString += btoaString[i];
+    i++;
+  }
+
+  return hyphenedString
 }

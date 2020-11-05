@@ -1,5 +1,8 @@
 # To Do
 
+- Put hyphens every 64 chars in url
+- Board size shouldn't be able to go below 2
+- Why does it decode string twice?
 
 ## Doing
 

@@ -5,6 +5,27 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
   let condBoard: (string | number | null)[][][];
   let condCA: (string | number | null)[][][];
   try {
+
+    let i = 0;
+    let hyphensRemovedString = ""
+    while (i < b64State.length) {
+      if (i > 0 && (i + 1) % 6 === 0) {
+        // Skip this character
+        if (b64State[i] !== "-") {
+          throw `Invlaid puzzle state string, i: ${i}, c: ${b64State[i]}`;
+        }
+      } else {
+        hyphensRemovedString += b64State[i];
+      }
+      i++;
+    }
+
+    console.log(b64State.slice(0, 20));
+    console.log(hyphensRemovedString.slice(0, 20))
+
+    const jsonString = atob(hyphensRemovedString);
+    console.log(jsonString)
+    // [condBoard, condCA] = JSON.parse(atob(hyphensRemovedString));
     [condBoard, condCA] = JSON.parse(atob(b64State));
   } catch (error) {
     console.log(error);
