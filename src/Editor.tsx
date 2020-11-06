@@ -97,7 +97,7 @@ function Editor(): JSX.Element {
             <input type="text" id="game-link" readOnly value={`${HOST}${process.env.PUBLIC_URL}/play/#${condenseState(board, clueAnswers)}`} />
           </li>
 
-          <p>The clues and answers are encoded in a very long URL hash, some messaging platforms like iMessage may break the link.</p>
+          <p>The clues and answers are encoded in a very long URL hash, every puzzle URL is unique!</p>
 
         </ul>
       </div>
