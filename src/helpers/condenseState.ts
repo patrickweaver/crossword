@@ -1,6 +1,7 @@
 import { boardSquare, clueAnswer } from '../types';
 
 export default function condenseState(board: boardSquare[][], clueAnswers: clueAnswer[][]): string {
+
   function condWordStart(wordStart: [boolean, boolean]): string {
     const [a, b] = wordStart;
     const aStr = a ? 't' : 'f';
@@ -28,11 +29,11 @@ export default function condenseState(board: boardSquare[][], clueAnswers: clueA
       ca.firstLetterSquareNumber
     ]
   }));
-  const miniJson = JSON.stringify([condBoard, condCA]);
-  const btoaString = btoa(miniJson);
+  const miniJson: string = JSON.stringify({state: [condBoard, condCA]});
+  const btoaString: string = btoa(miniJson);
 
-  let i = 0;
-  let hyphenedString = "";
+  let i: number = 0;
+  let hyphenedString: string = "";
   while (i < btoaString.length) {
     if (i > 0 && i % 5 === 0) {
       hyphenedString += "-";

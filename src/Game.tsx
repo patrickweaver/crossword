@@ -17,13 +17,17 @@ import { boardSquare, clueAnswer } from './types';
 export default function Game(): JSX.Element {
   const hash = window.location.hash || "";
   const hashTrimmed = hash.slice(1, hash.length);
+  // Initialize board with empty arrays to create variable
+  //let [board, setBoard] = useState<boardSquare[][]>([[]]);
+  let board: boardSquare[][] = [[]];
+  let setBoard: React.Dispatch<React.SetStateAction<boardSquare[][]>>;
 
   let expandedState: [boardSquare[][], clueAnswer[][]] = [[[]], [[]]];
   let validHash: boolean = false;
   // Require a hash
-  if (hashTrimmed) {
+  if (hashTrimmed && board[0] && board[0].length === 0) {
     expandedState = expandState(hashTrimmed);
-    validHash = expandedState && expandedState[0] && expandedState[0][0] && expandedState[0][0][0] && expandedState[0][0][0].letter !== null && expandedState[0][0][0].letter !== undefined && expandedState[0][0][0].letter === "";
+    validHash = expandedState && expandedState[0] && expandedState[0][0] && expandedState[0][0][0] && expandedState[0][0][0].letter !== null && expandedState[0][0][0].letter !== undefined;
   }
   
   const [hashBoard, hashClueAnswers] = expandedState;
@@ -36,7 +40,7 @@ export default function Game(): JSX.Element {
     updatedSquare.letter = "";
     return updatedSquare;
   }));
-  const [board, setBoard] = useState<boardSquare[][]>(clearedBoard);
+  [board, setBoard] = useState<boardSquare[][]>(clearedBoard);
 
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(hashClueAnswers);

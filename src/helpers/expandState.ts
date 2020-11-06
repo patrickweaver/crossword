@@ -20,13 +20,9 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
       i++;
     }
 
-    console.log(b64State.slice(0, 20));
-    console.log(hyphensRemovedString.slice(0, 20))
-
     const jsonString = atob(hyphensRemovedString);
-    console.log(jsonString)
-    // [condBoard, condCA] = JSON.parse(atob(hyphensRemovedString));
-    [condBoard, condCA] = JSON.parse(atob(b64State));
+    const expandedState = JSON.parse(atob(hyphensRemovedString));
+    [condBoard, condCA] = expandedState.state;
   } catch (error) {
     console.log(error);
     return [[[]], [[]]];
