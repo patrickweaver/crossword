@@ -9,7 +9,7 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
     let i = 0;
     let hyphensRemovedString = ""
     while (i < b64State.length) {
-      if (i > 0 && (i + 1) % 6 === 0) {
+      if (i > 0 && (i + 1) % 64 === 0) {
         // Skip this character
         if (b64State[i] !== "-") {
           throw `Invlaid puzzle state string, i: ${i}, c: ${b64State[i]}`;

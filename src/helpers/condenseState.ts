@@ -35,7 +35,7 @@ export default function condenseState(board: boardSquare[][], clueAnswers: clueA
   let i: number = 0;
   let hyphenedString: string = "";
   while (i < btoaString.length) {
-    if (i > 0 && i % 5 === 0) {
+    if (i > 0 && i % 63 === 0) {
       hyphenedString += "-";
     }
     hyphenedString += btoaString[i];
