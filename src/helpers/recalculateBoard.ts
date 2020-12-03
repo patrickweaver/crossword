@@ -4,7 +4,7 @@ import calculateBoard from './calculateBoard';
 import extractClues from './extractClues';
 import reAddClues from './reAddClues';
 
-export default function recalculateBoard(
+export default function reCalculateBoard(
   updatedBoard: boardSquare[][],
   clueAnswers: clueAnswer[][],
   setBoard: (updatedBoard: boardSquare[][]) => void,

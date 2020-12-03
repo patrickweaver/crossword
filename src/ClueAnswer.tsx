@@ -52,6 +52,9 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   let answer;
   let clue;
   if (props.mode === "editor") {
+
+    console.log(props.clueAnswer.possibleAnswers.slice(0, 10));
+
     answer = (
       <li>
         <label className="ca-label">Answer:</label>

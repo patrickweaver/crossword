@@ -1,16 +1,16 @@
 # To Do
 
-- Put hyphens every 64 chars in url
 - Board size shouldn't be able to go below 2
 - Why does it decode string twice?
 
 ## Doing
 
+- Dictionary suggestions
+  - Don't allow arbitrary chars in regex
 
 ## To Do
 
 - No message on broken play page
-- Dictionary suggestions
 
 ## Someday
 
@@ -20,6 +20,7 @@
 
 ## Done
 
+- Put hyphens every 64 chars in u
 - Slash before hash in url
 - Game doesn't show disabled squares
 - Update square number on board re-draw

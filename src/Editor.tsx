@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+//import * as words from 'an-array-of-english-words';
+
 
 import './Editor.css';
 import Board from './Board';
@@ -17,19 +20,19 @@ import calculateBoard from './helpers/calculateBoard';
 import clearAll from './helpers/clearAll';
 import condenseState from './helpers/condenseState';
 import onSelectSquare from './helpers/onSelectSquare';
-import recalculateBoard from './helpers/recalculateBoard';
+import reCalculateBoard from './helpers/reCalculateBoard';
 import reGridBoard from './helpers/reGridBoard';
 import reSizeBoard from './helpers/reSizeBoard';
 import updateAnswer from './helpers/updateAnswer';
 import updateAnswersOnBoard from './helpers/updateAnswersOnBoard';
 
+// Put this into a config at some point
+const HOST = "https://doodles.patrickweaver.net";
+
+const defaultBoardSize: number = 4;
+const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
+
 function Editor(): JSX.Element {
-
-  // Put this into a config at some point
-  const HOST = "https://doodles.patrickweaver.net";
-
-  const defaultBoardSize: number = 9;
-  const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
   // - - - - - - - - -
   // State
@@ -38,7 +41,7 @@ function Editor(): JSX.Element {
   const [board, setBoard] = useState<boardSquare[][]>(blankBoardAndClues[0]);
   // Build clueAnswers arrays from default empty board.
   const [clueAnswers, setClueAnswers] = useState<clueAnswer[][]>(blankBoardAndClues[1]);
-  const recalculateBoardWithSet = (updatedBoard: boardSquare[][], updatedClueAnswers: clueAnswer[][]) => recalculateBoard(updatedBoard, updatedClueAnswers, setBoard, setClueAnswers);
+  const reCalculateBoardWithSet = (updatedBoard: boardSquare[][], updatedClueAnswers: clueAnswer[][]) => reCalculateBoard(updatedBoard, updatedClueAnswers, setBoard, setClueAnswers);
   const [mode, setMode] = useState<string>('normal');
   const [selectedSquare, setSelectedSquare] = useState<[number, number]>([1, 1]);
   const [selectedDirection, setSelectedDirection] = useState<string>("none");
@@ -54,7 +57,7 @@ function Editor(): JSX.Element {
       // updated answers will be saved from updated board
       const boardSquaresFlat = updateAnswersOnBoard(board, uca, dirIndex);
       const reGridedBoard: boardSquare[][] = reGridBoard(boardSquaresFlat, boardSize);
-      recalculateBoardWithSet(reGridedBoard, clueAnswers);
+      reCalculateBoardWithSet(reGridedBoard, clueAnswers);
     } else {
       uca.clue = newValue;
       // Needed to save clue values
@@ -65,7 +68,7 @@ function Editor(): JSX.Element {
   function updateBoardSize(newBoardSize: number): void {
     let updatedBoard: boardSquare[][] = reSizeBoard(board, newBoardSize, boardSize);
     setBoard(updatedBoard);
-    recalculateBoardWithSet(updatedBoard, clueAnswers);
+    reCalculateBoardWithSet(updatedBoard, clueAnswers);
     setBoardSize(newBoardSize);
   }
 
@@ -112,7 +115,7 @@ function Editor(): JSX.Element {
             clueAnswers={clueAnswers}
             board={board}
             boardSize={boardSize}
-            updateBoard={(updatedBoard) => recalculateBoardWithSet(updatedBoard, clueAnswers)}
+            updateBoard={(updatedBoard) => reCalculateBoardWithSet(updatedBoard, clueAnswers)}
             mode={mode}
             selectedSquare={selectedSquare}
             onSelectSquare={onSelectSquareWithSet}
@@ -125,8 +128,8 @@ function Editor(): JSX.Element {
           />
 
           <div className="button-section">
-            <button onClick={() => recalculateBoardWithSet(activateAll(board), clueAnswers)}>Activate All</button>
-            <button onClick={() => recalculateBoardWithSet(clearAll(board), clueAnswers)}>Clear All</button>
+            <button onClick={() => reCalculateBoardWithSet(activateAll(board), clueAnswers)}>Activate All</button>
+            <button onClick={() => reCalculateBoardWithSet(clearAll(board), clueAnswers)}>Clear All</button>
           </div>
         </div>
         <div id="clues-container">

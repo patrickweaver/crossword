@@ -8,7 +8,7 @@ import blankBoard from './helpers/blankBoard';
 import calculateBoard from './helpers/calculateBoard';
 import expandState from './helpers/expandState';
 import onSelectSquare from './helpers/onSelectSquare';
-import recalculateBoard from './helpers/recalculateBoard';
+import reCalculateBoard from './helpers/reCalculateBoard';
 
 import './Game.css';
 
@@ -68,7 +68,7 @@ export default function Game(): JSX.Element {
               board={board}
               correctBoard={hashBoard}
               boardSize={board.length}
-              updateBoard={(updatedBoard) => recalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
+              updateBoard={(updatedBoard) => reCalculateBoard(updatedBoard, clueAnswers, setBoard, setClueAnswers)}
               mode={"game"}
               selectedSquare={selectedSquare}
               onSelectSquare={onSelectSquareWithSet}

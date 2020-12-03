@@ -62,13 +62,15 @@ export default function expandState(b64State: string): [boardSquare[][], clueAns
     const clue = ca[2] as string;
     const answer = ca[3] as string;
     const firstLetterSquareNumber = parseInt(ca[4] as string);
+    const possibleAnswers: string[] = [];
 
     return {
       direction,
       number,
       clue,
       answer,
-      firstLetterSquareNumber
+      firstLetterSquareNumber,
+      possibleAnswers,
     }
   }));
   

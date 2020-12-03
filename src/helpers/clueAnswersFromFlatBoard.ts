@@ -2,10 +2,12 @@ import { boardSquare, clueAnswer } from '../types';
 
 import letterOrBlank from './letterOrBlank';
 
+var words = require('an-array-of-english-words');
+
 // Updates answers based on updated board numbers
 
-export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: boardSquare[]) {
-  return flatBoardWithWordNumbers.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
+export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: boardSquare[]): clueAnswer[][] {
+  const clueAnswersWithoutPossibleAnswers = flatBoardWithWordNumbers.reduce((clueAnswers: clueAnswer[][], square: boardSquare, index: number): clueAnswer[][] => {
 
     // Inactive Squares
     if (!square.acrossWordNumber || !square.downWordNumber) {
@@ -23,6 +25,7 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
         clue: '',
         answer: letterOrBlank(square.letter),
         firstLetterSquareNumber: index,
+        possibleAnswers: [],
       }
       clueAnswers[0].push(ca);
     } else {
@@ -37,6 +40,7 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
         clue: '',
         answer: letterOrBlank(square.letter),
         firstLetterSquareNumber: index,
+        possibleAnswers: [],
       }
       clueAnswers[1].push(ca);
     } else {
@@ -47,4 +51,31 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
     return clueAnswers;
 
   }, [[], []]);
+
+  
+
+  // Calculate possible answers from current answers:
+
+  const clueAnswersWithPossibleAnswers = clueAnswersWithoutPossibleAnswers.map((caArray: clueAnswer[], i1: number): clueAnswer[] => {
+    return caArray.map((ca: clueAnswer, i2: number): clueAnswer => {
+      // Create regex for answer:
+      let r = "^";
+      for (let i = 0; i < ca.answer.length; i++) {
+        const char = ca.answer[i];
+        if (char === " ") {
+          r += ".";
+        } else {
+          r += char.toLowerCase();
+        }
+      }
+      r += "$"
+      
+      // Set potential answers to words:
+      ca.possibleAnswers = words.filter((d: any) => (new RegExp(r)).test(d))
+
+      return ca;
+    })
+  })
+
+  return clueAnswersWithPossibleAnswers;
 }
