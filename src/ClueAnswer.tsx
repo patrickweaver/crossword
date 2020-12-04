@@ -1,9 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
 
+import './Suggestions.tsx';
+
 import './ClueAnswer.css';
 
 // Types:
 import { clueAnswer } from './types';
+import Suggestions from './Suggestions';
 
 interface clueAnswerProps {
   clueAnswer: clueAnswer,
@@ -24,6 +27,7 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
   const answerInputRef = useRef<HTMLInputElement>(null);
 
   const [selectionStart, setSelectionStart] = useState<(number | null)>(0);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect((): void => {
     if (answerInputRef.current && selectionStart !== null) {
@@ -49,11 +53,16 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
     width: `Calc(2ch * ${props.clueAnswer.answer.length} - 1px)`,
   }
 
+  const {possibleAnswers} = props.clueAnswer
+
   let answer;
   let clue;
   if (props.mode === "editor") {
 
-    console.log(props.clueAnswer.possibleAnswers.slice(0, 10));
+    
+    if (possibleAnswers?.length) {
+      //console.log(possibleAnswers.slice(0, 10));
+    }
 
     answer = (
       <li>
@@ -89,11 +98,31 @@ function ClueAnswer(props: clueAnswerProps): JSX.Element {
     )
   }
 
+  let suggestionsButton;
+  if (possibleAnswers) {
+    suggestionsButton = (
+      <button onClick={() => setShowSuggestions(true)}>
+        {possibleAnswers?.length}
+      </button>
+    )
+  }
+
+  let suggestionsModal;
+  if (showSuggestions && possibleAnswers) {
+    suggestionsModal = (
+      <Suggestions possibleAnswers={possibleAnswers} />
+    )
+  }
+
   return (
-    <ul className="clue-answer">
-      {clue}
-      {answer}
-    </ul>
+    <>
+      <ul className="clue-answer">
+        {clue}
+        {answer}
+        {suggestionsButton}
+      </ul>
+      {suggestionsModal}
+    </>
   )
 }
 

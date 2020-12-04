@@ -58,6 +58,9 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
 
   const clueAnswersWithPossibleAnswers = clueAnswersWithoutPossibleAnswers.map((caArray: clueAnswer[], i1: number): clueAnswer[] => {
     return caArray.map((ca: clueAnswer, i2: number): clueAnswer => {
+
+      let setLetters = 0;
+
       // Create regex for answer:
       let r = "^";
       for (let i = 0; i < ca.answer.length; i++) {
@@ -66,12 +69,18 @@ export default function clueAnswersFromFlatBoard(flatBoardWithWordNumbers: board
           r += ".";
         } else {
           r += char.toLowerCase();
+          setLetters += 1;
         }
       }
       r += "$"
       
-      // Set potential answers to words:
-      ca.possibleAnswers = words.filter((d: any) => (new RegExp(r)).test(d))
+      if (setLetters > 2 || ca.answer.length < 4) {
+        // Set potential answers to words:
+        ca.possibleAnswers = words.filter((d: any) => (new RegExp(r)).test(d))
+      } else {
+        ca.possibleAnswers = null;
+      }
+      
 
       return ca;
     })

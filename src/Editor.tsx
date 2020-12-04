@@ -29,7 +29,7 @@ import updateAnswersOnBoard from './helpers/updateAnswersOnBoard';
 // Put this into a config at some point
 const HOST = "https://doodles.patrickweaver.net";
 
-const defaultBoardSize: number = 4;
+const defaultBoardSize: number = 5;
 const blankBoardAndClues: [boardSquare[][], clueAnswer[][]] = calculateBoard(blankBoard(defaultBoardSize))
 
 function Editor(): JSX.Element {

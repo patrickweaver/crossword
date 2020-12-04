@@ -13,7 +13,7 @@ export interface clueAnswer {
   clue: string;
   answer: string;
   firstLetterSquareNumber: (number | null);
-  possibleAnswers: string[];
+  possibleAnswers: (string[] | null);
 }
 
 export interface clueAnswerUpdate {
